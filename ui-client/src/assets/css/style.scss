@@ -1,0 +1,60 @@
+body {
+  cursor: url('/src/assets/imgs/mouse/default.cur'),default;
+}
+a, button, img {
+  cursor: url('/src/assets/imgs/mouse/pointer.cur'),default;
+}
+.pointer, .el-button {
+  cursor: url('/src/assets/imgs/mouse/pointer.cur'),default;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "微软雅黑 Light", sans-serif;
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-style: normal;
+  font-size: 25px;
+  vertical-align: middle;
+  color: rgb(117, 120, 137);
+  transition: .3s;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.color-white{
+  color: white;
+}
+.color-red{
+  color: red;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {/*滚动条整体样式*/
+  width: 5px !important;     /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px !important;
+}
+::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+  border-radius: 10px !important;
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2) !important;
+  background: #535353 !important;
+}
+::-webkit-scrollbar-track {/*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2) !important;
+  border-radius: 10px !important;
+  background: #EDEDED !important;
+}
+
+/* 页面加载虚化 */
+.loading-iframe{
+  backdrop-filter: blur(2px);
+  background: rgba(135, 132, 132, 0.25);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  border-radius: 15px;
+}

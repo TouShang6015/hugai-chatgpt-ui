@@ -1,0 +1,227 @@
+.v-note-wrapper {
+    min-width: auto !important;
+    min-height: auto !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+}
+.markdown-body {
+    line-height: 1.1 !important;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content, .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
+    padding: 8px !important;
+}
+.markdown-body{
+    box-shadow: rgba(0, 0, 0, 0) 0px 2px 12px 0px !important;
+}
+
+.markdown-body p{
+    margin-bottom: 0px !important;
+}
+
+pre {
+    margin: 10px 0 !important;
+    padding: 10px !important;
+    opacity: 1 !important;
+    border: 1px solid #272822 !important;
+    background-color: #272822 !important;
+    border-radius: 15px !important;
+}
+
+.line-num-box {
+    display: inline-block !important;
+    color: #ccc !important;
+    border-right: 2px solid #fff !important;
+    line-height: 20px !important;
+    font-size: 16px !important;
+    text-align: right !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.code-box {
+    display: inline-block !important;
+    vertical-align: top !important;
+    width: calc(100% - 50px) !important;
+    border-left-style: none !important;
+}
+
+code {
+    line-height: 20px !important;
+    font-size: 16px !important;
+    vertical-align: top;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 10px !important;
+}
+
+code::-webkit-scrollbar {
+    height: 10px !important;
+    border-radius: 5px !important;
+    background-color: #1e1e1e !important;
+}
+
+code::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 5px !important;
+    background-color: #666 !important;
+}
+
+code::-webkit-scrollbar-button {
+    /*滚动条的轨道的两端按钮，允许通过点击微调小方块的位置*/
+    border-radius: 5px !important;
+    background-color: #1e1e1e !important;
+}
+
+.mac-icon {
+    height: 30px !important;
+    border-bottom: 1px solid silver !important;
+    margin-bottom: 5px !important;
+    color: deeppink !important;
+}
+
+.mac-icon > span {
+    display: inline-block !important;
+    letter-spacing: 5px !important;
+    word-spacing: 5px !important;
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 8px !important;
+}
+
+.mac-icon-red {
+    background-color: red !important;
+}
+
+.mac-icon-yellow {
+    margin-left: 10px;
+    background-color: yellow !important;
+}
+
+.mac-icon-green {
+    margin-left: 10px;
+    background-color: green !important;
+}
+
+.mac-icon-lang {
+    width: 50px !important;
+    padding-left: 10px !important;
+    font-size: 15px !important;
+    vertical-align: top !important;
+}
+
+.copy-button {
+    padding: 2px 8px !important;
+    color: #ffffff !important;
+    background-color: #9999aa !important;
+    margin-bottom: 5px !important;
+    margin-right: 5px !important;
+    margin-top: 5px !important;
+    border-radius: 5px !important;
+    outline: none !important;
+    border: none !important;
+}
+
+.copy-button {
+    float: right !important;
+}
+
+.copy-button:hover {
+    cursor: pointer !important;
+    background-color: black !important;
+}
+
+.markdown-body .lang- {
+    display: block;
+    overflow: auto;
+    font-size: 15px !important;
+    background: #272822 !important;
+    color: #fff;
+}
+
+.markdown-body pre .code-box{
+    padding-left: 10px !important;
+}
+
+.markdown-body pre code.lang-properties{
+    color: white !important;
+}
+
+.markdown-body .hljs {
+    display: block;
+    overflow: auto;
+    font-size: 15px !important;
+    background: #272822 !important;
+    color: #fff;
+}
+
+
+.hljs,
+.hljs-tag,
+.hljs-subst {
+    color: #f8f8f2 !important;
+}
+
+.hljs-strong,
+.hljs-emphasis {
+    color: #a8a8a2 !important;
+}
+
+.hljs-bullet,
+.hljs-quote,
+.hljs-number,
+.hljs-regexp,
+.hljs-literal,
+.hljs-link {
+    color: #ae81ff !important;
+}
+
+.hljs-code,
+.hljs-title,
+.hljs-section,
+.hljs-selector-class {
+    color: #a6e22e !important;
+}
+
+.hljs-strong {
+    font-weight: bold !important;
+}
+
+.hljs-emphasis {
+    font-style: italic !important;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-name,
+.hljs-attr {
+    color: #f92672 !important;
+}
+
+.hljs-symbol,
+.hljs-attribute {
+    color: #66d9ef !important;
+}
+
+.hljs-params,
+.hljs-class .hljs-title {
+    color: #f8f8f2 !important;
+}
+
+.hljs-string,
+.hljs-type,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-selector-id,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-variable {
+    color: #e6db74 !important;
+}
+
+.hljs-comment,
+.hljs-deletion,
+.hljs-meta {
+    color: #75715e !important;
+}
