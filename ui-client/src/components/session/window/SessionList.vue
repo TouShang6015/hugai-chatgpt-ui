@@ -10,7 +10,7 @@
               <div class="litem-bottom">
                 <div class="litem-time">{{item.createTime}}</div>
                 <div class="litem-count">
-                  <el-tooltip content="这里的消耗量只是系统预估值，实际以openAi官网为准。" placement="top">
+                  <el-tooltip content="系统预估值，实际以openAi官网为准。" placement="top">
                     <span>Token消耗：{{item.allConsumerToken}}</span>
                   </el-tooltip>
                 </div>

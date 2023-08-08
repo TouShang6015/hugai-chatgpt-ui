@@ -89,7 +89,7 @@ export default {
         return new Promise((resolve, reject) => {
           this.queryParams.queryCondition = this.queryCondition;
           this.queryParams.sortCondition = this.sortCondition;
-          baseQueryPageByParam(this.url, this.queryParams).then(res => {
+          api.post(this.url + '/' + this.CRUD.queryPageByParam, this.queryParams).then(res => {
             if (res == null || res == undefined) {
               this.notifyError();
             }
@@ -111,7 +111,7 @@ export default {
         return new Promise((resolve, reject) => {
           this.queryParams.queryCondition = this.queryCondition;
           this.queryParams.sortCondition = this.sortCondition;
-          baseQueryByParam(this.url, this.queryParams).then(res => {
+          api.post(this.url  + '/' + this.CRUD.queryByParam, this.queryParams).then(res => {
             if (res == null || res == undefined) {
               this.notifyError();
             }
@@ -153,7 +153,7 @@ export default {
       let a = flag || false;
       if (a) {
         let id = (row == null || row == undefined) ? this.ids : row.id;
-        baseQueryById(this.url, id).then(res => {
+        api.getRestful(this.url + '/' + this.CRDU.queryById, id).then(res => {
           this.dialog = true;
           this.form = res.data;
           if (!this.afterQueryById()){
@@ -179,7 +179,7 @@ export default {
       let a = (flag == null || flag == undefined) ? true : flag;
       if (a) {
         let id = (row == null || row == undefined) ? this.ids : (row.id == null || row.id == undefined) ? row : row.id;
-        baseQueryById(this.url, id).then(res => {
+        api.getRestful(this.url + '/' + this.CRDU.queryById, id).then(res => {
           this.dialog = true;
           this.form = res.data;
           if (!this.afterQueryById()){
@@ -215,7 +215,7 @@ export default {
             if (!this.beforeAdd()) {
               return;
             }
-            baseAdd(this.url, JSON.parse(JSON.stringify(this.form))).then(res => {
+            api.post(this.url + '/' + this.CRUD.add, JSON.parse(JSON.stringify(this.form))).then(res => {
               this.loading = true;
               if (res == null || res == undefined) {
                 this.notifyError();
@@ -257,7 +257,7 @@ export default {
             if (!this.beforeEdit()) {
               return
             }
-            baseEdit(this.url, JSON.parse(JSON.stringify(this.form))).then(res => {
+            api.put(this.url + '/' + this.CRUD.edit, JSON.parse(JSON.stringify(this.form))).then(res => {
               this.loading = true;
               if (res == null || res == undefined) {
                 this.notifyError();
@@ -294,7 +294,7 @@ export default {
         if (ids == null || ids == undefined || ids == '') {
           return;
         }
-        baseDeleteByIds(this.url, ids).then(res => {
+        api.deleteRestful(this.url + '/' + this.CRUD.deleteByIds, ids).then(res => {
           if (res == null || res == undefined) {
             this.notifyError();
           } else if (res.code == 200) {
@@ -321,7 +321,7 @@ export default {
         if (ids == null || ids == undefined || ids == '') {
           return;
         }
-        baseDeleteByIds(this.url, ids).then(res => {
+        api.deleteRestful(this.url + '/' + this.CRUD.deleteByIds, ids).then(res => {
           if (res == null || res == undefined) {
             this.notifyError();
           } else if (res.code == 200) {

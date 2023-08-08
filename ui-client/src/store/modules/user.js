@@ -55,7 +55,7 @@ const user = {
           if (res.status){
             setToken(res.data)
             commit('SET_TOKEN', res.data)
-            Message({message: '登陆成功', type: 'success'})
+            Message({message: '登陆成功，欢迎来到HugAi~~', type: 'success'})
             commit('SET_LOGIN_DIALOG',false)
             commit('SET_REGISTER_DIALOG',false)
             setTimeout(() => {
@@ -76,7 +76,7 @@ const user = {
           if (res.status){
             setToken(res.data)
             commit('SET_TOKEN', res.data)
-            Message({message: '登陆成功', type: 'success'})
+            Message({message: '登陆成功，欢迎来到HugAi~~', type: 'success'})
             commit('SET_LOGIN_DIALOG',false)
             commit('SET_REGISTER_DIALOG',false)
             setTimeout(() => {

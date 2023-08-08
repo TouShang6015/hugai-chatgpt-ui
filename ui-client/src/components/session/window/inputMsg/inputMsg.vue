@@ -13,7 +13,9 @@
           <!--发送-->
           <div class="input-button-box">
             <div class="send input-button" @click="sendInputMessage">
-              <img :src="require('/src/assets/imgs/send.png')" alt=""/>
+              <el-tooltip class="tooltip" effect="light" content="Ctrl + Enter" placement="top">
+                <img :src="require('/src/assets/imgs/send.png')" alt=""/>
+              </el-tooltip>
             </div>
           </div>
         </slot>

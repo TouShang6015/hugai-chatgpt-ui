@@ -54,7 +54,6 @@
         deep: true,
         handler(val){
           this.detailData.mavonEditor = val;
-          this.initCodes()
         }
       }
     },
@@ -121,17 +120,31 @@
               `</div>`;
             pre.insertAdjacentHTML("afterbegin", icon);
             // 获取复制元素
-            let copyButton =
-              pre.firstElementChild.getElementsByClassName("copy-button")[0];
+            let copyButton = pre.firstElementChild.getElementsByClassName("copy-button")[0];
             copyButton.onclick = function () {
-              const copyPromise = navigator.clipboard.writeText(
-                pre.lastElementChild.innerText
-              );
-              copyPromise.then(() => {
+              let innerText = pre.lastElementChild.innerText;
+              if (navigator.clipboard && window.isSecureContext) {
+                const copyPromise = navigator.clipboard.writeText(innerText);
+                copyPromise.then(() => {
                   _this.$message.success("复制成功");
                 }).catch(() => {
                   _this.$message.error("复制失败");
                 });
+              }else{
+                // 创建text area
+                const textArea = document.createElement('textarea')
+                textArea.value = innerText
+                // 使text area不在viewport，同时设置不可见
+                document.body.appendChild(textArea)
+                textArea.focus()
+                textArea.select()
+                _this.$message.success("复制成功");
+                return new Promise((res, rej) => {
+                  // 执行复制命令并移除文本框
+                  document.execCommand('copy') ? res() : rej()
+                  textArea.remove()
+                })
+              }
             };
             hljs.highlightBlock(codeBox.firstElementChild);
           }
@@ -165,7 +178,6 @@
       },
     },
     destroyed() {
-
       clearInterval(this.timer);
     },
   }

@@ -5,6 +5,16 @@
         <span class="pointer" @click="goHome">HugAi</span>
       </div>
     </div>
+
+    <div class="right-item-notice">
+      <div class="item">
+        <a class="pointer promotion" href="https://gitee.com/toushang6015/hugai-chatgpt" target="_blank">gitee源码地址</a>
+      </div>
+      <div class="item">
+        <a class="pointer promotion" href="http://chat.doc.equinox19.xyz" target="_blank">参考文档</a>
+      </div>
+    </div>
+
     <div class="right-item">
       <div v-if="!isLogin">
         <div class="item">
@@ -96,6 +106,15 @@
 </script>
 
 <style scoped>
+  @keyframes blink {
+    0% { color: #f570b5; }
+    50% { color: #c1f8d5; }
+    100% { color: #f570b5; }
+  }
+  .promotion {
+    font-size: 15px !important;
+    animation: blink 3s infinite;
+  }
   .top-header{
     width: 100%;
     height: auto;
@@ -122,8 +141,19 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .right-item{
+  .right-item-notice{
     flex: 1;
+    padding: 2px 25px 2px 0px;
+    text-align: right;
+    align-items: center; /* 垂直方向居中对齐 */
+    justify-content: center; /* 水平方向居中对齐 */
+  }
+  .right-item-notice .item{
+    padding: 0 10px;
+    display: inline-block;
+  }
+  .right-item{
+    width: 15%;
     padding: 2px 25px 2px 0px;
     text-align: right;
     align-items: center; /* 垂直方向居中对齐 */

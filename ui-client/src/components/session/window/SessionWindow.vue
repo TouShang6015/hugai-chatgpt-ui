@@ -99,9 +99,7 @@
         }
       },
       loading(val){
-        if (!val){
 
-        }
       }
     },
     created() {

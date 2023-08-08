@@ -183,6 +183,7 @@
           };
 
           sseEvent.onerror = function (error) {
+            console.log(error)
             sseEvent.close();
             that.$refs.sessionWindow.flushMarkdown()
             sseEvent = null;

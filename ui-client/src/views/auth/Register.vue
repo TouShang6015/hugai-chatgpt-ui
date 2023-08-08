@@ -116,7 +116,7 @@
         // 注册请求
         this.$api.post('/module/user/userinfo/register',this.form).then(res => {
           if (res.status){
-            this.$message.success(res.data)
+            this.$message.success("注册成功，欢迎加入HugAi~~~")
             this.goLogin()
           }else{
             this.$message.error(res.message)
