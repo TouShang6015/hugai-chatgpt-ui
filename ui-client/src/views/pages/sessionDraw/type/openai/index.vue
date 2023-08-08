@@ -60,50 +60,42 @@
     methods:{
       getLastSessionData(){
         this.loading = true;
-        this.$api.get('/module/session/sessioninfo/userLastDrawSession', { sessionType: SessionType.DRAW,drawUniqueKey: DrawType.OPENAI }).then(res => {
+        this.$api.get('/module/session/sessioninfodraw/userLastDrawSession', { drawUniqueKey: DrawType.OPENAI }).then(res => {
           if (res.status){
-            this.loading = false
             this.sessionData = res.data
-            this.getSessionRecordLastData()
+            if (this.sessionData != null) {
+              this.sessionRecordLastData = this.sessionData.recordList
+            }else{
+              this.loading = false
+              return
+            }
+            this.handleShowData()
+            this.loading = false
           }else{
             this.$message.error(res.message)
           }
         })
       },
-      getSessionRecordLastData(){
-        this.loadingServer = false
-        this.$api.get('/module/session/sessionrecord/getLastOneRecordSession', { sessionId: this.sessionData.id }).then(res => {
-          if (res.status){
-            this.sessionRecordLastData = res.data
-            this.handleShowData()
-          }
-          this.loadingServer = false
-        })
-      },
       handleShowData(){
         const data = JSON.parse(JSON.stringify(this.sessionRecordLastData));
 
-        let userData = data.filter(item => item.role === 'user')[0];
-        let assistantData = data.filter(item => item.role === 'assistant')[0];
-        if (userData != null){
-          this.userPrompt = userData.content
+        this.userPrompt = this.sessionData.prompt
+
+        if (data != null){
+          this.imgUrlList = data.map(item => item.drawImgUrl)
         }
-        if (assistantData != null){
-          this.imgUrlList = assistantData.content.split(',')
-        }
-        this.$refs.responseShow.dataList = JSON.parse(JSON.stringify(this.imgUrlList))
-        this.$refs.responseShow.userPrompt = JSON.parse(JSON.stringify(this.userPrompt))
+        this.$refs.responseShow.dataList = this.imgUrlList
+        this.$refs.responseShow.userPrompt = this.userPrompt
       },
       submitPrompt(input){
         this.loadingServer = true
         this.form.prompt = input
-        this.form.sessionId = this.sessionData.id
         this.form.sessionType = SessionType.DRAW
         if (this.form.apiType === 1){
           this.$api.post('/module/draw/openai/sendAiDraw',this.form).then(res => {
             if (res.status){
               this.$message.success(res.message)
-              this.getSessionRecordLastData()
+              this.getLastSessionData()
             }else{
               this.$message.error(res.message)
             }
@@ -113,7 +105,7 @@
           this.$api.post('/module/draw/openai/sendAiDrawEdit',this.form).then(res => {
             if (res.status){
               this.$message.success(res.message)
-              this.getSessionRecordLastData()
+              this.getLastSessionData()
             }else{
               this.$message.error(res.message)
             }

@@ -9,7 +9,11 @@ require('@/assets/styles/pace-theme.css')
 const whiteList = ['/login', '/auth-redirect', '/bind', '/register']
 
 router.beforeEach((to, from, next) => {
-  Pace.start()
+  Pace.start({
+    ajax: false,
+    elements: false,
+    restartOnRequestAfter: false
+  });
   if (Object.values(store.getters.configMain).length === 0){
     store.dispatch('FlushWebConfigMain').then(() => {
     });

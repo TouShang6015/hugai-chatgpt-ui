@@ -18,6 +18,12 @@
           <el-option v-for="item in moduleList" :key="item.value" :label="item.label" :value="item.value"/>
         </el-select>
       </template>
+      <template slot="item-ifUsable">
+        <el-select v-model="queryParams.ifUsable" placeholder="可用状态" clearable>
+          <el-option key="0" label="失效" value="0"/>
+          <el-option key="1" label="可用" value="1"/>
+        </el-select>
+      </template>
     </search-form>
 
     <el-col :span="2">
@@ -53,8 +59,13 @@
             <el-tag type="info" v-if="scope.row.requestMethod != null">{{scope.row.requestMethod}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="routePath" label="路由地址" align="center" :show-overflow-tooltip="true">
+        <el-table-column label="状态" align="center" width="80" :show-overflow-tooltip="true">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.ifUsable === '0' && scope.row.ifRoute == 1" type="danger">失效</el-tag>
+            <el-tag v-if="scope.row.ifUsable === '1' && scope.row.ifRoute == 1" type="success">可用</el-tag>
+          </template>
         </el-table-column>
+        <el-table-column prop="routePath" label="路由地址" align="center" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column prop="routeVisitRule" label="访问规则" align="center" width="350px">
           <template slot-scope="scope">
             <el-radio-group v-model="scope.row.routeVisitRule" size="mini" v-if="scope.row.ifRoute == 1" @change="e=>handleRouteVisitRadioChange(e,scope.row)">
@@ -295,7 +306,8 @@
       { title: '标题', key: 'title',span:8,style:"width: 300px" },
       { title: '模块名称', key: 'moduleName',span:8,style:"width: 300px"  },
       { title: '模块列表', key: 'parentId',span:8  },
-      { title: '路由地址', key: 'originalRoutePath',span:12,style:"width: 300px"  }
+      { title: '路由地址', key: 'originalRoutePath',span:8,style:"width: 300px"  },
+      { title: '可用状态', key: 'ifUsable',span:8  },
     ],
     button: [
       { title: '重置', key: 'reset', type: 'primary',icon: 'el-icon-refresh', action: 'resetQuery' },
