@@ -35,6 +35,21 @@
         </el-col>
       </el-row>
 
+      <el-divider>接口限制参数</el-divider>
+
+      <el-row :gutter="25">
+        <el-col :span="6" >
+          <el-form-item label="绘图接口缓存超时时间（小时）" prop="drawApiCacheTime">
+            <el-input v-model="form.drawApiCacheTime" placeholder="小时" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="6" >
+          <el-form-item label="绘图接口缓存内最大请求次数" prop="drawApiSendMax">
+            <el-input v-model="form.drawApiSendMax" placeholder="最大请求次数" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="primary" @click="submitForm">保存</el-button>

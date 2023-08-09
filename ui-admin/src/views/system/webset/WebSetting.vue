@@ -45,6 +45,16 @@
         </el-col>
       </el-row>
       <el-row>
+        <el-col :span="4">
+          <el-form-item label="网站发布时间" prop="webIssueTime">
+            <el-date-picker v-model="form.webIssueTime"
+                            type="date"
+                            placeholder="网站发布时间"
+                            format="yyyy-MM-dd"
+                            value-format="yyyy-MM-dd"
+            ></el-date-picker>
+          </el-form-item>
+        </el-col>
         <el-col :span="8">
           <el-form-item label="账户最大登陆人数" prop="maxUserLogin">
             <el-input-number v-model="form.maxUserLogin" :min="1" :max="100" label="账户最大登陆人数"></el-input-number>
@@ -86,6 +96,7 @@
           authCodeOpen:[{ required: true, trigger: "blur" }],
           maxUserLogin:[{ required: true, trigger: "blur" }],
           ableSystemApiKey:[{ required: true, trigger: "blur" }],
+          webIssueTime:[{ required: true, trigger: "blur" }],
         }
       }
     },

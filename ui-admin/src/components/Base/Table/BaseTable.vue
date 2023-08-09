@@ -24,7 +24,10 @@
         >
           <template slot-scope="scope">
             <slot :name="'column-' + item.key" :row="scope.row">
-              {{scope.row[item.key]}}
+              <el-tag :type="item.tagType || 'primary'" v-if="item.ifTag">
+                {{scope.row[item.key]}}
+              </el-tag>
+              <span v-else>{{scope.row[item.key]}}</span>
             </slot>
           </template>
         </el-table-column>

@@ -13,12 +13,16 @@
         >
         </el-input>
         <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加新秘钥</el-button>
-        <div style="display: block" v-for="item in dataList">
+        <el-tooltip content="红色表示已失效的OpeanAi key" placement="right">
+          <span class="iconfont icon-guanyu" style="margin: 0 15px"></span>
+        </el-tooltip>
+        <div style="display: block" v-for="(item,index) in dataList" :key="index">
           <el-row>
             <el-tag
                     :key="item.id"
                     closable
                     :disable-transitions="false"
+                    :type="item.enableStatus === '1' ? 'danger' : 'primary'"
                     @close="handleDelKey(item)">
               {{item.apiKey}}
             </el-tag>
