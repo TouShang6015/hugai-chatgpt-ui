@@ -6,7 +6,7 @@
     </div>
     <div class="search">
       <div class="search-input">
-        <el-input v-model="searchMessage" placeholder="请输入关键字搜索"></el-input>
+        <el-input v-model="searchMessage" placeholder="请输入关键字搜索" @keyup.enter.native="getDomainItemList"></el-input>
       </div>
     </div>
     <transition name="web-dialog">
@@ -50,7 +50,12 @@
     },
     methods:{
       getDomainItemList(){
-        this.$api.post('/module/session/domain/baseQueryByParam',{}).then(res => {
+        let queryParams = {
+          queryCondition: {}
+        }
+        queryParams.iconName = this.searchMessage;
+        queryParams.queryCondition.iconName = 'LIKE'
+        this.$api.post('/module/session/domain/baseQueryByParam',queryParams).then(res => {
           this.apiItemDomainList = res.data;
         })
       },

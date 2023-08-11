@@ -41,6 +41,14 @@
           <span v-if="item.value == scope.row.domainGroup">{{item.label}}</span>
         </span>
       </template>
+      <template slot="column-ifDeskShow" slot-scope="scope">
+        <el-switch
+          v-model="scope.row.ifDeskShow"
+          active-value="1"
+          inactive-value="0"
+          @change="handleUpdateDeskShow(scope.row)"
+        ></el-switch>
+      </template>
 
     </base-table>
 
@@ -113,6 +121,18 @@
       handleDialogSubmit(){
         this.$refs.saveOrUpdate.submitForm();
       },
+      handleUpdateDeskShow(row){
+        let param = JSON.parse(JSON.stringify(row))
+        param.ifDeskShow = param.ifDeskShow === "0" ? "0" : "1";
+        api.domainUpdate(param).then(res => {
+          if (res.status){
+            this.baseHandleQuery();
+            this.notifySuccess(res.message)
+          }else{
+            this.notifyError(res.message)
+          }
+        })
+      },
       handleDialogClose(){
         this.$confirm('确定退出窗口吗（表单数据会清空）？', '提示', {
           confirmButtonText: '确定',
@@ -149,6 +169,7 @@
       { title: '排序号', key: 'sort',width: '80'},
       { title: '图标名称', key: 'iconName',width: '135' },
       { title: '领域组', key: 'domainGroup',width: '135'},
+      { title: '是否桌面显示', key: 'ifDeskShow',width: '135'},
       { title: '上下文内容', key: 'aboveContent',showOverFlowToolTip: true},
     ],
     actions: [

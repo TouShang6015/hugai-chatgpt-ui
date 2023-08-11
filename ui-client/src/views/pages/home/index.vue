@@ -20,7 +20,20 @@
     </div>
     <div class="home-bottom">
       <div class="left">
-        <el-image lazy :src="require('/src/assets/imgs/desk/help.png')" fit="contain" draggable="false"></el-image>
+        <el-tooltip placement="top-start">
+          <div slot="content" class="system-box">
+            <br><p>用户：{{deskData.userSessionStatisticsData.showName}}</p>
+            <br><p>总会话数：{{deskData.userSessionStatisticsData.sessionCount}}</p>
+            <br><p>绘图数：{{deskData.userSessionStatisticsData.sessionDrawCount}}</p>
+            <br><p>Token消耗：{{deskData.userSessionStatisticsData.tokenConsumer}}</p>
+            <br><p>加入时间：{{deskData.userSessionStatisticsData.joinTime}}</p>
+            <br><p>OpenAi key绑定：{{deskData.userSessionStatisticsData.tokenNum}}个</p>
+            <el-divider content-position="center"></el-divider>
+            <br><p>🟢会员数：{{deskData.deskCommonData.userCount}}人&ensp;|&ensp;🟡游客数：{{deskData.deskCommonData.touristCount}}人</p>
+            <br><p>运行天数：{{deskData.deskCommonData.runDay}}天</p>
+          </div>
+          <el-image lazy :src="require('/src/assets/imgs/desk/help.png')" fit="contain" draggable="false"></el-image>
+        </el-tooltip>
         <el-tooltip content="更换壁纸" placement="top">
           <el-popover placement="top-start" width="280" trigger="click">
             <BackgroundUpload></BackgroundUpload>
@@ -73,7 +86,11 @@
         apiItemDomainList: [],
         itemDomain: [],
         staticWebsite: this.$store.getters.configMain.staticWebsite,
-        backgroundImageUrl: ""
+        backgroundImageUrl: "",
+        deskData: {
+          deskCommonData: {},
+          userSessionStatisticsData: {}
+        }
       }
     },
     watch: {
@@ -99,6 +116,7 @@
     mounted() {
       this.getDomainItemList();
       this.flushBackgroundImg();
+      this.getDeskData();
     },
     methods: {
       flushBackgroundImg() {
@@ -112,9 +130,17 @@
         this.backgroundImageUrl = this.backgroundImageUrl + `?timestamp=${new Date().getTime()}`
       },
       getDomainItemList(){
-        this.$api.post('/module/session/domain/baseQueryByParam',{}).then(res => {
+        this.$api.post('/module/session/domain/baseQueryByParam',{ifDeskShow: '1'}).then(res => {
           this.apiItemDomainList = res.data.slice(0, 15);
           this.flushDeskItem(DeskItemType.common)
+        })
+      },
+      getDeskData(){
+        this.$api.get('/module/statistics/getUserDeskInfo',null).then(res => {
+          if (res.status){
+            this.deskData.deskCommonData = res.data.deskCommonData;
+            this.deskData.userSessionStatisticsData = res.data.userSessionStatisticsData;
+          }
         })
       },
       initDeskItem(){
@@ -234,5 +260,21 @@
     display: flex;
     justify-content: right;
     align-items: center;
+  }
+
+  ::v-deep.home-bottom img{
+    transition: transform 0.3s;
+    transform-origin: center center;
+  }
+  ::v-deep.home-bottom img:hover{
+     transform: scale(0.8);
+   }
+
+  ::v-deep.system-box {
+    font-size: 15px ;
+    line-height: 1;
+  }
+  ::v-deep.system-box p{
+    font-size: 15px ;
   }
 </style>
