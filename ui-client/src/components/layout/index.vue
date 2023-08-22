@@ -39,7 +39,9 @@
           this.loginDialog = val
         },
       }
-    }
+    },
+    created() {
+    },
   }
 </script>
 

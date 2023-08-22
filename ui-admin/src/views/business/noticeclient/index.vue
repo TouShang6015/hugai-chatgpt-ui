@@ -5,23 +5,12 @@
       ref="baseSearchForm"
       :query-params="queryParams"
       :builder-form="builderSearch.search"
-      :label-width="'120px'"
+      :label-width="'100px'"
       @baseHandleQuery="baseHandleQuery"
       @resetQuery="resetQuery"
       @baseHandleAdd="baseHandleAdd"
     >
-      <template slot="item-ifCommon" slot-scope="scope">
-        <el-select v-model="queryParams.ifCommon" placeholder="是否系统秘钥">
-          <el-option :key="'0'" label="否" :value="'0'"></el-option>
-          <el-option :key="'1'" label="是" :value="'1'"></el-option>
-        </el-select>
-      </template>
-      <template slot="item-enableStatus" slot-scope="scope">
-        <el-select v-model="queryParams.enableStatus" placeholder="秘钥状态">
-          <el-option :key="'0'" label="可用" :value="'0'"></el-option>
-          <el-option :key="'1'" label="不可用" :value="'1'"></el-option>
-        </el-select>
-      </template>
+
     </search-form>
 
     <base-table
@@ -36,14 +25,7 @@
       @submitDeleteByColumn="submitDeleteByColumn"
       @baseHandleSelectionChange="baseHandleSelectionChange"
     >
-      <template slot="column-ifCommon" slot-scope="scope">
-        <el-tag v-if="scope.row.ifCommon === '0'" type="primary">用户</el-tag>
-        <el-tag v-if="scope.row.ifCommon === '1'" type="warning">系统</el-tag>
-      </template>
-      <template slot="column-enableStatus" slot-scope="scope">
-        <el-tag v-if="scope.row.enableStatus === '0'" type="success">可用的</el-tag>
-        <el-tag v-if="scope.row.enableStatus === '1'" type="danger">已失效</el-tag>
-      </template>
+
     </base-table>
 
     <base-form
@@ -53,7 +35,7 @@
       :form="form"
       :rules="rules"
       :builder-item="builderForm.items"
-      :width="'500px'"
+      :width="'700px'"
       @cancel="cancel"
       @submitForm="submitForm"
     >
@@ -72,6 +54,11 @@
     data(){
       return{
         builderSearch,builderTable,builderForm,
+        rules:{
+          title: [{ required: true, trigger: "blur", message: "标题不能为空" }],
+          sort: [{ required: true, trigger: "blur", message: "排序号不能为空" }],
+          content: [{ required: true, trigger: "blur", message: "内容不能为空" }],
+        }
       }
     },
     watch:{
@@ -84,23 +71,18 @@
     },
     methods: {
       baseInit() {
-        this.url = '/module/config/admin/openaikeys';
-        this.viewName = 'OpenAi key管理';
+        this.url = '/module/business/noticeclient';
+        this.viewName = '通知公告';
         this.useBaseComponent = true;
         return true;
       },
-      beforeAdd(){
-        this.form.ifCommon = '1'
-        return true
-      }
     }
   }
 
   const builderSearch = {
     search: [
-      { title: 'Api key', key: 'apiKey',span:8  },
-      { title: '是否系统秘钥', key: 'ifCommon',span:8  },
-      { title: '状态', key: 'enableStatus',span:8  },
+      { title: '通知标题', key: 'title',span:8  },
+      { title: '通知类型', key: 'noticeType',span:8  },
     ],
     button: [
       { title: '重置', key: 'reset', type: 'primary', action: 'resetQuery' },
@@ -110,21 +92,23 @@
   };
   const builderTable = {
     columns: [
-      { title: 'Api Key', key: 'apiKey',width:'500'},
-      { title: 'key名称', key: 'name' },
-      { title: '是否系统秘钥', key: 'ifCommon'},
+      { title: '通知标题', key: 'title',width:'350'},
+      { title: '通知类型', key: 'noticeType' },
+      { title: '排序号', key: 'sort' },
+      { title: '内容', key: 'content',showOverFlowToolTip: true },
       { title: '创建时间', key: 'createTime'},
-      { title: '秘钥状态', key: 'enableStatus'},
     ],
     actions: [
-      // { title: '编辑', key: 'edit', type: 'success', action: 'baseHandleEdit'},
+      { title: '编辑', key: 'edit', type: 'success', action: 'baseHandleEdit'},
       { title: '删除', key: 'delete', type: 'danger', action: 'submitDeleteByColumn'},
     ]
   };
   const builderForm = {
     items: [
-      { title: '秘钥名称', key: 'name' },
-      { title: 'Api Key', key: 'apiKey' }
+      { title: '标题', key: 'title' },
+      { title: '通知类型', key: 'titleType' },
+      { title: '排序号', key: 'sort' },
+      { title: '内容', key: 'content',type: 'textarea',minHeight: 300 },
     ]
   };
 </script>

@@ -31,6 +31,7 @@
             <el-divider content-position="center"></el-divider>
             <br><p>🟢会员数：{{deskData.deskCommonData.userCount}}人&ensp;|&ensp;🟡游客数：{{deskData.deskCommonData.touristCount}}人</p>
             <br><p>运行天数：{{deskData.deskCommonData.runDay}}天</p>
+            <br><p>网站总访问次数：{{deskData.webClientRequestCount}}</p>
           </div>
           <el-image lazy :src="require('/src/assets/imgs/desk/help.png')" fit="contain" draggable="false"></el-image>
         </el-tooltip>
@@ -89,7 +90,8 @@
         backgroundImageUrl: "",
         deskData: {
           deskCommonData: {},
-          userSessionStatisticsData: {}
+          userSessionStatisticsData: {},
+          webClientRequestCount: 0
         }
       }
     },
@@ -140,6 +142,7 @@
           if (res.status){
             this.deskData.deskCommonData = res.data.deskCommonData;
             this.deskData.userSessionStatisticsData = res.data.userSessionStatisticsData;
+            this.deskData.webClientRequestCount = res.data.webClientRequestCount;
           }
         })
       },

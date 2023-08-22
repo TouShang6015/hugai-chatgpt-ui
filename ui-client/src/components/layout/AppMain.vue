@@ -13,6 +13,12 @@
       key() {
         return this.$route.path
       }
+    },
+    created() {
+    },
+    mounted() {
+      // 访问次数接口
+      this.$api.get('/common/interface/info');
     }
   }
 </script>

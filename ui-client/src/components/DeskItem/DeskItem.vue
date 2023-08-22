@@ -25,11 +25,6 @@
       return {
       }
     },
-    watch:{
-      state(val){
-        console.log(val)
-      }
-    },
     methods: {
       handleItemGo(event, item) {
         this.$router.push(item.path)

@@ -12,5 +12,6 @@ const getters = {
   loadingStateConfig: state => state.status.loadingStateConfig,
   loadingStateUserInfo: state => state.status.loadingStateUserInfo,
   configMain: state => state.webConfig.configMain,
+  streamResponseType: state => state.webConfig.configMain.streamResponseType,
 }
 export default getters

@@ -43,7 +43,8 @@
   import SessionWindow from "./window/SessionWindow";
   import SessionList from "./window/SessionList";
   import LoadingLine from "./LoadingLine";
-  import { linkSseEvent } from "/src/utils/request/SseRequest";
+  import {linkSseEvent} from "@/utils/SseRequest";
+  import StreamResponseType from "@/common/constants/StreamResponseType";
 
   export default {
     name: "SessionIndex",
@@ -60,6 +61,7 @@
         loading: true,
         loadingLine: false,
         sessionLoadingStatus: false,
+        connectId: undefined,
 
         sessionData: {},
         sessionRecordData: []
@@ -151,27 +153,35 @@
         }
         this.loadingLine = true
         if (inputMessage) {
-          this.createSse(inputMessage);
+          let streamResponseType = this.$store.getters.streamResponseType;
+          switch (streamResponseType) {
+            case StreamResponseType.Websocket:
+              this.socketConnectMessage(inputMessage);
+              break;
+            case StreamResponseType.SSE:
+              this.sseConnectMessage(inputMessage);
+              break;
+          }
         }else{
           this.$message.warning("内容不能为空")
           this.loadingLine = false
         }
       },
-      // 建立sse连接
-      createSse(inputMessage) {
+      // sse
+      sseConnectMessage(inputMessage) {
         const that = this;
         if (window.EventSource) {
           let sseEvent = linkSseEvent()
 
           sseEvent.onmessage = function (event) {
 
-            let sseId = event.lastEventId;
+            let connectId = event.lastEventId;
             let data = event.data;
 
-            if (sseId == data){
-              that.sseId = sseId;
+            if (connectId == data){
+              that.connectId = connectId;
               that.flushSendData(inputMessage);
-              that.apiSend(sseId,inputMessage)
+              that.apiSend(connectId,inputMessage)
             }else{
               let popData = that.sessionRecordData[that.sessionRecordData.length - 1];
               let data = event.data;
@@ -182,33 +192,60 @@
             }
           };
 
-          sseEvent.onerror = function (error) {
-            console.log(error)
+          sseEvent.onerror = function () {
             sseEvent.close();
-            that.$refs.sessionWindow.flushMarkdown()
             sseEvent = null;
+            that.$refs.sessionWindow.flushMarkdown()
+            that.loadingLine = false
+            that.connectId = undefined;
           };
         } else {
           console.error("不支持sse")
           this.loadingLine = false;
         }
       },
-      apiSend(sseId,inputMessage){
-        if (sseId == null){
+      socketConnectMessage(inputMessage){
+        const that = this;
+
+        const websocketUrl = this.$store.getters.configMain.websocketUrl;
+        const wsUrl = websocketUrl +'/socket/chat';
+        const webSocket = new WebSocket(wsUrl);
+
+        webSocket.onmessage = function (event) {
+          let data = event.data;
+          if (that.connectId === undefined){
+            that.connectId = data;
+            that.flushSendData(inputMessage);
+            that.apiSend(that.connectId,inputMessage)
+          }else{
+            let popData = that.sessionRecordData[that.sessionRecordData.length - 1];
+            popData.content += data;
+          }
+        };
+
+        webSocket.onclose = function () {
+          that.$refs.sessionWindow.flushMarkdown()
+          that.loadingLine = false
+          that.connectId = undefined;
+        }
+
+        webSocket.onerror = function () {
+          that.$message.error("请求失败");
+          that.sessionRecordData.pop();
+          that.sessionRecordData.pop();
+          that.loadingLine = false
+        }
+
+      },
+      apiSend(connectId,inputMessage){
+        if (connectId == null){
           return;
         }
         this.$api.post(`/module/chat/send`,{
-          sseId: sseId,
+          connectId: connectId,
           sessionId: this.sessionData.id,
           sessionType: this.windowData.sessionType,
           content: inputMessage
-        }).then(res => {
-          if (!res.status){
-            this.$message.error(res.message);
-            this.sessionRecordData.pop();
-            this.sessionRecordData.pop();
-          }
-          this.loadingLine = false
         })
       },
       // 发送前整理数据

@@ -15,9 +15,14 @@
             <el-input v-model="form.staticWebsite" placeholder="静态资源访问域名" />
           </el-form-item>
         </el-col>
+        <el-col :span="6" >
+          <el-form-item label="Websocket请求域名" prop="websocketUrl">
+            <el-input v-model="form.websocketUrl" placeholder="Websocket请求域名" />
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-row>
-        <el-col :span="8">
+        <el-col :span="5">
           <el-form-item label="文件存储策略" prop="fileSaveStrategy">
             <el-select v-model="form.fileSaveStrategy" placeholder="请选择文件存储策略">
               <el-option key="local" label="本地存储" value="local"></el-option>
@@ -26,18 +31,26 @@
             </el-select>
           </el-form-item>
         </el-col>
+        <el-col :span="5">
+          <el-form-item label="打字机响应模式（Websocket、SSE）" prop="streamResponseType">
+            <el-select v-model="form.streamResponseType" placeholder="打字机响应模式">
+              <el-option key="Websocket" label="Websocket" value="Websocket"></el-option>
+              <el-option key="SSE" label="SSE" value="SSE"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-row>
-        <el-col :span="4">
-          <el-form-item label="是否开启注册" prop="registerOpen">
-            <el-switch v-model="form.registerOpen" active-text="开启" inactive-text="关闭"></el-switch>
-          </el-form-item>
-        </el-col>
-        <el-col :span="4">
-          <el-form-item label="是否开启登陆验证码" prop="authCodeOpen">
-            <el-switch v-model="form.authCodeOpen" active-text="开启" inactive-text="关闭"></el-switch>
-          </el-form-item>
-        </el-col>
+<!--        <el-col :span="4">-->
+<!--          <el-form-item label="是否开启注册" prop="registerOpen">-->
+<!--            <el-switch v-model="form.registerOpen" active-text="开启" inactive-text="关闭"></el-switch>-->
+<!--          </el-form-item>-->
+<!--        </el-col>-->
+<!--        <el-col :span="4">-->
+<!--          <el-form-item label="是否开启登陆验证码" prop="authCodeOpen">-->
+<!--            <el-switch v-model="form.authCodeOpen" active-text="开启" inactive-text="关闭"></el-switch>-->
+<!--          </el-form-item>-->
+<!--        </el-col>-->
         <el-col :span="4">
           <el-form-item label="是否使用系统ApiKey" prop="ableSystemApiKey">
             <el-switch v-model="form.ableSystemApiKey" active-text="开启" inactive-text="关闭"></el-switch>
@@ -97,6 +110,8 @@
           maxUserLogin:[{ required: true, trigger: "blur" }],
           ableSystemApiKey:[{ required: true, trigger: "blur" }],
           webIssueTime:[{ required: true, trigger: "blur" }],
+          websocketUrl:[{ required: true, trigger: "blur" }],
+          streamResponseType:[{ required: true, trigger: "blur" }],
         }
       }
     },

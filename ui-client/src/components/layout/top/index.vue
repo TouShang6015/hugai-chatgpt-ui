@@ -8,10 +8,26 @@
 
     <div class="right-item-notice">
       <div class="item">
-        <a class="pointer promotion" href="https://gitee.com/toushang6015/hugai-chatgpt" target="_blank">gitee源码地址</a>
+        <a class="pointer promotion" href="https://github.com/TouShang6015/Hugai-chatgpt" target="_blank">github源码入口</a>
       </div>
       <div class="item">
         <a class="pointer promotion" href="http://chat.doc.equinox19.xyz" target="_blank">参考文档</a>
+      </div>
+      <div class="item">
+        <el-badge is-dot class="item">
+          <div style="width: 40px">
+            <el-popover
+                    :value="noticeOpen"
+                    placement="bottom"
+                    :title="noticeData.title"
+                    width="600"
+                    trigger="click"
+                    :content="noticeData.content">
+              <span slot="reference" class="iconfont icon-xiaoxi pointer"></span>
+            </el-popover>
+
+          </div>
+        </el-badge>
       </div>
     </div>
 
@@ -54,7 +70,7 @@
 
 <script>
 
-  import {getToken, removeToken} from "@/utils/auth";
+  import {getToken} from "@/utils/auth";
 
   export default {
     name: "Top",
@@ -62,12 +78,15 @@
       return {
         isLogin: !!getToken(),
         imgHeader: undefined,
-        userName: ''
+        userName: '',
+        noticeData: {},
+        noticeOpen: false,
       }
     },
     mounted() {
       this.flushImgUrl();
-      this.userName = this.$store.getters.username
+      this.userName = this.$store.getters.username;
+      this.getNoticeData();
     },
     methods: {
       flushImgUrl(){
@@ -87,6 +106,14 @@
         this.$store.commit('SET_AUTH_DIALOG',!this.$store.getters.authDialog)
         this.$store.commit('SET_REGISTER_DIALOG',!this.$store.getters.registerDialog)
         this.$store.commit('SET_LOGIN_DIALOG',false)
+      },
+      getNoticeData(){
+        this.$api.get('/module/business/noticeclient/getLastNotice').then(res => {
+          if (res.status){
+            this.noticeData = res.data;
+            this.noticeOpen = true;
+          }
+        })
       },
       goHome(){
         this.$router.push("/home")
@@ -110,6 +137,11 @@
     0% { color: #f570b5; }
     50% { color: #c1f8d5; }
     100% { color: #f570b5; }
+  }
+  @keyframes bigAndSmall {
+    0% { font-size: 22px; }
+    50% { font-size: 20px; }
+    100% { font-size: 22px; }
   }
   .promotion {
     font-size: 15px !important;
@@ -151,6 +183,16 @@
   .right-item-notice .item{
     padding: 0 10px;
     display: inline-block;
+  }
+
+  .right-item-notice .item .iconfont{
+    font-size: 22px;
+  }
+  .right-item-notice .item .iconfont {
+    animation: bigAndSmall 1.5s infinite;
+  }
+  ::v-deep .el-badge__content.is-fixed{
+    top: 10px;
   }
   .right-item{
     width: 15%;

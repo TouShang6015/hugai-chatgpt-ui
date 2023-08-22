@@ -39,6 +39,11 @@
 
       <el-row :gutter="25">
         <el-col :span="6" >
+          <el-form-item label="是否开启绘图接口（私人key不受影响）" prop="openDraw">
+            <el-switch v-model="form.openDraw" active-text="开启" inactive-text="关闭"></el-switch>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6" >
           <el-form-item label="绘图接口缓存超时时间（小时）" prop="drawApiCacheTime">
             <el-input v-model="form.drawApiCacheTime" placeholder="小时" />
           </el-form-item>
