@@ -43,6 +43,7 @@
   import SessionWindow from "./window/SessionWindow";
   import LoadingLine from "./LoadingLine";
   import StreamResponseType from "@/common/constants/StreamResponseType";
+  import {linkSseEvent} from "@/utils/request/SseRequest";
 
   export default {
     name: "SessionIndex",
@@ -168,6 +169,43 @@
         }else{
           this.$message.warning("内容不能为空")
           this.loadingLine = false
+        }
+      },
+      // sse
+      sseConnectMessage(inputMessage) {
+        const that = this;
+        if (window.EventSource) {
+          let sseEvent = linkSseEvent()
+
+          sseEvent.onmessage = function (event) {
+
+            let connectId = event.lastEventId;
+            let data = event.data;
+
+            if (connectId == data){
+              that.connectId = connectId;
+              that.flushSendData(inputMessage);
+              that.apiSend(connectId,inputMessage)
+            }else{
+              let popData = that.sessionRecordData[that.sessionRecordData.length - 1];
+              let data = event.data;
+              data = data.replaceAll("↖emsp↘"," ")
+              data = data.replaceAll("↖br↘","\n")
+              data = data.replaceAll("↖tab↘","   ")
+              popData.content += data;
+            }
+          };
+
+          sseEvent.onerror = function () {
+            sseEvent.close();
+            sseEvent = null;
+            that.$refs.sessionWindow.flushMarkdown()
+            that.loadingLine = false
+            that.connectId = undefined;
+          };
+        } else {
+          console.error("不支持sse")
+          this.loadingLine = false;
         }
       },
       socketConnectMessage(inputMessage){

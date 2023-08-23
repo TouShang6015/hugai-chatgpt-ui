@@ -43,7 +43,7 @@
   import SessionWindow from "./window/SessionWindow";
   import SessionList from "./window/SessionList";
   import LoadingLine from "./LoadingLine";
-  import {linkSseEvent} from "@/utils/SseRequest";
+  import {linkSseEvent} from "@/utils/request/SseRequest";
   import StreamResponseType from "@/common/constants/StreamResponseType";
 
   export default {
@@ -193,17 +193,18 @@
           };
 
           sseEvent.onerror = function () {
-            sseEvent.close();
-            sseEvent = null;
             that.$refs.sessionWindow.flushMarkdown()
             that.loadingLine = false
             that.connectId = undefined;
+            sseEvent.close();
+            sseEvent = null;
           };
         } else {
           console.error("不支持sse")
           this.loadingLine = false;
         }
       },
+      // websocket
       socketConnectMessage(inputMessage){
         const that = this;
 
