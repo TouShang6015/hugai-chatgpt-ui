@@ -2,11 +2,17 @@
   <div class="bottom-main" :class="{hiddenStatus:hiddenStatus}">
 
     <div class="bottom-item pointer bottom-flex-end">
-      <el-dropdown @visible-change="visibleChange">
+      <el-dropdown trigger="click" @command="handleDropdownSelect">
         <UserBottomItem></UserBottomItem>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <span class="iconfont icon-guanbi"></span><span class="dropdown-span">退出登录</span>
+          <el-dropdown-item command="logout" v-if="isLogin">
+            <span class="iconfont icon-a-signin"></span><span class="dropdown-span">退出登录</span>
+          </el-dropdown-item>
+          <el-dropdown-item command="login" v-if="!isLogin">
+            <span class="iconfont icon-twitch-01"></span><span class="dropdown-span">登陆</span>
+          </el-dropdown-item>
+          <el-dropdown-item command="register" v-if="!isLogin">
+            <span class="iconfont icon-a-addtoperson"></span><span class="dropdown-span">注册用户</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -29,8 +35,28 @@
       }
     },
     methods:{
-      visibleChange(){
-        return !this.isLogin;
+      handleDropdownSelect(command) {
+        switch (command) {
+          case 'logout':
+            this.$store.dispatch('LogOut');
+            break;
+          case 'login':
+            this.openLoginDialog()
+            break;
+          case 'register':
+            this.openRegisterDialog()
+            break;
+        }
+      },
+      openLoginDialog(){
+        this.$store.commit('SET_AUTH_DIALOG',!this.$store.getters.authDialog)
+        this.$store.commit('SET_LOGIN_DIALOG',!this.$store.getters.loginDialog)
+        this.$store.commit('SET_REGISTER_DIALOG',false)
+      },
+      openRegisterDialog(){
+        this.$store.commit('SET_AUTH_DIALOG',!this.$store.getters.authDialog)
+        this.$store.commit('SET_REGISTER_DIALOG',!this.$store.getters.registerDialog)
+        this.$store.commit('SET_LOGIN_DIALOG',false)
       }
     }
   }
@@ -45,13 +71,15 @@
     align-self: flex-end;
     height: 15%;
     max-height: 15%;
+    margin-bottom: 5px;
   }
 
   .bottom-item {
     width: auto;
     max-height: 50px;
     display: flex;
-    margin: 0 2px 0 2px;
+    margin: 0 5px 0 5px;
+    border-radius: 10px;
   }
   .bottom-item:hover {
     background: $theme-blue-aside-hover-color;
@@ -75,20 +103,6 @@
     height: 100%;
     display: flex;
     align-items: center;
-  }
-  ::v-deep.el-dropdown-menu {
-    background-color: #020202;
-    border: 0px;
-  }
-  ::v-deep .el-dropdown-menu__item span{
-    color: $theme-blue-font-default-color;
-  }
-  ::v-deep .el-dropdown-menu__item .iconfont{
-    font-size: 18px;
-    padding: 0 10px 0 0;
-  }
-  ::v-deep .el-dropdown-menu__item:focus, .el-dropdown-menu__item:not(.is-disabled):hover{
-    background: $theme-blue-aside-hover-color;
   }
 
 </style>

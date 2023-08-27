@@ -65,7 +65,10 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="图标路径" prop="iconPath">
-              <el-input v-model="form.iconPath"></el-input>
+              <ImageUpload
+                :value="form.iconPath"
+                :limit="1"
+                @input="handleUploadIcon"></ImageUpload>
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -161,6 +164,9 @@
         api.getEnumLabel("DomainGroup").then(res => {
           this.labelDomainGroup = res.data
         })
+      },
+      handleUploadIcon(val){
+        this.form.iconPath = val;
       },
       submitForm(){
         console.log(this.form)

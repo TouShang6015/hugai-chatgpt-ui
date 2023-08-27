@@ -1,26 +1,18 @@
 <template>
   <div class="main">
-    <div class="chatInputs">
-      <div class="input-content">
-        <slot name="chatInputs">
-          <div class="input-box">
-            <!--输入框-->
-            <textarea class="inputs" id="textareaMsg" placeholder="请输入您的问题~" v-autoheight
-                      maxlength="2048" rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false"
-                      autocapitalize="off" autocomplete="off" v-model="inputMsg"
-                      @keyup.enter="handleKeyDown"></textarea>
-          </div>
-          <!--发送-->
-          <div class="input-button-box">
-            <div class="send input-button" @click="sendInputMessage">
-              <el-tooltip class="tooltip" effect="light" content="Ctrl + Enter" placement="top">
-                <img :src="require('/src/assets/imgs/send.png')" alt=""/>
-              </el-tooltip>
-            </div>
-          </div>
-        </slot>
+    <slot name="chatInputs">
+      <div class="input-box">
+        <!--输入框-->
+        <textarea class="inputs" id="textareaMsg" placeholder="请输入您的内容~（Enter 换行，Ctrl + Enter 发送）" v-autoheight
+                  maxlength="2048" rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false"
+                  autocapitalize="on" autocomplete="off" v-model="inputMsg"
+                  @keyup.enter="handleKeyDown"></textarea>
       </div>
-    </div>
+      <!--发送-->
+      <div class="input-button-box" @click="sendInputMessage">
+        <img :src="require('/src/assets/imgs/send.png')" alt=""/>
+      </div>
+    </slot>
   </div>
 </template>
 
@@ -74,87 +66,74 @@
 
 <style scoped lang="scss">
   .main{
-    flex: 1;
-    height: 100%;
-  }
-  .chatInputs {
     width: 100%;
     height: 100%;
-    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
 
-    .input-content {
+  }
+
+  .input-box {
+
+    width: 80%;
+    height: 100%;
+    margin: 0 10px;
+
+    .inputs {
       width: 100%;
       height: 100%;
-      display: flex;
+      padding: 10px;
+      background-color: rgb(66, 70, 86);
+      border-radius: 2px;
+      box-sizing: border-box;
+      transition: 0.2s;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 100;
+      margin-top: 1px;
 
-      .input-box {
-        display: flex;
-        width: 95%;
-        height: 100%;
 
-        .inputs {
-          flex: 1;
-          width: 100%;
-          height: 100%;
-          padding: 10px;
-          background-color: rgb(66, 70, 86);
-          border-radius: 10px;
-          box-sizing: border-box;
-          transition: 0.2s;
-          font-size: 16px;
-          color: #fff;
-          font-weight: 100;
-
-          &:focus {
-            outline: none;
-          }
-        }
-
+      &:focus {
+        outline: none;
       }
-
-      .input-button-box {
-        flex: 1;
-
-        .input-button {
-          width: 100%;
-          height: 100%;
-          position: relative;
-          text-align: center;
-          align-items: center;
-          justify-content: center;
-          display: flex;
-
-          img {
-            width: 48px;
-            height: 45px;
-            position: absolute;
-            transition: transform 0.5s;
-            transform-origin: center center;
-
-            &:hover{
-              transform: scale(1.1);
-            }
-
-            &:active{
-              border: 0;
-              transition: 0.3s;
-              transform: scale(0.8);
-            }
-
-          }
-        }
-      }
-
     }
 
   }
 
+  .input-button-box {
+    width: 35px;
+    height: 100%;
+    margin: 0 5px;
+    padding: 5px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border:1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15%;
+    transition: 0.2s;
+
+    &:hover{
+      box-shadow: 0px 0px 2px 1px rgba(255, 255, 255, 0.3) inset;
+    }
+
+    img {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.2s;
+      transform-origin: center center;
+    }
+  }
+
   textarea {
-    z-index: 0;
-    min-height: 100%;
-    max-height: 100%;
+    min-height: 45px;
+    width: 100%;
+    min-width: 100%;
     max-width: 100%;
-    min-width: 45%;
   }
 
 </style>

@@ -5,9 +5,6 @@
     </el-aside>
     <el-container>
       <HiddenButton></HiddenButton>
-<!--      <el-header height="48px">-->
-<!--        <Top></Top>-->
-<!--      </el-header>-->
       <el-main class="main">
         <AppMain></AppMain>
       </el-main>
@@ -24,12 +21,11 @@
   import Auth from "@/views/auth/Auth";
   import AppMain from "@/components/layout/AppMain";
   import NavIndex from "./nav/nav";
-  import Top from "./top/index";
   import HiddenButton from "@/components/layout/components/HiddenButton";
 
   export default {
     name: "LayoutIndex",
-    components: {AppMain, NavIndex, Top, Auth, HiddenButton},
+    components: {AppMain, NavIndex, Auth, HiddenButton},
     data() {
       return {
         loginDialog: false,

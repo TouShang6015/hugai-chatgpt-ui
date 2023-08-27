@@ -7,7 +7,7 @@ import VueRouter from 'vue-router'
 import store from "@/store";
 import cache from '@/utils/cache'
 import '/src/router/filter/filter';
-import '@/assets/css/elementui.css'
+import '@/assets/css/elementui.scss'
 import '@/assets/css/style.scss'
 import '@/assets/css/globalTransition.scss'
 import '@/assets/css/markdown-theme.css'

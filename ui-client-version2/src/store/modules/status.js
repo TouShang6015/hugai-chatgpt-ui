@@ -5,13 +5,9 @@ const status = {
     registerDialog: false,
     loadingStateConfig: false,
     loadingStateUserInfo: false,
-    hiddenStatusLeft: false,
   },
 
   mutations: {
-    SET_HIDDEN_STATUS_LEFT: (state, data) => {
-      state.hiddenStatusLeft = data
-    },
     SET_AUTH_DIALOG: (state, data) => {
       state.authDialog = data
     },

@@ -10,7 +10,7 @@
       </el-image>
     </div>
     <span class="username" v-show="!hiddenStatus">{{userName || '未登录'}}</span>
-    <span class="iconfont icon-zhanghao user-icon"></span>
+    <span class="iconfont icon-zhanghao user-icon" v-show="!hiddenStatus"></span>
   </div>
 </template>
 

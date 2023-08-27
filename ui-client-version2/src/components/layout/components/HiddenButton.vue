@@ -1,6 +1,6 @@
 <template>
   <div class="hidden-button" :class="{hiddenStatus: hiddenStatus}">
-    <span class="pointer" @click="hiddenLeft">{{hiddenStatus ? '>' : '<'}}</span>
+    <span class="pointer iconfont " :class="hiddenStatus ? 'icon-zhankai-01' : 'icon-zhedie-01'" @click="hiddenLeft"></span>
   </div>
 </template>
 
@@ -37,16 +37,23 @@
     flex-direction: column;
     flex-wrap: wrap;
     text-align: center;
+    margin-left: -26px;
+    z-index: 1;
   }
   .hidden-button span{
     display: block;
-    padding: 20px 4px;
+    padding: 16px 4px;
     border-radius: 0 8px 8px 0;
     background: $theme-blue-aside-color;
     color: white;
+    font-size: 18px;
   }
   .hidden-button span:hover{
     box-shadow: 0px 0px 1px 1px $theme-blue-aside-color;
+  }
+
+  .hidden-button.hiddenStatus {
+    margin-left: 0px;
   }
 
 </style>

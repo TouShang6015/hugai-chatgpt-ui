@@ -1,23 +1,23 @@
 <template>
   <div class="session-list">
-    <h1>历史会话</h1>
-
+    <div class="createSession pointer">
+      <div @click="handleCreateSession">
+        <span class="iconfont icon-add-01"></span>
+        <span>新的对话</span>
+      </div>
+    </div>
     <div class="list-box">
-        <ul>
-          <transition-group name="fade-list-to-right">
-            <li :class="sessionData.id === item.id ? 'pointer itemActive' : 'pointer'" v-for="(item,index) in sessionList" :key="index" @click="clickSessionListItem(item.id)">
-              <h2>{{item.sessionName || '无标题'}}</h2>
-              <div class="litem-bottom">
-                <div class="litem-time">{{item.createTime}}</div>
-                <div class="litem-count">
-                  <el-tooltip content="系统预估值，实际以openAi官网为准。" placement="top">
-                    <span>Token消耗：{{item.allConsumerToken}}</span>
-                  </el-tooltip>
-                </div>
-              </div>
-            </li>
-          </transition-group>
-        </ul>
+      <transition-group name="fade-list-to-right">
+        <li :class="sessionData.id === item.id ? 'pointer itemActive' : 'pointer'" v-for="(item,index) in sessionList" :key="index" @click="clickSessionListItem(item.id)">
+          <span class="iconfont icon-chat"></span>
+          <span>{{item.sessionName || '无标题'}}</span>
+          <div class="action" v-if="sessionData.id === item.id">
+            <el-tooltip content="删除会话" placement="top">
+              <span class="iconfont icon-waste" @click="handleDeleteSession(item.id)"></span>
+            </el-tooltip>
+          </div>
+        </li>
+      </transition-group>
     </div>
 
     <div class="bottom-box">
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+  import {getToken} from "@/utils/auth";
+
   export default {
     name: "SessionList",
     props: {
@@ -47,12 +49,16 @@
         if (!val){
           this.getUserSessionList()
         }
-      }
+      },
     },
     data(){
       return{
-        queryParam: {},
-        sessionList: []
+        queryParam: {
+          page: 1,
+          size: 20
+        },
+        sessionList: [],
+        isLogin: !!getToken(),
       }
     },
     created() {
@@ -60,6 +66,13 @@
     mounted() {
     },
     methods:{
+      handleBefore(){
+        if (!this.isLogin) {
+          this.$message.warning('请先登录后在操作')
+          return false;
+        }
+        return true
+      },
       getUserSessionList(){
         this.queryParam.type = this.sessionData.type
         this.queryParam.domainUniqueKey = this.sessionData.domainUniqueKey
@@ -72,36 +85,77 @@
         if (sessionId !== this.sessionData.id){
           this.$emit('clickSessionListItem',sessionId);
         }
-      }
+      },
+      handleCreateSession(){
+        if (this.handleBefore()){
+          this.$emit('handleCreateSession');
+        }
+      },
+      handleClearSession(){
+        if (this.handleBefore()){
+          this.$emit('handleClearSession');
+        }
+      },
+      handleDeleteSession(sessionId){
+        if (this.handleBefore()){
+          this.$emit('handleDeleteSession',sessionId);
+        }
+      },
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  @import "/src/assets/css/theme.scss";
   .session-list {
+    width: 100%;
     flex: 1;
-    background: linear-gradient(to bottom, #353b57, #272a37);
-    border-radius: 15px;
-    box-shadow: 1px 0px 5px 2px rgba(221, 225, 234, 0.4) inset;
-    padding: 8px;
+    padding: 10px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    align-items: flex-start;
+    border-right: 1px solid $theme-blue-aside-color;
+    flex-direction: column;
+    color: $theme-blue-font-default-color;
+    background: #2f3340;
+  }
+
+  .createSession{
+    width: 100%;
+    height: auto;
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
     justify-content: center;
     align-items: center;
   }
-
-  h1 {
-    color: white;
-    font-size: 22px;
-    line-height: 42px;
+  .createSession>div{
+    width: 100%;
+    height: 32px;
+    max-height: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    border: 1px rgba(255, 255, 255, 0.47) dashed;
+    transition: all 0.2s ease;
+    margin-bottom: 16px;
+  }
+  .createSession span{
+    font-size: 15px;
+    padding: 0 2px;
+  }
+  .createSession>div:hover{
+    border: 1px #ffffff dashed;
+    transform: scale(0.99);
   }
 
   .list-box {
-    border-top: 2px #374076 solid;
+    flex: 1;
     width: 100%;
-    height: 76%;
-    padding: 15px 15px 0 15px;
+    max-height: 70%;
     overflow: auto;
   }
 
@@ -110,83 +164,55 @@
     background: transparent;
   }
 
-  .bottom-box {
-    align-self: flex-end;
-    width: 100%;
-    height: 15%;
-    max-height: 15%;
-  }
-
   .list-box li {
     list-style: none;
     position: relative;
     width: 100%;
-    height: 75px;
-    margin-bottom: 12px;
-    background: #3c5178;
-    border-radius: 10px;
-    color: white;
-    box-shadow: 0px 0px 2px 1px #506a9c inset;
-    padding: 2px;
-    transition: transform 0.3s;
+    height: 48px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
 
     &:hover {
-      box-shadow: 0px 0px 2px 1px rgb(192, 183, 241) inset;
-      background: #4d6182;
-      transform: scale(0.97);
+      background: $theme-blue-aside-hover-color;
     }
   }
 
-  .list-box ul li.pointer.itemActive{
-    box-shadow: 0px 0px 2px 1px rgb(215, 211, 236) inset !important;
-    background: #566c90 !important;
+  .list-box li.pointer.itemActive{
+    background: $theme-blue-aside-hover-color;
   }
 
-  .list-box li h2 {
-    font-weight: bold;
-    max-width: 80%;
-    position: absolute;
-    top: 30%;
-    left: 12px;
-    transform: translate(0, -50%);
-    font-size: 16px;
+  .list-box li span {
+    max-width: 75%;
+    font-size: 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .litem-bottom{
-    position: absolute;
-    width: 92%;
-    height: 25%;
-    left: 12px;
-    bottom: 6px;
-    font-size: 12px;
-    display: flex;
-  }
-
-  .litem-bottom .litem-time {
-    font-weight: 200;
-    width: 50%;
-    position: relative;
-    text-align: left;
-    color: rgba(234, 231, 231, 0.85);
-  }
-
-  .litem-bottom .litem-count {
-    flex: 1;
-    width: auto;
-    font-weight: 200;
-    position: relative;
-    text-align: right;
-    color: rgba(234, 231, 231, 0.85);
-  }
-
-  ::v-deep.list-box li .iconfont {
+  ::v-deep.list-box li span.iconfont {
     color: white;
-    font-size: 12px;
+    font-size: 20px;
+    margin: 0 4px 0 8px
   }
-  ::v-deep.list-box li .iconfont:hover {
-    color: #d4d2d2;
+
+  .action{
+    right: 0;
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: 0 5px 5px 0;
+    background: $theme-blue-session-list-item-action-background;
+  }
+
+  .bottom-box {
+    align-self: flex-end;
+    width: 100%;
+    height: 15%;
+    max-height: 15%;
   }
 </style>

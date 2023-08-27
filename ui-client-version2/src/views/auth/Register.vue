@@ -192,7 +192,6 @@
     background: #3c3c47;
     position: relative;
     width: 100%;
-    margin: 3% auto 0 auto;
     text-align: center;
     border-radius: 15px;
     -webkit-border-radius: 15px;

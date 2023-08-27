@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4112509 */
-  src: url('iconfont.woff2?t=1692868240186') format('woff2'),
-       url('iconfont.woff?t=1692868240186') format('woff'),
-       url('iconfont.ttf?t=1692868240186') format('truetype');
+  src: url('iconfont.woff2?t=1693051835803') format('woff2'),
+       url('iconfont.woff?t=1693051835803') format('woff'),
+       url('iconfont.ttf?t=1693051835803') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,82 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add-01:before {
+  content: "\e6f3";
+}
+
+.icon-remove-01:before {
+  content: "\e6f4";
+}
+
+.icon-waste-restore:before {
+  content: "\e6f5";
+}
+
+.icon-waste:before {
+  content: "\e6f6";
+}
+
+.icon-delete-put-back:before {
+  content: "\e6f7";
+}
+
+.icon-add-02:before {
+  content: "\e6f8";
+}
+
+.icon-zhankai-01:before {
+  content: "\e619";
+}
+
+.icon-zhedie-01:before {
+  content: "\e61a";
+}
+
+.icon-a-addtoperson:before {
+  content: "\e65c";
+}
+
+.icon-chat:before {
+  content: "\e65d";
+}
+
+.icon-device:before {
+  content: "\e65e";
+}
+
+.icon-rain:before {
+  content: "\e663";
+}
+
+.icon-a-signin:before {
+  content: "\e665";
+}
+
+.icon-languange:before {
+  content: "\e660";
+}
+
+.icon-security2:before {
+  content: "\e664";
+}
+
+.icon-gitHub-01:before {
+  content: "\e667";
+}
+
+.icon-linkedin-01:before {
+  content: "\e67c";
+}
+
+.icon-telegram-01:before {
+  content: "\e686";
+}
+
+.icon-twitch-01:before {
+  content: "\e687";
 }
 
 .icon-align-center:before {

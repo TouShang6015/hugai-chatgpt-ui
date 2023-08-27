@@ -1,3 +1,4 @@
+@import "./theme.scss";
 .el-card__body, .el-main {
     padding: 0px 15px 5px 0px;
 }
@@ -111,4 +112,18 @@
 }
 .el-popper .popper__arrow {
     display: none;
+}
+.el-dropdown-menu {
+    background-color: #020202;
+    border: 0px;
+}
+ .el-dropdown-menu__item span{
+    color: $theme-blue-font-default-color;
+}
+ .el-dropdown-menu__item .iconfont{
+    font-size: 18px;
+    padding: 0 10px 0 0;
+}
+ .el-dropdown-menu__item:focus, .el-dropdown-menu__item:not(.is-disabled):hover{
+    background: $theme-blue-aside-hover-color;
 }

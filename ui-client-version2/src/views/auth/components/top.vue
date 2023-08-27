@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <div class="head-info">
-      <label @click="cancel">
-        <el-tooltip content="关闭" placement="top">
-          <span class="iconfont icon-e_guanbi"></span>
-        </el-tooltip>
-      </label>
-    </div>
+  <div class="head-info">
+    <label @click="cancel">
+      <el-tooltip content="关闭" placement="top">
+        <span class="iconfont icon-e_guanbi"></span>
+      </el-tooltip>
+    </label>
   </div>
 </template>
 
@@ -21,8 +19,8 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+@import "/src/assets/css/theme.scss";
   .head-info {
     position: relative;
     padding: 5px 0;
@@ -30,7 +28,7 @@
     font-weight: 600;
     font-size: 2em;
     color: #fff;
-    background: #343438;
+    background: $theme-blue-login-top;
     height: 38px;
     border-top-left-radius: 10px;
     -webkit-border-top-left-radius: 10px;
@@ -43,7 +41,7 @@
   }
 
   .head-info label {
-    background: #ff0076;
+    background: $theme-blue-login-top-close;
     width: 28px;
     height: 28px;
     display: block;
@@ -62,7 +60,7 @@
     position: relative;
     font-size: 20px;
     margin-top: 4px;
-    color: #7b7b7b;
+    color: $theme-blue-login-top-close-span;
   }
 
 </style>
