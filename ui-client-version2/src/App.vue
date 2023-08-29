@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="theme">
     <transition name="web-fade">
       <router-view/>
     </transition>
@@ -9,6 +9,11 @@
 <script>
   export default {
     name: 'App',
+    data(){
+      return{
+        theme: this.$store.state.settings.theme
+      }
+    },
   }
 </script>
 

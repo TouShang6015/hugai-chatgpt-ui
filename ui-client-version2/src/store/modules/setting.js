@@ -1,7 +1,7 @@
 const defaultSetting = {
   hiddenStatusLeft: false,
   hiddenStatusSessionList: false,
-  theme: 'blue'
+  theme: 'theme-blue'
 }
 
 const storageSetting = JSON.parse(localStorage.getItem('layout-setting')) || ''

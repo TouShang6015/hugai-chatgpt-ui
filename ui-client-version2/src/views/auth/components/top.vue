@@ -28,7 +28,6 @@
     font-weight: 600;
     font-size: 2em;
     color: #fff;
-    background: $theme-blue-login-top;
     height: 38px;
     border-top-left-radius: 10px;
     -webkit-border-top-left-radius: 10px;
@@ -41,7 +40,6 @@
   }
 
   .head-info label {
-    background: $theme-blue-login-top-close;
     width: 28px;
     height: 28px;
     display: block;

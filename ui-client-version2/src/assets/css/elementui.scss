@@ -127,3 +127,11 @@
  .el-dropdown-menu__item:focus, .el-dropdown-menu__item:not(.is-disabled):hover{
     background: $theme-blue-aside-hover-color;
 }
+
+
+.el-tabs--card > .el-tabs__header{
+    border-bottom: 0;
+}
+.el-tabs__item{
+    color: $theme-blue-font-default-color;
+}

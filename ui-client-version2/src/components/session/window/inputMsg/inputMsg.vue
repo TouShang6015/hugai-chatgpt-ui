@@ -4,7 +4,7 @@
       <div class="input-box">
         <!--输入框-->
         <textarea class="inputs" id="textareaMsg" placeholder="请输入您的内容~（Enter 换行，Ctrl + Enter 发送）" v-autoheight
-                  maxlength="2048" rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false"
+                  rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false"
                   autocapitalize="on" autocomplete="off" v-model="inputMsg"
                   @keyup.enter="handleKeyDown"></textarea>
       </div>
@@ -87,13 +87,14 @@
       height: 100%;
       padding: 10px;
       background-color: rgb(66, 70, 86);
-      border-radius: 2px;
+      border-radius: 6px;
       box-sizing: border-box;
       transition: 0.2s;
       font-size: 16px;
       color: #fff;
       font-weight: 100;
       margin-top: 1px;
+      border: 1px;
 
 
       &:focus {
