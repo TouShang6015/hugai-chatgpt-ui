@@ -43,6 +43,7 @@
     <div class="input-main">
       <InputMsg
               @setInputMsg="setInputMsg"
+              @flushIfConc="flushIfConc"
               @sendInputMessage="sendInputMessage"
       ></InputMsg>
     </div>
@@ -78,6 +79,7 @@
       return {
         ContentShowType,
         isAutoScroll: true,
+        ifConc: true,
 
         inputMsg: '',
         userImgHead: '',
@@ -108,6 +110,12 @@
       },
       setSessionRecord(val) {
         this.sessionRecordData = val;
+      },
+      getIfConc(){
+        return this.ifConc;
+      },
+      flushIfConc(val){
+        this.ifConc = val
       },
       onScroll() {
         const scrollDom = this.$refs.chatContent;
@@ -161,7 +169,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "/src/assets/css/theme.scss";
+
 
   .session-window {
     width: 100%;

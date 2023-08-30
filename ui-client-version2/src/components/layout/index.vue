@@ -51,16 +51,16 @@
 </script>
 
 <style lang="scss">
-  @import "/src/assets/css/theme.scss";
+
 
   .aside-main {
     width: 250px !important;
     transition: width 0.2s;
-    background-color: $theme-blue-aside-color;
+    background-color: var(--aside-color);
   }
 
   .main {
-    background-color: $theme-blue-main-color;
+    background-color: var(--main-color);
   }
 
   .asideMainHidden {

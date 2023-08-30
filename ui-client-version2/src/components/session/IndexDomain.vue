@@ -258,7 +258,8 @@
           sessionId: this.sessionData.id,
           sessionType: this.windowData.sessionType,
           content: inputMessage,
-          domainUniqueKey: this.windowData.domainKey
+          domainUniqueKey: this.windowData.domainKey,
+          ifConc: this.$refs.sessionWindow.getIfConc()
         });
       },
       // 发送前整理数据
@@ -292,7 +293,13 @@
     width: 15%;
     min-height: 100%;
     display: flex;
+    transition: width 0.2s;
   }
+  .main-session-list.hiddenStatusSession{
+    width: 0;
+    transition-property: all;
+  }
+
   .main-session-window{
     min-width: 80%;
     width: auto;

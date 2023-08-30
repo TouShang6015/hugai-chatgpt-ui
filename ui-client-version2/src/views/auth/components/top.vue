@@ -14,13 +14,14 @@
     methods:{
       cancel(){
         this.$emit('cancel')
+        this.$store.commit('CLEAR_DIALOG')
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
-@import "/src/assets/css/theme.scss";
+
   .head-info {
     position: relative;
     padding: 5px 0;
@@ -58,7 +59,7 @@
     position: relative;
     font-size: 20px;
     margin-top: 4px;
-    color: $theme-blue-login-top-close-span;
+    color: var(--login-top-close-span);
   }
 
 </style>

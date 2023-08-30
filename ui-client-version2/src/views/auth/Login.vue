@@ -117,9 +117,6 @@
       },
       cancel(){
         this.form = {}
-        this.$store.commit('SET_AUTH_DIALOG',false)
-        this.$store.commit('SET_LOGIN_DIALOG',false)
-        this.$store.commit('SET_REGISTER_DIALOG',false)
       }
     }
   }

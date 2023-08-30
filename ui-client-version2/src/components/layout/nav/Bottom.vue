@@ -5,14 +5,27 @@
       <el-dropdown trigger="click" @command="handleDropdownSelect">
         <UserBottomItem></UserBottomItem>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="logout" v-if="isLogin">
-            <span class="iconfont icon-a-signin"></span><span class="dropdown-span">退出登录</span>
-          </el-dropdown-item>
-          <el-dropdown-item command="login" v-if="!isLogin">
-            <span class="iconfont icon-twitch-01"></span><span class="dropdown-span">登陆</span>
-          </el-dropdown-item>
-          <el-dropdown-item command="register" v-if="!isLogin">
-            <span class="iconfont icon-a-addtoperson"></span><span class="dropdown-span">注册用户</span>
+
+          <div v-if="!isLogin">
+            <el-dropdown-item command="login">
+              <span class="iconfont icon-twitch-01"></span><span class="dropdown-span">登陆</span>
+            </el-dropdown-item>
+            <el-dropdown-item command="register" v-if="!isLogin">
+              <span class="iconfont icon-a-addtoperson"></span><span class="dropdown-span">注册用户</span>
+            </el-dropdown-item>
+          </div>
+
+          <div v-if="isLogin">
+            <el-dropdown-item command="account">
+              <span class="iconfont icon-a-signin"></span><span class="dropdown-span">账户管理</span>
+            </el-dropdown-item>
+            <el-dropdown-item command="logout">
+              <span class="iconfont icon-a-signin"></span><span class="dropdown-span">退出登录</span>
+            </el-dropdown-item>
+          </div>
+
+          <el-dropdown-item divided command="setting" v-if="isLogin || !isLogin">
+            <span class="iconfont icon-caozuoshezhi"></span><span class="dropdown-span">设置</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -63,7 +76,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import "/src/assets/css/theme.scss";
+
 
   .bottom-main {
     width: 100%;
@@ -82,7 +95,7 @@
     border-radius: 10px;
   }
   .bottom-item:hover {
-    background: $theme-blue-aside-hover-color;
+    background: var(--aside-hover-color);
   }
 
   .bottom-flex-end {

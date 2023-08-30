@@ -4,9 +4,9 @@
       <h1>Hug Ai</h1>
     </div>
     <div class="center-content">
-      <div class="item">fff</div>
-      <div class="item">sss</div>
-      <div class="item">222</div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
     </div>
     <div class="bottom">
 

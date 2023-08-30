@@ -1,6 +1,12 @@
 <template>
   <div class="main">
     <slot name="chatInputs">
+      <el-popover placement="top" trigger="click">
+        <ComponentsBox ref="componentBox" @flushIfConc="flushIfConc"></ComponentsBox>
+        <div class="input-button-box" slot="reference">
+          <img :src="require('/src/assets/imgs/block2.png')" alt=""/>
+        </div>
+      </el-popover>
       <div class="input-box">
         <!--输入框-->
         <textarea class="inputs" id="textareaMsg" placeholder="请输入您的内容~（Enter 换行，Ctrl + Enter 发送）" v-autoheight
@@ -17,11 +23,17 @@
 </template>
 
 <script>
+  import ComponentsBox from "@/components/session/window/inputMsg/ComponentsBox";
   export default {
     name: "inputMsg",
+    components: {ComponentsBox},
+    props:{
+      defaultIfConc: { type: Boolean, default: true }
+    },
     data(){
       return{
-        inputMsg: ''
+        inputMsg: '',
+        ifConc: this.defaultIfConc,
       }
     },
     watch:{
@@ -36,9 +48,13 @@
         }
       },
       sendInputMessage() {
+        this.$emit('flushIfConc', this.ifConc)
         this.$emit('sendInputMessage', this.inputMsg)
         this.inputMsg = '';
       },
+      flushIfConc(val){
+        this.ifConc = val
+      }
     },
     directives: {
       //用于自适应文本框的高度
@@ -73,12 +89,12 @@
     justify-content: center;
     flex-direction: row;
     align-items: center;
-
+    padding-bottom: 5px;
   }
 
   .input-box {
 
-    width: 80%;
+    width: 70%;
     height: 100%;
     margin: 0 10px;
 
@@ -90,7 +106,7 @@
       border-radius: 6px;
       box-sizing: border-box;
       transition: 0.2s;
-      font-size: 16px;
+      font-size: 15px;
       color: #fff;
       font-weight: 100;
       margin-top: 1px;

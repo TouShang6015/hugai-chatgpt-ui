@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    <img lazy :src="require('/src/assets/imgs/logo/logo_icon1.png')" width="70" height="70" @click="goHome">
+    <img lazy :src="require('/src/assets/imgs/logo/logo_icon2.png')" width="70" height="70" @click="goHome">
   </div>
 </template>
 

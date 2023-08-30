@@ -25,7 +25,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import "/src/assets/css/theme.scss";
+
 
   .hidden-button{
     width: auto;
@@ -44,12 +44,12 @@
     display: block;
     padding: 16px 4px;
     border-radius: 0 8px 8px 0;
-    background: $theme-blue-aside-color;
+    background: var(--aside-color);
     color: white;
     font-size: 18px;
   }
   .hidden-button span:hover{
-    box-shadow: 0px 0px 1px 1px $theme-blue-aside-color;
+    box-shadow: 0px 0px 1px 1px var(--aside-color);
   }
 
   .hidden-button.hiddenStatus {

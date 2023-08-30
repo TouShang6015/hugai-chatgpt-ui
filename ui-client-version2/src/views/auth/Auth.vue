@@ -45,8 +45,7 @@
 
 <style scoped>
   .auth-main {
-    backdrop-filter: blur(2px);
-    background: rgba(135, 132, 132, 0.25);
+    backdrop-filter: blur(1px);
     position: absolute;
     width: 100%;
     height: 100%;

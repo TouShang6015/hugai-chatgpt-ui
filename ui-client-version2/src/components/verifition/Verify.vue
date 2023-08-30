@@ -336,6 +336,7 @@
     box-sizing: content-box;
     border: 1px solid #ddd;
     -webkit-border-radius: 4px;
+    box-shadow: 1px 1px 1px 1px;
   }
 
   .verify-bar-area .verify-move-block {

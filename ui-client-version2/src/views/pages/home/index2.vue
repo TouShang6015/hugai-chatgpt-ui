@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="top-tabs">
-      <tabs :value="tabsSelect" :tab-item="tabItem"></tabs>
+      <tabs :value="tabsSelect" :tab-item="tabItem" theme="normal"></tabs>
     </div>
     <div class="content">
       <TabIndex1></TabIndex1>

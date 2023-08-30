@@ -1,5 +1,5 @@
 <template>
-  <div class="a-tabs">
+  <div class="a-tabs" :class="theme">
     <div class="a-tabs-item pointer"
          v-for="(item,index) in tabItem"
          :key="index"
@@ -12,9 +12,15 @@
 </template>
 
 <script>
+  const themes = {
+    normal: 'normal',
+    simple: 'simple'
+  }
+
   export default {
     name: "ComponentTabs",
     props:{
+      theme: { type: String , default: themes.normal},
       value: { type: String,required: true },
       tabItem: { type: Array,required: true }
     },
@@ -39,25 +45,46 @@
 </script>
 
 <style scoped lang="scss">
-@import "/src/assets/css/theme.scss";
+
   .a-tabs{
     display: inline-table;
     padding: 2px;
-    background: $theme-blue-tabs-background;
+    background: var(--tabs-background);
     border-radius: 8px;
-    color: $theme-blue-font-default-color;
+    color: var(--font-default-color);
     font-size: 14px;
   }
-
-  .a-tabs-item{
-    display: inline-block;
-    padding: 4px 10px;
-    margin: 2px;
-    background: $theme-blue-tabs-background;
-    border-radius: 4px;
-    transition: all 0.15s;
+  .simple.a-tabs{
+    background: rgba(0, 0, 0, 0.0);
   }
-.a-tabs-item.active{
-  background: $theme-blue-tabs-active-background;
-}
+
+/* normal */
+  .normal {
+    .a-tabs-item{
+      display: inline-block;
+      padding: 4px 10px;
+      margin: 2px;
+      background: var(--tabs-background);
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+    .a-tabs-item.active{
+      background: var(--tabs-active-background);
+    }
+  }
+
+  /* simple */
+  .simple {
+    .a-tabs-item{
+      display: inline-block;
+      padding: 4px 12px;
+      margin: 4px;
+      border-radius: 1px;
+      border-bottom: 3px solid var(--tabs-simple-background);
+      transition: all 0.15s;
+    }
+    .a-tabs-item.active{
+      border-bottom: 3px solid var(--tabs-active-simple-background);
+    }
+  }
 </style>

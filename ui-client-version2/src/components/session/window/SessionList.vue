@@ -106,7 +106,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "/src/assets/css/theme.scss";
+
   .session-list {
     width: 100%;
     flex: 1;
@@ -115,10 +115,14 @@
     flex-wrap: wrap;
     overflow: hidden;
     align-items: flex-start;
-    border-right: 1px solid $theme-blue-aside-color;
+    border-right: 1px solid var(--aside-color);
     flex-direction: column;
-    color: $theme-blue-font-default-color;
+    color: var(--font-default-color);
     background: #2f3340;
+    transition: padding 0.5s;
+  }
+  .hiddenStatusSession .session-list {
+    padding: 0;
   }
 
   .createSession{
@@ -175,12 +179,12 @@
     margin: 4px 0;
 
     &:hover {
-      background: $theme-blue-aside-hover-color;
+      background: var(--aside-hover-color);
     }
   }
 
   .list-box li.pointer.itemActive{
-    background: $theme-blue-aside-hover-color;
+    background: var(--aside-hover-color);
   }
 
   .list-box li span {
@@ -206,7 +210,7 @@
     align-items: center;
     justify-content: flex-end;
     border-radius: 0 5px 5px 0;
-    background: $theme-blue-session-list-item-action-background;
+    background: var(--session-list-item-action-background);
   }
 
   .bottom-box {

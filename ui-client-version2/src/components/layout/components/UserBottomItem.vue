@@ -78,7 +78,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import "/src/assets/css/theme.scss";
+
 
 .user-item{
   width: 100%;
@@ -88,13 +88,13 @@
 }
 
 .username{
-  color: $theme-blue-font-default-color;
+  color: var(--font-default-color);
   width: 62%;
   margin: 0 5px;
   font-size: 16px;
 }
 .user-icon{
-  color: $theme-blue-font-default-color;
+  color: var(--font-default-color);
 }
 
 .img{

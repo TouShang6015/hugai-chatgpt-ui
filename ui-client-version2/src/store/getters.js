@@ -11,6 +11,7 @@ const getters = {
   registerDialog: state => state.status.registerDialog,
   loadingStateConfig: state => state.status.loadingStateConfig,
   loadingStateUserInfo: state => state.status.loadingStateUserInfo,
+  accountDialog: state => state.status.accountDialog,
   configMain: state => state.webConfig.configMain,
   streamResponseType: state => state.webConfig.configMain.streamResponseType,
 }

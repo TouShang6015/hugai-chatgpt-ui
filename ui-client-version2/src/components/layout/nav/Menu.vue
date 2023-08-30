@@ -18,11 +18,10 @@
 <script>
 
   const menuList = [
-    { icon: 'icon-AI', routePath: '/home',title: '我的桌面', index: 0 },
-    { icon: 'icon-dengpao', routePath: '/sessionQA',title: '问答室', index: 1 },
-    { icon: 'icon-chat-bolt', routePath: '/sessionChat',title: 'Ai聊天室', index: 2 },
-    { icon: 'icon-tiaoseban ', routePath: '/sessionDraw',title: '绘图助手', index: 3 },
-    { icon: 'icon-qixiangleida', routePath: '/sessionDomain',title: '场景对话', index: 4 },
+    { icon: 'icon-dengpao', routePath: '/sessionQA',title: '问答室', index: 0 },
+    { icon: 'icon-chat-bolt', routePath: '/sessionChat',title: '智能问答', index: 1 },
+    { icon: 'icon-tiaoseban ', routePath: '/sessionDraw',title: '绘图助手', index: 2 },
+    { icon: 'icon-qixiangleida', routePath: '/sessionDomain',title: '场景对话', index: 3 },
   ]
 
   export default {
@@ -65,7 +64,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import "/src/assets/css/theme.scss";
+
 
   .nav-menu-wrapper {
     flex: 1;
@@ -74,8 +73,8 @@
 
     .menu-list {
       width: 100%;
-      height: 50px;
-      line-height: 50px;
+      height: 42px;
+      line-height: 42px;
       text-align: left;
 
       li {
@@ -94,12 +93,13 @@
   }
 
   .menu-list li:hover {
-    background: $theme-blue-aside-hover-color;
+    background: var(--aside-hover-color);
   }
 
   .menu-item{
     width: 100%;
     height: 100%;
+    padding:2px 0;
   }
 
   .item-icon{
@@ -121,15 +121,14 @@
     color: white;
     font-size: 15px;
     margin: 0 10px;
-    transition: opacity 0.2s ease, visibility 0.2s 0.2s;
   }
 
   .activeNav {
     opacity: 1;
-    background: $theme-blue-aside-hover-color;
+    background: var(--aside-hover-color);
   }
   .activeNav .iconfont{
-    color: $theme-blue-font-default-color;
+    color: var(--font-default-color);
     opacity: 1;
   }
 
