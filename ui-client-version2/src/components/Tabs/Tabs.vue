@@ -18,7 +18,7 @@
   }
 
   export default {
-    name: "ComponentTabs",
+    name: "a-tabs",
     props:{
       theme: { type: String , default: themes.normal},
       value: { type: String,required: true },
@@ -38,7 +38,7 @@
       handleTabItemClick(item){
         let value = item.value;
         this.activeValue = value;
-        this.$emit('tabItemChange',value)
+        this.$emit('change',value)
       }
     }
   }
@@ -69,6 +69,7 @@
       transition: all 0.15s;
     }
     .a-tabs-item.active{
+      color: var(--item-border-active-color);
       background: var(--tabs-active-background);
     }
   }
@@ -84,7 +85,8 @@
       transition: all 0.15s;
     }
     .a-tabs-item.active{
-      border-bottom: 3px solid var(--tabs-active-simple-background);
+      color: var(--item-border-active-color);
+      border-bottom: 3px solid var(--item-border-active-color);
     }
   }
 </style>

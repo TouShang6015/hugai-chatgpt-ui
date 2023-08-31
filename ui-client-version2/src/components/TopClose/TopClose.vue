@@ -10,7 +10,7 @@
 
 <script>
   export default {
-    name: "top",
+    name: "DialogTopClose",
     methods:{
       cancel(){
         this.$emit('cancel')

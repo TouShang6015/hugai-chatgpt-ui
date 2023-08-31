@@ -2,7 +2,7 @@
   <div class="center">
     <div class="main">
       <div class="login-form">
-        <Top @cancel="cancel"></Top>
+        <DialogTopClose @cancel="cancel"></DialogTopClose>
         <div class="title">
           <img :src="require('/src/assets/imgs/logo2.png')" alt=""/>
         </div>
@@ -54,11 +54,10 @@
 
 <script>
   import Verify from "@/components/verifition/Verify";
-  import Top from './components/top'
 
   export default {
-    name: "Login",
-    components: {Verify,Top},
+    name: "AutoLogin",
+    components: {Verify},
     data(){
       return {
         form: {
@@ -108,12 +107,14 @@
         })
       },
       handleTouristLogin(){
-        this.$store.dispatch('TouristLogin').then(() => this.loading = false)
+        this.$store.dispatch('TouristLogin').then(() => {
+          this.loading = false
+          this.form.captcha = {}
+        })
       },
       goRegister(){
         this.$store.commit('SET_LOGIN_DIALOG',false)
         this.$store.commit('SET_REGISTER_DIALOG',true)
-
       },
       cancel(){
         this.form = {}
@@ -138,7 +139,8 @@
   }
 
   .login-form {
-    background: #3c3c47;
+    background: var(--dialog-background);
+    box-shadow: 5px 2px 0px 3px var(--aside-color);
     position: relative;
     width: 100%;
     text-align: center;

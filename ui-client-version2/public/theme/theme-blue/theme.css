@@ -3,6 +3,7 @@
     --aside-hover-color: rgba(74, 76, 92, 0.7);
     --main-color: rgb(57, 60, 78);
     --font-default-color: white;
+    --login-background: #3c3c47;
     --login-top: #343438;
     --login-top-close: #ff0076;
     --login-top-close-span: #7b7b7b;
@@ -11,8 +12,11 @@
     --session-list-item-active-color: #7a4cc4;
     --session-list-item-action-background: linear-gradient(to right, rgba(0, 0, 0, 0.01), rgb(53, 54, 61));
     --tabs-background: rgb(78, 79, 92);
-    --tabs-simple-background: rgb(78, 79, 92,0);
+    --tabs-simple-background: rgb(78, 79, 92 , 0.0);
     --tabs-active-background: rgb(57, 60, 78);
     --tabs-active-simple-background: rgb(226, 226, 231);
-    --dialog-background: #070707;
+    --dialog-background: linear-gradient(to bottom, #2c2f3d, #313750);
+    --index-item-background: #111111;
+    --item-border-default-color: rgb(184,184,184);
+    --item-border-active-color: rgb(117, 219, 203);
 }

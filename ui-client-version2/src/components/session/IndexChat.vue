@@ -24,6 +24,7 @@
               :window-data="windowData"
               :session-data="sessionData"
               :loading="loading"
+              :default-input-message="defaultInputMessage"
               @sendInputMessage="sendInputMessage"
       ></SessionWindow>
     </div>
@@ -48,6 +49,10 @@
       windowData: {
         type: Object,
         required: true
+      },
+      defaultInputMessage: {
+        type: String,
+        default: ""
       }
     },
     data(){
@@ -298,7 +303,7 @@
     min-width: 80%;
     width: auto;
     height: 100%;
-    padding: 5px 4px 5px 12px;
+    padding: 0px 4px 0px 12px;
     flex: 1;
   }
 

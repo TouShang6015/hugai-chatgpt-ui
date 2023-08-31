@@ -28,7 +28,7 @@
     name: "inputMsg",
     components: {ComponentsBox},
     props:{
-      defaultIfConc: { type: Boolean, default: true }
+      defaultIfConc: { type: String, default: '1' }
     },
     data(){
       return{

@@ -3,16 +3,13 @@
     <div class="item">
       <p>连续对话</p>
       <div class="item-content">
-        <el-switch v-model="ifConc"></el-switch>
+        <el-switch v-model="ifConc" :active-value="'1'" :inactive-value="'0'"></el-switch>
       </div>
     </div>
     <div class="item">
       <p>侧边栏开启</p>
       <div class="item-content">
-        <el-switch v-model="hiddenStatus"
-                   :active-value="false"
-                   :inactive-value="true"
-                   @change="hiddenSessionStatus"></el-switch>
+        <el-switch v-model="hiddenStatus" :active-value="false" :inactive-value="true" @change="hiddenSessionStatus"></el-switch>
       </div>
     </div>
   </div>
@@ -22,7 +19,7 @@
   export default {
     name: "ComponentsBox",
     props:{
-      defaultIfConc: { type: Boolean, default: true }
+      defaultIfConc: { type: String, default: '1' }
     },
     data(){
       return{

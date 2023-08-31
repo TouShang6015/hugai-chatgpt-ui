@@ -18,14 +18,13 @@
 <script>
 
   const menuList = [
-    { icon: 'icon-dengpao', routePath: '/sessionQA',title: '问答室', index: 0 },
-    { icon: 'icon-chat-bolt', routePath: '/sessionChat',title: '智能问答', index: 1 },
-    { icon: 'icon-tiaoseban ', routePath: '/sessionDraw',title: '绘图助手', index: 2 },
-    { icon: 'icon-qixiangleida', routePath: '/sessionDomain',title: '场景对话', index: 3 },
+    { icon: 'icon-chat-bolt', routePath: '/sessionChat',title: '万能问答', index: 0 },
+    { icon: 'icon-tiaoseban ', routePath: '/sessionDraw',title: '绘图助手', index: 1 },
+    { icon: 'icon-qixiangleida', routePath: '/sessionDomain',title: '场景对话', index: 2 },
   ]
 
   export default {
-    name: "Menu",
+    name: "NavMenu",
     data() {
       return {
         menuList,

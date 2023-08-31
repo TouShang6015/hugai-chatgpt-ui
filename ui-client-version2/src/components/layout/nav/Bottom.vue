@@ -59,6 +59,9 @@
           case 'register':
             this.openRegisterDialog()
             break;
+          case 'setting':
+            this.openSettingDialog()
+            break;
         }
       },
       openLoginDialog(){
@@ -70,6 +73,10 @@
         this.$store.commit('SET_AUTH_DIALOG',!this.$store.getters.authDialog)
         this.$store.commit('SET_REGISTER_DIALOG',!this.$store.getters.registerDialog)
         this.$store.commit('SET_LOGIN_DIALOG',false)
+      },
+      openSettingDialog(){
+        console.log(!this.$store.getters.settingDialog)
+        this.$store.commit('SET_SETTING_DIALOG',!this.$store.getters.settingDialog)
       }
     }
   }

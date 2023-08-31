@@ -13,6 +13,9 @@
     <transition name="box-down">
       <Auth v-show="loginDialog"></Auth>
     </transition>
+    <transition name="box-down">
+      <SettingsInd v-show="settingDialog"></SettingsInd>
+    </transition>
   </el-container>
 
 </template>
@@ -22,13 +25,15 @@
   import AppMain from "@/components/layout/AppMain";
   import NavIndex from "./nav/nav";
   import HiddenButton from "@/components/layout/components/HiddenButton";
+  import SettingsInd from "@/views/setting/Settings";
 
   export default {
     name: "LayoutIndex",
-    components: {AppMain, NavIndex, Auth, HiddenButton},
+    components: {SettingsInd, AppMain, NavIndex, Auth, HiddenButton},
     data() {
       return {
         loginDialog: false,
+        settingDialog: false,
         registerDialog: false,
         hiddenStatus: this.$store.state.settings.hiddenStatusLeft,
       }
@@ -42,6 +47,11 @@
       '$store.state.settings.hiddenStatusLeft': {
         handler: function (val) {
           this.hiddenStatus = val
+        },
+      },
+      '$store.getters.settingDialog': {
+        handler: function (val) {
+          this.settingDialog = val
         },
       }
     },
@@ -61,6 +71,8 @@
 
   .main {
     background-color: var(--main-color);
+    width: 100%;
+    height: 100%;
   }
 
   .asideMainHidden {

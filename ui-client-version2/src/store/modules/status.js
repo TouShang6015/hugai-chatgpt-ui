@@ -6,9 +6,13 @@ const status = {
     loadingStateConfig: false,
     loadingStateUserInfo: false,
     accountDialog: false,
+    settingDialog: false,
   },
 
   mutations: {
+    SET_SETTING_DIALOG: (state, data) => {
+      state.settingDialog = data
+    },
     SET_ACCOUNT_DIALOG: (state, data) => {
       state.accountDialog = data
     },
@@ -32,6 +36,7 @@ const status = {
       state.loginDialog = false;
       state.registerDialog = false;
       state.accountDialog = false;
+      state.settingDialog = false;
     },
   },
 }

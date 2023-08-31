@@ -304,7 +304,7 @@
     min-width: 80%;
     width: auto;
     height: 100%;
-    padding: 5px 4px 5px 12px;
+    padding: 0px 4px 0px 12px;
     flex: 1;
   }
 

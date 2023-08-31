@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="register-form">
-      <Top @cancel="cancel"></Top>
+      <DialogTopClose @cancel="cancel"></DialogTopClose>
       <div class="title">
         <img :src="require('/src/assets/imgs/logo2.png')" alt=""/>
       </div>
@@ -64,11 +64,9 @@
 </template>
 
 <script>
-  import Top from './components/top'
 
   export default {
-    name: "Register",
-    components: {Top},
+    name: "AuthRegister",
     data(){
       return {
         form: {
@@ -186,7 +184,8 @@
   }
 
   .register-form {
-    background: #3c3c47;
+    background: var(--dialog-background);
+    box-shadow: 5px 2px 0px 3px var(--aside-color);
     position: relative;
     width: 100%;
     text-align: center;

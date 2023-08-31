@@ -24,19 +24,6 @@ const routerList = [
   },
   {
     path: "/",
-    name: "sessionQA",
-    component: Layout,
-    children: [
-      {
-        path: "/sessionQA",
-        name: 'sessionQA',
-        meta: {title: '问答室'},
-        component: () => import('/src/views/pages/sessionQA/index')
-      }
-    ]
-  },
-  {
-    path: "/",
     name: "sessionChat",
     component: Layout,
     children: [

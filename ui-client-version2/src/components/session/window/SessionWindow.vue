@@ -42,6 +42,7 @@
     </div>
     <div class="input-main">
       <InputMsg
+              ref="componentInputMsg"
               @setInputMsg="setInputMsg"
               @flushIfConc="flushIfConc"
               @sendInputMessage="sendInputMessage"
@@ -73,13 +74,17 @@
         default: () => {
         }
       },
-      loading: {type: Boolean, default: false}
+      loading: {type: Boolean, default: false},
+      defaultInputMessage: {
+        type: String,
+        default: ""
+      }
     },
     data() {
       return {
         ContentShowType,
         isAutoScroll: true,
-        ifConc: true,
+        ifConc: '1',
 
         inputMsg: '',
         userImgHead: '',
@@ -103,6 +108,7 @@
     },
     mounted() {
       this.userImgHead = this.$store.getters.configMain.staticWebsite + this.$store.getters.imgHeader
+      this.$refs.componentInputMsg.inputMsg = this.defaultInputMessage
     },
     methods: {
       setInputMsg(val) {
@@ -170,7 +176,6 @@
 
 <style lang="scss" scoped>
 
-
   .session-window {
     width: 100%;
     height: 100vh;
@@ -193,10 +198,10 @@
     padding: 8px 14px 14px 14px;
     box-sizing: border-box;
     flex-grow: 1;
-    padding: 0 10%;
 
     .chat-main-content {
       width: 100%;
+      display: flex;
     }
 
     li {

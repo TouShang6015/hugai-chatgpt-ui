@@ -12,6 +12,7 @@ const getters = {
   loadingStateConfig: state => state.status.loadingStateConfig,
   loadingStateUserInfo: state => state.status.loadingStateUserInfo,
   accountDialog: state => state.status.accountDialog,
+  settingDialog: state => state.status.settingDialog,
   configMain: state => state.webConfig.configMain,
   streamResponseType: state => state.webConfig.configMain.streamResponseType,
 }
