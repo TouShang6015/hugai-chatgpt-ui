@@ -66,11 +66,11 @@
   .aside-main {
     width: 250px !important;
     transition: width 0.2s;
-    background-color: var(--aside-color);
+    background-color: var(--aside-background);
   }
 
   .main {
-    background-color: var(--main-color);
+    background-color: var(--background-main);
     width: 100%;
     height: 100%;
   }

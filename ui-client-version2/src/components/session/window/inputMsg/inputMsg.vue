@@ -27,13 +27,10 @@
   export default {
     name: "inputMsg",
     components: {ComponentsBox},
-    props:{
-      defaultIfConc: { type: String, default: '1' }
-    },
     data(){
       return{
         inputMsg: '',
-        ifConc: this.defaultIfConc,
+        ifConc: this.$store.state.settings.ifConc,
       }
     },
     watch:{

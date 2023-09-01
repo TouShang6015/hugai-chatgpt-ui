@@ -113,9 +113,6 @@
             pre.appendChild(codeBox);
             let icon =
               `<div class="mac-icon">` +
-              `<span class="mac-icon-red"></span>` +
-              `<span class="mac-icon-yellow"></span>` +
-              `<span class="mac-icon-green"></span>` +
               `<button class="copy-button">复制</button>` +
               `</div>`;
             pre.insertAdjacentHTML("afterbegin", icon);

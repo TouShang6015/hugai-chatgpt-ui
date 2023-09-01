@@ -7,6 +7,7 @@
       </div>
       <div class="card-content">
         <ComponentsTheme v-if="tabValue === '1'"></ComponentsTheme>
+        <ComponentsOther v-if="tabValue === '2'" :data-info="dataInfo" :request-count="requestCount"></ComponentsOther>
       </div>
     </div>
   </div>
@@ -14,21 +15,38 @@
 
 <script>
   import ComponentsTheme from "@/views/setting/ComponentsTheme";
+  import ComponentsOther from "@/views/setting/ComponentsOther";
   export default {
     name: "SettingsInd",
-    components: {ComponentsTheme},
+    components: {ComponentsOther, ComponentsTheme},
     data(){
       return{
         tabValue: '1',
         tabItem: [
           {value: '1', label: "主题", route: ''},
           {value: '2', label: "关于", route: ''},
-        ]
+        ],
+        dataInfo: {},
+        requestCount: 0,
       }
+    },
+    created() {
+      this.getSettingInfo();
+    },
+    mounted() {
+
     },
     methods:{
       handleTabsChange(val){
         this.tabValue = val;
+      },
+      getSettingInfo(){
+        this.$api.get('/module/statistics/getSettingInfo').then(res => {
+          if (res.status){
+            this.dataInfo = res.data.info;
+            this.requestCount = res.data.requestCount;
+          }
+        })
       }
     }
   }
@@ -44,14 +62,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--font-default-color);
+    color: var(--font-color-default);
   }
   .content{
     width: 35%;
     min-height: 250px;
     background: var(--dialog-background);
     border-radius: 10px;
-    box-shadow: 5px 2px 0px 3px var(--aside-color);
+    box-shadow: var(--dialog-box-shadow);
   }
   .card-content{
     padding: 10px 20px;

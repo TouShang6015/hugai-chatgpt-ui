@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="theme">
+  <div id="app">
     <transition name="web-fade">
       <router-view/>
     </transition>
@@ -11,9 +11,12 @@
     name: 'App',
     data(){
       return{
-        theme: this.$store.state.settings.theme
+
       }
     },
+    created() {
+      this.$store.commit('GET_THEME')
+    }
   }
 </script>
 

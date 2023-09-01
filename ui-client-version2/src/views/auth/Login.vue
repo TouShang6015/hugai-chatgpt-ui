@@ -140,7 +140,7 @@
 
   .login-form {
     background: var(--dialog-background);
-    box-shadow: 5px 2px 0px 3px var(--aside-color);
+    box-shadow: 5px 2px 0px 3px var(--aside-background);
     position: relative;
     width: 100%;
     text-align: center;

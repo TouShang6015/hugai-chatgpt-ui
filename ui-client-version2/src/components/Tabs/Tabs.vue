@@ -51,7 +51,7 @@
     padding: 2px;
     background: var(--tabs-background);
     border-radius: 8px;
-    color: var(--font-default-color);
+    color: var(--font-color-default);
     font-size: 14px;
   }
   .simple.a-tabs{

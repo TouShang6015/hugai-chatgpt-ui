@@ -115,10 +115,10 @@
     flex-wrap: wrap;
     overflow: hidden;
     align-items: flex-start;
-    border-right: 1px solid var(--aside-color);
+    border-right: 1px solid var(--aside-background);
     flex-direction: column;
-    color: var(--font-default-color);
-    background: #2f3340;
+    color: var(--font-color-default);
+    background: var(--session-list-background);
     transition: padding 0.5s;
   }
   .hiddenStatusSession .session-list {
@@ -143,7 +143,7 @@
     overflow: hidden;
     justify-content: center;
     align-items: center;
-    border: 1px rgba(255, 255, 255, 0.47) dashed;
+    border: 1px var(--session-list-create-session-border) dashed;
     transition: all 0.2s ease;
     margin-bottom: 16px;
   }
@@ -152,7 +152,7 @@
     padding: 0 2px;
   }
   .createSession>div:hover{
-    border: 1px #ffffff dashed;
+    border: 1px dashed var(--session-list-create-session-border-hover);
     transform: scale(0.99);
   }
 
@@ -179,12 +179,12 @@
     margin: 4px 0;
 
     &:hover {
-      background: var(--aside-hover-color);
+      background: var(--session-list-li-background);
     }
   }
 
   .list-box li.pointer.itemActive{
-    background: var(--aside-hover-color);
+    background: var(--session-list-li-active-background);
   }
 
   .list-box li span {
@@ -196,7 +196,7 @@
   }
 
   ::v-deep.list-box li span.iconfont {
-    color: white;
+    color: var(--session-list-li-iconfont-color);
     font-size: 20px;
     margin: 0 4px 0 8px
   }

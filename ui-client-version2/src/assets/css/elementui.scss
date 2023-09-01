@@ -1,4 +1,3 @@
-@import "./theme.scss";
 .el-card__body, .el-main {
     padding: 0px 15px 5px 0px;
 }
@@ -118,7 +117,7 @@
     border: 0px;
 }
  .el-dropdown-menu__item span{
-    color: var(--font-default-color);
+    color: var(--font-color-default);
 }
  .el-dropdown-menu__item .iconfont{
     font-size: 18px;
@@ -137,13 +136,13 @@
     border-bottom: 0;
 }
 .el-tabs__item{
-    color: var(--font-default-color);
+    color: var(--font-color-default);
 }
 
 
 .el-popover{
     background: var(--dialog-background);
-    color: var(--font-default-color);
+    color: var(--font-color-default);
     border: 0px;
 }
 

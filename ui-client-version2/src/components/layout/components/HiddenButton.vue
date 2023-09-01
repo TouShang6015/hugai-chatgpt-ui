@@ -15,10 +15,7 @@
     methods: {
       hiddenLeft() {
         this.hiddenStatus = !this.hiddenStatus
-        const settings = this.$store.state.settings;
-        settings.hiddenStatusLeft = this.hiddenStatus
-        this.$store.state.settings.hiddenStatusLeft = this.hiddenStatus
-        this.$cache.local.set("layout-setting", JSON.stringify(settings));
+        this.$store.commit('SET_SETTING_ITEM',{key: 'hiddenStatusLeft',value: this.hiddenStatus})
       }
     }
   }
@@ -44,12 +41,12 @@
     display: block;
     padding: 16px 4px;
     border-radius: 0 8px 8px 0;
-    background: var(--aside-color);
+    background: var(--aside-background);
     color: white;
     font-size: 18px;
   }
   .hidden-button span:hover{
-    box-shadow: 0px 0px 1px 1px var(--aside-color);
+    box-shadow: 0px 0px 1px 1px var(--aside-background);
   }
 
   .hidden-button.hiddenStatus {

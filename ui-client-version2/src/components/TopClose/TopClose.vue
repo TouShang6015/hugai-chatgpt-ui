@@ -28,7 +28,6 @@
     text-align: center;
     font-weight: 600;
     font-size: 2em;
-    color: #fff;
     height: 38px;
     border-top-left-radius: 10px;
     -webkit-border-top-left-radius: 10px;
@@ -59,7 +58,7 @@
     position: relative;
     font-size: 20px;
     margin-top: 4px;
-    color: var(--login-top-close-span);
+    color: var(--topclose-font-color);
   }
 
 </style>

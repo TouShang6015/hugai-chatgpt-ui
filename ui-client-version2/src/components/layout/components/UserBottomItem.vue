@@ -88,13 +88,13 @@
 }
 
 .username{
-  color: var(--font-default-color);
+  color: var(--font-color-default);
   width: 62%;
   margin: 0 5px;
   font-size: 16px;
 }
 .user-icon{
-  color: var(--font-default-color);
+  color: var(--font-color-default);
 }
 
 .img{

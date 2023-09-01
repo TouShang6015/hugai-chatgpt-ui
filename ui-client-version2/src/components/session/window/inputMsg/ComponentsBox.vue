@@ -18,13 +18,10 @@
 <script>
   export default {
     name: "ComponentsBox",
-    props:{
-      defaultIfConc: { type: String, default: '1' }
-    },
     data(){
       return{
         hiddenStatus: this.$store.state.settings.hiddenStatusSessionList,
-        ifConc: this.defaultIfConc,
+        ifConc: this.$store.state.settings.ifConc,
       }
     },
     watch:{
@@ -35,12 +32,10 @@
     methods:{
       flushIfConc(){
         this.$emit('flushIfConc',this.ifConc)
+        this.$store.commit('SET_SETTING_ITEM',{key: 'ifConc',value: this.ifConc})
       },
       hiddenSessionStatus() {
-        const settings = this.$store.state.settings;
-        settings.hiddenStatusSessionList = this.hiddenStatus
-        this.$store.state.settings.hiddenStatusSessionList = this.hiddenStatus
-        this.$cache.local.set("layout-setting", JSON.stringify(settings));
+        this.$store.commit('SET_SETTING_ITEM',{key: 'hiddenStatusSessionList',value: this.hiddenStatus})
       }
     }
   }

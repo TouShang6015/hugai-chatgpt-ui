@@ -11,7 +11,6 @@ import '@/assets/css/elementui.scss'
 import '@/assets/css/style.scss'
 import '@/assets/css/globalTransition.scss'
 import '@/assets/css/markdown-theme.css'
-import "/src/assets/css/theme.scss";
 import apiRequest from "/src/utils/request/BaseRequest";
 import plugins from './common/plugins'
 import DialogTopClose from "@/components/TopClose/TopClose";

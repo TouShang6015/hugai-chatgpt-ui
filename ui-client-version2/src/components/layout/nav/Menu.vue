@@ -108,7 +108,7 @@
   .item-title{
     visibility: visible;
     opacity: 1;
-    color: white;
+    color: var(--font-color-aside);
     font-size: 15px;
     margin: 0 10px;
     transition: opacity 0.2s ease, visibility 0.2s 0.2s;
@@ -117,7 +117,6 @@
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    color: white;
     font-size: 15px;
     margin: 0 10px;
   }
@@ -127,7 +126,7 @@
     background: var(--aside-hover-color);
   }
   .activeNav .iconfont{
-    color: var(--font-default-color);
+    color: var(--font-color-default);
     opacity: 1;
   }
 

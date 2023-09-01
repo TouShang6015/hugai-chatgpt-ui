@@ -2,14 +2,8 @@
   <div class="themeMain">
     <div class="theme-item">
       <h3>主题</h3>
-      <li class="pointer" :class="{active: theme === themes[0]}">
-        <span class="iconfont icon-rain"></span>
-      </li>
-      <li class="pointer" :class="{active: theme === themes[1]}">
-        <span class="iconfont icon-yejianmoshi"></span>
-      </li>
-      <li class="pointer" :class="{active: theme === themes[2]}">
-        <span class="iconfont icon-mingliangmoshi"></span>
+      <li class="pointer" v-for="(item,index) in themes" :class="{active: theme === item.name}" @click="changeTheme(item.name)" :key="index">
+        <span class="iconfont" :class="item.icon"></span>
       </li>
     </div>
   </div>
@@ -17,9 +11,9 @@
 
 <script>
   const themes = [
-    'theme-blue',
-    'theme-dark',
-    'theme-light',
+    {name: 'theme-blue',icon: 'icon-rain'},
+    // {name: 'theme-dark',icon: 'icon-yejianmoshi'},
+    // {name: 'theme-light',icon: 'icon-mingliangmoshi'},
   ]
 
   export default {
@@ -28,6 +22,19 @@
       return {
         themes,
         theme: this.$store.state.settings.theme
+      }
+    },
+    watch:{
+      '$store.state.settings.theme':{
+        handler:function (val) {
+          this.theme = val
+        }
+      }
+    },
+    methods:{
+      changeTheme(theme){
+        this.$store.commit('SET_SETTING_ITEM',{key: 'theme',value: theme})
+        this.$store.commit('GET_THEME')
       }
     }
   }
@@ -49,7 +56,7 @@
     width: 120px;
     align-items: center;
     text-align: center;
-    font-size: 22px;
+    font-size: 18px;
   }
 
   .theme-item li {
@@ -57,7 +64,7 @@
   }
 
   .theme-item li .iconfont {
-    color: var(--font-default-color);
+    color: var(--font-color-default);
     padding: 2px 4px;
     border: 1px var(--item-border-default-color) solid;
     border-radius: 4px;

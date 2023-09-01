@@ -81,7 +81,7 @@
     justify-content: flex-start;
     flex-direction: column;
     align-content: center;
-    color: var(--font-default-color);
+    color: var(--font-color-default);
   }
 
   .title{
@@ -125,7 +125,7 @@
   .center-content .item li{
     min-height: 70px;
     height: auto;
-    background: var(--aside-color);
+    background: var(--aside-background);
     margin: 8px 6px;
     border-radius: 15px;
     padding: 15px;
@@ -163,7 +163,7 @@
   }
   .bottom span{
     display: block;
-    color: var(--font-default-color);
+    color: var(--font-color-default);
     font-size: 25px;
     letter-spacing: 2px;
     word-spacing: 2px;

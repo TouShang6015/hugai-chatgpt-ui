@@ -84,7 +84,7 @@
       return {
         ContentShowType,
         isAutoScroll: true,
-        ifConc: '1',
+        ifConc: this.$store.state.settings.ifConc,
 
         inputMsg: '',
         userImgHead: '',
@@ -195,7 +195,7 @@
     height: 100%;
     max-height: 100%;
     overflow-y: scroll;
-    padding: 8px 14px 14px 14px;
+    padding: 8px 10% 14px 10%;
     box-sizing: border-box;
     flex-grow: 1;
 
@@ -222,13 +222,12 @@
         max-width: 80%;
         padding: 8px 15px 8px 15px;
         border-radius: 5px 12px 12px 12px;
-        background-color: #fff;
-
+        background-color: var(--session-window-system-background);
       }
 
       .info-time {
         margin: 10px 0;
-        color: #fff;
+        color: var(--font-color-default);
         font-size: 14px;
         display: flex;
         justify-content: flex-start;
@@ -246,7 +245,7 @@
         }
 
         span:last-child {
-          color: rgb(101, 104, 115);
+          color: var(--font-color-default);
           margin-left: 10px;
           vertical-align: middle;
         }
@@ -262,8 +261,8 @@
         max-width: 90%;
         padding: 8px 15px 8px 15px;
         border-radius: 12px 5px 12px 12px;
-        background-color: #95ec69;
-        color: #000;
+        background-color: var(--session-window-user-background);
+        color: var(--font-color-markdown);
         word-break: break-all;
       }
 
@@ -279,7 +278,7 @@
         }
 
         span:first-child {
-          color: rgb(101, 104, 115);
+          color: var(--font-color-default);
           margin-right: 10px;
           vertical-align: middle;
         }

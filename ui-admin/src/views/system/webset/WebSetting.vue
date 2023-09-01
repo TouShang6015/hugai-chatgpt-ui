@@ -74,16 +74,12 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row :gutter="25">
-        <el-col :span="8" >
-          <el-form-item label="客户端默认桌面背景" prop="deskImgDefault">
-            <ImageUpload
-              :value="form.deskImgDefault"
-              :limit="1"
-              @input="handleUploadInputDeskImgDefault"></ImageUpload>
+      <el-row>
+        <el-col :span="4">
+          <el-form-item label="系统版本" prop="projectVersion">
+            <el-input v-model="form.projectVersion" label="系统版本"></el-input>
           </el-form-item>
         </el-col>
-
       </el-row>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -128,9 +124,6 @@
           }
         })
       },
-      handleUploadInputDeskImgDefault(val){
-        this.form.deskImgDefault = val;
-      }
     }
   }
 </script>
