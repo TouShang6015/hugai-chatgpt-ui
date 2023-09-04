@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :title="title" :visible.sync="dialogState" :width="width" append-to-body :before-close="beforeClose">
+    <el-dialog :title="title" :visible.sync="dialogState" v-if="dialog" :width="width" append-to-body :before-close="beforeClose">
       <el-form ref="form" :model="form" :rules="rules" :label-width="labelWidth">
         <el-row>
           <div style="display: inline" v-for="item in builderItem" :key="item.key">

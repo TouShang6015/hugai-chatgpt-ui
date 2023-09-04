@@ -10,7 +10,11 @@
       @resetQuery="resetQuery"
       @baseHandleAdd="baseHandleAdd"
     >
-
+      <template slot="item-noticeType" slot-scope="scope">
+        <el-select v-model="queryParams.noticeType" placeholder="通知类型" clearable>
+          <el-option v-for="(item,index) in NoticeType" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </template>
     </search-form>
 
     <base-table
@@ -25,7 +29,9 @@
       @submitDeleteByColumn="submitDeleteByColumn"
       @baseHandleSelectionChange="baseHandleSelectionChange"
     >
-
+      <template slot="column-noticeType" slot-scope="scope">
+        <el-tag v-for="(item,index) in NoticeType" v-if="item.value == scope.row.noticeType">{{item.label}}</el-tag>
+      </template>
     </base-table>
 
     <base-form
@@ -35,11 +41,18 @@
       :form="form"
       :rules="rules"
       :builder-item="builderForm.items"
-      :width="'700px'"
+      :width="'900px'"
       @cancel="cancel"
       @submitForm="submitForm"
     >
-
+      <template slot="item-noticeType">
+        <el-select v-model="form.noticeType" placeholder="通知类型" clearable>
+          <el-option v-for="(item,index) in NoticeType" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </template>
+      <template slot="item-content">
+        <MarkdownView ref="mv" :content="form.content" @callbackValue="markdownCallBack"></MarkdownView>
+      </template>
     </base-form>
 
   </div>
@@ -47,6 +60,7 @@
 
 <script>
   import crud from '/src/common/crud/crud';
+  import NoticeType from '/src/common/constants/NoticeType'
 
   export default {
     name: 'domainIndex',
@@ -54,6 +68,7 @@
     data(){
       return{
         builderSearch,builderTable,builderForm,
+        NoticeType,
         rules:{
           title: [{ required: true, trigger: "blur", message: "标题不能为空" }],
           sort: [{ required: true, trigger: "blur", message: "排序号不能为空" }],
@@ -76,6 +91,9 @@
         this.useBaseComponent = true;
         return true;
       },
+      markdownCallBack(val){
+        this.form.content = val;
+      }
     }
   }
 
@@ -106,7 +124,7 @@
   const builderForm = {
     items: [
       { title: '标题', key: 'title' },
-      { title: '通知类型', key: 'titleType' },
+      { title: '通知类型', key: 'noticeType' },
       { title: '排序号', key: 'sort' },
       { title: '内容', key: 'content',type: 'textarea',minHeight: 300 },
     ]

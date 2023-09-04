@@ -63,6 +63,15 @@ li{
   background: white !important;
 }
 
+/* hover动画 */
+.click-box{
+  transition: all 0.2s ease-out;
+}
+.click-box:hover{
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+
 /* 页面加载虚化 */
 .loading-iframe{
   backdrop-filter: blur(1px);

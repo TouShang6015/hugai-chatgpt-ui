@@ -3,39 +3,8 @@
     <div class="session-window" ref="sessionWindow">
       <div class="chat-content" ref="chatContent" @scroll="onScroll">
         <li v-for="(item,index) in sessionRecordData" :key="index">
-          <div class="chat-friend" v-if="item.role !== 'user'">
-            <div class="info-time">
-              <img :src="require('/src/assets/imgs/robot4.png')" alt=""/>
-              <span>Hug Ai 助手</span>
-              <span>{{item.createTime}}</span>
-            </div>
-            <div class="chat-main-content">
-              <div class="chat-text">
-                <div class="message-content">
-                  <MarkdownView
-                          ref="mv"
-                          v-if="windowData.contentShowType == ContentShowType.Markdown"
-                          :content="item.content"
-                  ></MarkdownView>
-                  <div v-html="item.content" v-if="windowData.contentShowType == ContentShowType.Html"/>
-                </div>
-              </div>
-              <Copy :value="item.content"></Copy>
-            </div>
-          </div>
-          <div class="chat-me" v-else>
-            <div class="info-time">
-              <span>{{$store.getters.username}}</span>
-              <el-image :src="userImgHead">
-                <div slot="error" class="image-slot">
-                  <img :src="require('/src/assets/imgs/user_img_default1.png')" alt="">
-                </div>
-              </el-image>
-            </div>
-            <div class="chat-text">
-              <span style="font-size:15px">{{ item.content }}</span>
-            </div>
-          </div>
+          <WindowAssistant v-if="item.role !== 'user'" :content-show-type="windowData.contentShowType" :item-data="item"></WindowAssistant>
+          <WindowUser v-else :item-data="item"></WindowUser>
         </li>
         <div class="spacer"></div>
       </div>
@@ -54,14 +23,15 @@
 
 <script>
   import InputMsg from './inputMsg/inputMsg';
-  import Copy from './copy';
   import ContentShowType from "@/common/constants/ContentShowType";
-  import MarkdownView from '@/components/MarkdownView/index'
+  import WindowAssistant from "@/components/session/window/WindowAssistant";
+  import WindowUser from "@/components/session/window/WindowUser";
 
   export default {
     name: "SessionWindow",
     components: {
-      InputMsg, Copy, MarkdownView
+      WindowUser,
+      InputMsg,WindowAssistant
     },
     props: {
       windowData: {
@@ -87,7 +57,6 @@
         ifConc: this.$store.state.settings.ifConc,
 
         inputMsg: '',
-        userImgHead: '',
 
         sessionRecordData: []
       }
@@ -107,7 +76,6 @@
     created() {
     },
     mounted() {
-      this.userImgHead = this.$store.getters.configMain.staticWebsite + this.$store.getters.imgHeader
       this.$refs.componentInputMsg.inputMsg = this.defaultInputMessage
     },
     methods: {
@@ -212,87 +180,6 @@
       display: flex;
     }
 
-    .chat-friend {
-      width: 100%;
-      height: auto;
-      float: left;
-
-      .chat-text {
-        float: left;
-        max-width: 80%;
-        padding: 8px 15px 8px 15px;
-        border-radius: 5px 12px 12px 12px;
-        background-color: var(--session-window-system-background);
-      }
-
-      .info-time {
-        margin: 10px 0;
-        color: var(--font-color-default);
-        font-size: 14px;
-        display: flex;
-        justify-content: flex-start;
-
-        img {
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          vertical-align: middle;
-          margin-right: 10px;
-        }
-
-        span {
-          line-height: 30px;
-        }
-
-        span:last-child {
-          color: var(--font-color-default);
-          margin-left: 10px;
-          vertical-align: middle;
-        }
-      }
-    }
-
-    .chat-me {
-      width: 100%;
-      float: right;
-
-      .chat-text {
-        float: right;
-        max-width: 90%;
-        padding: 8px 15px 8px 15px;
-        border-radius: 12px 5px 12px 12px;
-        background-color: var(--session-window-user-background);
-        color: var(--font-color-markdown);
-        word-break: break-all;
-      }
-
-      .info-time {
-        margin: 10px 0;
-        color: #fff;
-        font-size: 14px;
-        display: flex;
-        justify-content: flex-end;
-
-        span {
-          line-height: 30px;
-        }
-
-        span:first-child {
-          color: var(--font-color-default);
-          margin-right: 10px;
-          vertical-align: middle;
-        }
-      }
-    }
-  }
-
-  ::v-deep .info-time .el-image img {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    vertical-align: middle;
-    margin-right: 10px;
-    margin-left: 10px;
   }
 
   .input-main {

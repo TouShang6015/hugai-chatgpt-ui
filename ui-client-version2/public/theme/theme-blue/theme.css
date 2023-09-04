@@ -30,6 +30,9 @@
     --item-border-default-color: rgb(184,184,184);
     --item-border-active-color: rgb(117, 219, 203);
 
+    --help-background: linear-gradient(to bottom, rgb(45, 46, 50), rgba(50, 50, 50, 0.15));
+    --help-bottom-li-background: rgba(35, 34, 34, 0.91);
+
     --markdown-box-shadow: rgba(0, 0, 0, 0) 0px 2px 12px 0px;
     --markdown-pre-border: 1px solid #272822;
     --markdown-pre-background-color: #272822;

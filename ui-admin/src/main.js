@@ -43,6 +43,10 @@ import SearchForm from '/src/components/Base/SearchForm/SearchForm'
 import BaseTable from "/src/components/Base/Table/BaseTable";
 import BaseForm from "/src/components/Base/BaseForm/BaseForm";
 
+import MarkdownView from '/src/components/MarkdownView/index';
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts
 Vue.prototype.getConfigKey = getConfigKey
@@ -64,10 +68,12 @@ Vue.component('ImagePreview', ImagePreview)
 Vue.component('SearchForm', SearchForm)
 Vue.component('BaseTable', BaseTable)
 Vue.component('BaseForm', BaseForm)
+Vue.component('MarkdownView', MarkdownView)
 
 Vue.use(directive)
 Vue.use(plugins)
 Vue.use(VueMeta)
+Vue.use(mavonEditor);
 DictData.install()
 
 /**

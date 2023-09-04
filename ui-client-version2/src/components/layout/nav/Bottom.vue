@@ -17,7 +17,7 @@
 
           <div v-if="isLogin">
             <el-dropdown-item command="account">
-              <span class="iconfont icon-a-signin"></span><span class="dropdown-span">账户管理</span>
+              <span class="iconfont icon-security2"></span><span class="dropdown-span">账户管理</span>
             </el-dropdown-item>
             <el-dropdown-item command="logout">
               <span class="iconfont icon-a-signin"></span><span class="dropdown-span">退出登录</span>
@@ -29,7 +29,6 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-
     </div>
 
   </div>
@@ -39,7 +38,7 @@
   import UserBottomItem from "@/components/layout/components/UserBottomItem";
   import {getToken} from "@/utils/auth";
   export default {
-    name: "Bottom",
+    name: "NavBottom",
     components: {UserBottomItem},
     data() {
       return {
@@ -88,6 +87,8 @@
   .bottom-main {
     width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     align-self: flex-end;
     height: 15%;
     max-height: 15%;

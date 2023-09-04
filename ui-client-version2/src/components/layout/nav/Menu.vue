@@ -18,9 +18,10 @@
 <script>
 
   const menuList = [
-    { icon: 'icon-chat-bolt', routePath: '/sessionChat',title: '万能问答', index: 0 },
-    { icon: 'icon-tiaoseban ', routePath: '/sessionDraw',title: '绘图助手', index: 1 },
-    { icon: 'icon-qixiangleida', routePath: '/sessionDomain',title: '场景对话', index: 2 },
+    { icon: 'icon-AI', routePath: '/home',title: '主页', index: 0 },
+    { icon: 'icon-chat-bolt', routePath: '/sessionChat',title: '万能问答', index: 1 },
+    { icon: 'icon-tiaoseban ', routePath: '/sessionDraw',title: '绘图助手', index: 2 },
+    { icon: 'icon-qixiangleida', routePath: '/sessionDomain',title: '场景对话', index: 3 },
   ]
 
   export default {

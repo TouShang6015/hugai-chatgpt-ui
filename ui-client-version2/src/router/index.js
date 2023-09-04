@@ -17,8 +17,8 @@ const routerList = [
       {
         path: "/home",
         name: 'home',
-        meta: {title: '我的桌面'},
-        component: () => import('/src/views/pages/home/index2')
+        meta: {title: '主页'},
+        component: () => import('/src/views/pages/home/index')
       }
     ]
   },
@@ -30,7 +30,7 @@ const routerList = [
       {
         path: "/sessionChat",
         name: 'sessionChat',
-        meta: {title: 'Ai聊天室'},
+        meta: {title: '万能问答'},
         component: () => import('/src/views/pages/sessionChat/index')
       }
     ]
@@ -71,6 +71,19 @@ const routerList = [
         name: 'UserHome',
         meta: {title: '个人中心'},
         component: () => import('/src/views/pages/user/UserHome')
+      }
+    ]
+  },
+  {
+    path: "/",
+    name: "other",
+    component: Layout,
+    children: [
+      {
+        path: "/other/help",
+        name: 'help',
+        meta: {title: '常见问题'},
+        component: () => import('/src/views/pages/help/index')
       }
     ]
   },

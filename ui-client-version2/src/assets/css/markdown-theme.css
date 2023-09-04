@@ -5,7 +5,7 @@
     border-radius: 0 !important;
 }
 .markdown-body {
-    line-height: 1.1 !important;
+    line-height: 1.4 !important;
 }
 .v-note-wrapper .v-note-panel .v-note-show .v-show-content, .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
     padding: 8px !important;
@@ -17,6 +17,10 @@
 
 .markdown-body p{
     margin-bottom: 0px !important;
+}
+
+.markdown-body li{
+    list-style: inherit !important;
 }
 
 pre {

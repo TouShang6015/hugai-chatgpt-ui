@@ -37,7 +37,6 @@
     mounted() {
       this.flushImgUrl();
       this.userName = this.$store.getters.username;
-      this.getNoticeData();
     },
     methods: {
       flushImgUrl(){
@@ -58,14 +57,6 @@
         this.$store.commit('SET_REGISTER_DIALOG',!this.$store.getters.registerDialog)
         this.$store.commit('SET_LOGIN_DIALOG',false)
       },
-      getNoticeData(){
-        this.$api.get('/module/business/noticeclient/getLastNotice').then(res => {
-          if (res.status){
-            this.noticeData = res.data;
-            this.noticeOpen = true;
-          }
-        })
-      },
       handleCommand(command) {
         if (command === 'logout'){
           this.$store.dispatch('LogOut');
@@ -79,12 +70,12 @@
 
 <style scoped lang="scss">
 
-
 .user-item{
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .username{
@@ -102,6 +93,10 @@
   height: 38px;
   margin-left: 5px;
   margin-right: 5px;
+}
+::v-deep .img .el-image{
+  width: 100%;
+  height: 100%;
 }
 ::v-deep .img img{
   width: 95%;
