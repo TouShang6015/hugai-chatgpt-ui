@@ -47,7 +47,7 @@
     methods: {
       handleBefore(){
         if (!this.isLogin) {
-          this.$message.warning('请先登录后在操作')
+          this.$message.warning('请先登录后在操作~')
           return false;
         }
         return true

@@ -1,4 +1,4 @@
-# sse-test
+# hugai-ui-client
 
 ## Project setup
 ```

@@ -9,6 +9,14 @@
 <script>
   export default {
     name: 'App',
+    data(){
+      return{
+
+      }
+    },
+    created() {
+      this.$store.commit('GET_THEME')
+    }
   }
 </script>
 
@@ -16,10 +24,8 @@
   @import url(./assets/font/iconfont.css);
 
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: rgb(39, 42, 55);
     width: 100vw;
     height: 100vh;
     background-size: cover;

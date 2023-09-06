@@ -110,7 +110,6 @@
     height: auto;
     padding: 5px 30px;
     display: flex;
-    font-family: 宋体,serif;
   }
   .bottom-item{
     margin-top: -50px;

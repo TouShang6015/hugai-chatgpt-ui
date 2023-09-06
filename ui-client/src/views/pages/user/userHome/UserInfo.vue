@@ -114,6 +114,5 @@
         color: white;
         font-size: 15px;
         text-align: center;
-        font-family: "幼圆", sans-serif;
     }
 </style>

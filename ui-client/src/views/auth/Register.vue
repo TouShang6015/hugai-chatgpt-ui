@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="register-form">
-      <Top @cancel="cancel"></Top>
+      <DialogTopClose @cancel="cancel"></DialogTopClose>
       <div class="title">
         <img :src="require('/src/assets/imgs/logo2.png')" alt=""/>
       </div>
@@ -64,11 +64,9 @@
 </template>
 
 <script>
-  import Top from './components/top'
 
   export default {
-    name: "Register",
-    components: {Top},
+    name: "AuthRegister",
     data(){
       return {
         form: {
@@ -169,9 +167,6 @@
       },
       cancel(){
         this.form = {}
-        this.$store.commit('SET_AUTH_DIALOG',false)
-        this.$store.commit('SET_LOGIN_DIALOG',false)
-        this.$store.commit('SET_REGISTER_DIALOG',false)
       }
     }
   }
@@ -189,10 +184,10 @@
   }
 
   .register-form {
-    background: #3c3c47;
+    background: var(--dialog-background);
+    box-shadow: 5px 2px 0px 3px var(--aside-background);
     position: relative;
     width: 100%;
-    margin: 3% auto 0 auto;
     text-align: center;
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -237,7 +232,6 @@
     text-align: center;
     line-height: 50px;
     color: white;
-    font-family: "幼圆", sans-serif;
   }
 
   ::v-deep .el-input{

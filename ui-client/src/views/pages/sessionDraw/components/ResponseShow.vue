@@ -57,7 +57,6 @@
 .show-ai span{
   color: white;
   float: right;
-  font-family: "幼圆", sans-serif;
 }
   .show-content{
     position: relative;

@@ -143,7 +143,6 @@
   text-align: center;
   color: #f4ffeb;
   font-size: 24px;
-  font-family: "幼圆", sans-serif;
 }
 
   ::v-deep .el-form-item__label {

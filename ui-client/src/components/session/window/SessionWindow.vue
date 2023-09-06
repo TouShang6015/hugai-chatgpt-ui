@@ -1,67 +1,37 @@
 <template>
-  <div class="session-window" ref="sessionWindow">
-    <div class="chat-content" id="chat-content" ref="chatContent" @scroll="onScroll">
-      <transition-group name="fade-list">
+  <div style="width: 100%;height: 100%;position: relative">
+    <div class="session-window" ref="sessionWindow">
+      <div class="chat-content" ref="chatContent" @scroll="onScroll">
         <li v-for="(item,index) in sessionRecordData" :key="index">
-          <div class="chat-friend" v-if="item.role !== 'user'">
-            <div class="chat-main-content">
-              <div class="chat-text">
-                <div class="message-content">
-                  <MarkdownView
-                          ref="mv"
-                          v-if="windowData.contentShowType == ContentShowType.Markdown"
-                          :content="item.content"
-                  ></MarkdownView>
-                  <div v-html="item.content" v-if="windowData.contentShowType == ContentShowType.Html"/>
-                </div>
-              </div>
-              <Copy :value="item.content"></Copy>
-
-            </div>
-
-            <div class="info-time">
-              <img :src="require('/src/assets/imgs/robot.png')" alt=""/>
-              <span>Hug Ai 助手</span>
-              <span>{{item.createTime}}</span>
-            </div>
-          </div>
-          <div class="chat-me" v-else>
-            <div class="chat-text">
-              <span style="font-size:15px">{{ item.content }}</span>
-            </div>
-            <div class="info-time">
-              <span>{{$store.getters.username}}</span>
-              <span>{{item.createTime}}</span>
-              <el-image :src="userImgHead">
-                <div slot="error" class="image-slot">
-                  <img :src="require('/src/assets/imgs/user_img_default1.png')" alt="">
-                </div>
-              </el-image>
-            </div>
-          </div>
+          <WindowAssistant v-if="item.role !== 'user'" :content-show-type="windowData.contentShowType" :item-data="item"></WindowAssistant>
+          <WindowUser v-else :item-data="item"></WindowUser>
         </li>
-      </transition-group>
+        <div class="spacer"></div>
+      </div>
     </div>
     <div class="input-main">
       <InputMsg
+              ref="componentInputMsg"
               @setInputMsg="setInputMsg"
+              @flushIfConc="flushIfConc"
               @sendInputMessage="sendInputMessage"
       ></InputMsg>
     </div>
   </div>
+
 </template>
 
 <script>
   import InputMsg from './inputMsg/inputMsg';
-  import Copy from './copy';
   import ContentShowType from "@/common/constants/ContentShowType";
-  import MarkdownView from '@/components/MarkdownView/index'
-  import {animation} from "@/utils/util";
+  import WindowAssistant from "@/components/session/window/WindowAssistant";
+  import WindowUser from "@/components/session/window/WindowUser";
 
   export default {
     name: "SessionWindow",
     components: {
-      InputMsg,Copy,MarkdownView
+      WindowUser,
+      InputMsg,WindowAssistant
     },
     props: {
       windowData: {
@@ -74,23 +44,27 @@
         default: () => {
         }
       },
-      loading: { type: Boolean, default: false }
+      loading: {type: Boolean, default: false},
+      defaultInputMessage: {
+        type: String,
+        default: ""
+      }
     },
     data() {
       return {
         ContentShowType,
         isAutoScroll: true,
+        ifConc: this.$store.state.settings.ifConc,
 
         inputMsg: '',
-        userImgHead: '',
 
         sessionRecordData: []
       }
     },
     watch: {
-      sessionRecordData:{
+      sessionRecordData: {
         deep: true,
-        handler(val){
+        handler(val) {
           if (val != null) {
             this.$nextTick(() => {
               this.scrollBottom();
@@ -98,21 +72,24 @@
           }
         }
       },
-      loading(val){
-
-      }
     },
     created() {
     },
     mounted() {
-      this.userImgHead = this.$store.getters.configMain.staticWebsite + this.$store.getters.imgHeader
+      this.$refs.componentInputMsg.inputMsg = this.defaultInputMessage
     },
     methods: {
-      setInputMsg(val){
+      setInputMsg(val) {
         this.inputMsg = val
       },
       setSessionRecord(val) {
         this.sessionRecordData = val;
+      },
+      getIfConc(){
+        return this.ifConc;
+      },
+      flushIfConc(val){
+        this.ifConc = val
       },
       onScroll() {
         const scrollDom = this.$refs.chatContent;
@@ -127,13 +104,6 @@
           this.isAutoScroll = false;
         }
       },
-      /*
-      * 处理消息数据
-      * */
-      handleMessageData(msgList) {
-        this.sessionRecordData.push(msgList);
-        this.scrollBottom();
-      },
       sendInputMessage() {
         this.$emit('sendInputMessage', this.inputMsg)
         this.scrollBottom();
@@ -145,7 +115,7 @@
         this.$nextTick(() => {
           if (!this.isAutoScroll) return;
           const scrollDom = this.$refs.chatContent;
-          scrollDom.scrollTop =  scrollDom.scrollHeight;
+          scrollDom.scrollTop = scrollDom.scrollHeight;
           // animation(scrollDom, scrollDom.scrollHeight);
         });
       },
@@ -156,176 +126,78 @@
       setLoadingLine(val) {
         this.$emit('setLoadingLine', val);
       },
-      flushMarkdown(){
+      flushMarkdown() {
         setTimeout(() => {
           this.$nextTick(() => {
             const mv = this.$refs.mv;
-            if(mv != null && mv.length > 0){
+            if (mv != null && mv.length > 0) {
               for (let i = 0; i < mv.length; i++) {
                 mv[i].initCodes();
               }
             }
           })
-        },300)
+        }, 300)
       }
     },
   }
 </script>
 
 <style lang="scss" scoped>
-  * {
-    font-family: STHeiti Light,serif;
-  }
 
   .session-window {
     width: 100%;
-    height: 85vh;
+    height: 100vh;
     background-size: 100% 100%;
     border-radius: 20px;
     padding: 10px;
     box-sizing: border-box;
-    background-color: rgb(50, 54, 68);
     overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  .chat-content {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+    padding: 8px 10% 14px 10%;
+    box-sizing: border-box;
+    flex-grow: 1;
 
     .chat-main-content {
       width: 100%;
+      display: flex;
     }
 
-    .chat-content {
+    li {
+      list-style: none;
+      height: auto;
       width: 100%;
-      height: 84%;
-      overflow-y: scroll;
-      padding: 10px 20px 20px 20px;
-      box-sizing: border-box;
-
-      li {
-        list-style: none;
-        height: auto;
-      }
-
-      .chat-friend {
-        width: 100%;
-        height: auto;
-        float: left;
-        margin-bottom: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: flex-start;
-
-        .chat-text {
-          /*display: flex;*/
-          float: left;
-          max-width: 80%;
-          padding: 8px 15px 8px 15px;
-          border-radius: 20px 20px 20px 5px;
-          background-color: #fff;
-
-        }
-
-        .chat-img {
-          img {
-            max-width: 300px;
-            max-height: 200px;
-            border-radius: 10px;
-          }
-        }
-
-        .info-time {
-          margin: 10px 0;
-          color: #fff;
-          font-size: 14px;
-          display: flex;
-          justify-content: flex-start;
-
-          img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            vertical-align: middle;
-            margin-right: 10px;
-          }
-
-          span {
-            line-height: 30px;
-          }
-
-          span:last-child {
-            color: rgb(101, 104, 115);
-            margin-left: 10px;
-            vertical-align: middle;
-          }
-        }
-      }
-
-      .chat-me {
-        width: 100%;
-        float: right;
-        margin-bottom: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: flex-end;
-        height: auto;
-
-        .chat-text {
-          float: right;
-          max-width: 90%;
-          padding: 8px 15px 8px 15px;
-          border-radius: 20px 20px 5px 20px;
-          background-color: #95ec69;
-          color: #000;
-          word-break: break-all;
-        }
-
-        .chat-img {
-          img {
-            max-width: 300px;
-            max-height: 200px;
-            border-radius: 10px;
-          }
-        }
-
-        .info-time {
-          margin: 10px 0;
-          color: #fff;
-          font-size: 14px;
-          display: flex;
-          justify-content: flex-end;
-
-          span {
-            line-height: 30px;
-          }
-
-          span:first-child {
-            color: rgb(101, 104, 115);
-            margin-right: 10px;
-            vertical-align: middle;
-          }
-        }
-      }
+      margin-bottom: 20px;
+      display: flex;
     }
 
   }
 
-  ::v-deep .info-time .el-image img{
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    vertical-align: middle;
-    margin-right: 10px;
-    margin-left: 10px;
-  }
-
-  .input-main{
+  .input-main {
+    position: absolute;
     width: 100%;
-    height: 14%;
+    min-height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 8px;
-    border-top: 2px solid rgb(83, 98, 111);
-    border-radius: 5px 5px 0px 0px;
+    padding: 8px 0;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    z-index: 1510;
+  }
+
+  .spacer {
+    height: 120px;
   }
 
   ::v-deep .markdown-body {

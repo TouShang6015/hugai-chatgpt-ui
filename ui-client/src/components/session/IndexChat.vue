@@ -1,25 +1,21 @@
 <template>
   <div class="main-session">
 
-    <div class="main-session-list">
+    <div class="main-session-list" :class="{hiddenStatusSession: hiddenStatusSession}">
       <SessionList
               ref="sessionList"
               :window-data="windowData"
               :session-data="sessionData"
               :loading="loading"
               @clickSessionListItem="getSessionDataBySessionId"
+              @handleCreateSession="handleCreateSession"
+              @handleClearSession="handleClearSession"
+              @handleDeleteSession="handleDeleteSession"
       >
       </SessionList>
     </div>
 
     <div class="main-session-window">
-      <SessionTop
-              ref="sessionTop"
-              :window-data="windowData"
-              @handleCreateSession="handleCreateSession"
-              @handleClearSession="handleClearSession"
-              @handleDeleteSession="handleDeleteSession"
-      ></SessionTop>
 
       <LoadingLine :loading-line="loadingLine"></LoadingLine>
 
@@ -28,6 +24,7 @@
               :window-data="windowData"
               :session-data="sessionData"
               :loading="loading"
+              :default-input-message="defaultInputMessage"
               @sendInputMessage="sendInputMessage"
       ></SessionWindow>
     </div>
@@ -39,7 +36,6 @@
 </template>
 
 <script>
-  import SessionTop from "./SessionTop";
   import SessionWindow from "./window/SessionWindow";
   import SessionList from "./window/SessionList";
   import LoadingLine from "./LoadingLine";
@@ -48,11 +44,15 @@
 
   export default {
     name: "SessionIndex",
-    components: { SessionTop,SessionWindow,SessionList,LoadingLine },
+    components: { SessionWindow,SessionList,LoadingLine },
     props: {
       windowData: {
         type: Object,
         required: true
+      },
+      defaultInputMessage: {
+        type: String,
+        default: ""
       }
     },
     data(){
@@ -62,6 +62,7 @@
         loadingLine: false,
         sessionLoadingStatus: false,
         connectId: undefined,
+        hiddenStatusSession: this.$store.state.settings.hiddenStatusSessionList,
 
         sessionData: {},
         sessionRecordData: []
@@ -71,6 +72,11 @@
       sessionRecordData(val){
         if (val != null){
           this.$refs.sessionWindow.setSessionRecord(val)
+        }
+      },
+      '$store.state.settings.hiddenStatusSessionList':{
+        handler:function (val) {
+          this.hiddenStatusSession = val;
         }
       }
     },
@@ -127,14 +133,18 @@
           this.loading = false
         });
       },
-      handleDeleteSession(){
+      handleDeleteSession(sessionId){
+        if (sessionId == undefined || sessionId == null){
+          this.$message.error("未找到会话信息")
+          return
+        }
         this.loading = true
         this.$confirm('确定要删除当前会话吗，删除后无法恢复?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$api.deleteRestful('/module/session/sessioninfo/deleteSession',this.sessionData.id).then(res => {
+          this.$api.deleteRestful('/module/session/sessioninfo/deleteSession',sessionId).then(res => {
             if (res.status){
               this.handleCreateSession();
             }else{
@@ -246,7 +256,8 @@
           connectId: connectId,
           sessionId: this.sessionData.id,
           sessionType: this.windowData.sessionType,
-          content: inputMessage
+          content: inputMessage,
+          ifConc: this.$refs.sessionWindow.getIfConc()
         })
       },
       // 发送前整理数据
@@ -269,7 +280,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
   .main-session{
     height: 100%;
@@ -277,18 +288,22 @@
     display: flex;
   }
   .main-session-list{
-    width: 18%;
+    width: 15%;
     min-height: 100%;
-    padding: 0px 5px;
     display: flex;
+    transition: width 0.2s;
   }
+
+  .main-session-list.hiddenStatusSession{
+    width: 0;
+    transition-property: all;
+  }
+
   .main-session-window{
-    width: 82%;
+    min-width: 80%;
+    width: auto;
     height: 100%;
-    border: 1px #6572aa solid;
-    padding: 5px 4px 5px 12px;
-    border-radius: 10px;
-    box-shadow: 1px 0px 5px 2px rgba(221, 225, 234, 0.4) inset;
+    padding: 0px 4px 0px 12px;
     flex: 1;
   }
 

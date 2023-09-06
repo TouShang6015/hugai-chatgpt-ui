@@ -56,8 +56,7 @@ const user = {
             setToken(res.data)
             commit('SET_TOKEN', res.data)
             Message({message: '登陆成功，欢迎来到HugAi~~', type: 'success'})
-            commit('SET_LOGIN_DIALOG',false)
-            commit('SET_REGISTER_DIALOG',false)
+            commit('CLEAR_DIALOG')
             setTimeout(() => {
               window.location.href = "/"
             },500)
@@ -77,8 +76,7 @@ const user = {
             setToken(res.data)
             commit('SET_TOKEN', res.data)
             Message({message: '登陆成功，欢迎来到HugAi~~', type: 'success'})
-            commit('SET_LOGIN_DIALOG',false)
-            commit('SET_REGISTER_DIALOG',false)
+            commit('CLEAR_DIALOG')
             setTimeout(() => {
               window.location.href = "/"
             },500)

@@ -1,0 +1,56 @@
+:root{
+    --font-color-markdown: black;
+    --font-color-default: white;
+    --font-color-no-normal: #dcdcdc;
+    --font-color-aside: white;
+
+    --background-main: rgb(57, 60, 78);
+    --background-textarea: rgb(66, 70, 86);
+    --background-button-default: white;
+
+    --aside-background: rgb(39, 42, 55);
+    --aside-hover-color: rgba(74, 76, 92, 0.7);
+
+    --session-list-background: #2f3340;
+    --session-list-item-action-background: linear-gradient(to right, rgba(0, 0, 0, 0.01), rgb(53, 54, 61));
+    --session-list-li-iconfont-color: white;
+    --session-list-li-background: rgba(74, 76, 92, 0.7);
+    --session-list-li-active-background: rgba(74, 76, 92, 0.7);
+    --session-list-create-session-border: rgba(255, 255, 255, 0.5);
+    --session-list-create-session-border-hover: #fff;
+
+    --session-window-system-background: #fff;
+    --session-window-user-background: #95ec69;
+
+    --topclose-font-color: #7b7b7b;
+
+    --tabs-background: rgb(78, 79, 92);
+    --tabs-simple-background: rgb(78, 79, 92 , 0);
+    --tabs-active-background: rgb(57, 60, 78);
+    --tabs-active-simple-background: rgb(226, 226, 231);
+
+    --item-border-default-color: rgb(184,184,184);
+    --item-border-active-color: rgb(117, 219, 203);
+    --item-border-hover-color: rgb(168, 232, 222);
+
+    --help-background: linear-gradient(to bottom, rgb(45, 46, 50), rgba(50, 50, 50, 0.15));
+    --help-bottom-li-background: rgba(35, 34, 34, 0.91);
+
+    --markdown-box-shadow: rgba(0, 0, 0, 0) 0px 2px 12px 0px;
+    --markdown-pre-border: 1px solid #272822;
+    --markdown-pre-background-color: #272822;
+    --markdown-pre-font-color: white;
+    --markdown-line-num-box-color: #ccc;
+    --markdown-line-num-box-border-right: 2px solid #fff;
+    --markdown-code-webkit-scrollbar-background-color: #1e1e1e;
+    --markdown-code-webkit-scrollbar-thumb-background-color: #666;
+    --markdown-code-webkit-scrollbar-button-background-color: #1e1e1e;
+    --markdown-copy-button-color: #ffffff;
+    --markdown-copy-button-background-color: #9999aa;
+    --markdown-copy-button-hover-background: black;
+    --markdown-lang-background: #272822;
+    --markdown-lang-color: #fff;
+
+    --dialog-background: linear-gradient(to bottom, #2c2f3d, #313750);
+    --dialog-box-shadow: 5px 2px 0px 3px rgb(39, 42, 55);
+}

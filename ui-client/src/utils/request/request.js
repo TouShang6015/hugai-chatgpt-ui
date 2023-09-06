@@ -73,7 +73,7 @@ service.interceptors.response.use(res => {
       return res.data
     }
     if (code === 401) {
-      Message({message: '请先登录再操作嗷~~', type: 'info', duration: 3 * 1000})
+      Message({message: '请先登录再操作嗷（可游客登陆）~~', type: 'info', duration: 3 * 1000})
       return res.data;
     } else if (code === -1) {
       Message({

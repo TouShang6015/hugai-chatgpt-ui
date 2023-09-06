@@ -1,42 +1,38 @@
 <template>
   <div class="main">
     <el-tooltip content="复制" effect="light" placement="top">
-      <div class="copy">
-        <img :src="require('/src/assets/imgs/copy.png')" alt="" @click="$copy(value, '已复制')">
-      </div>
+      <img :src="require('/src/assets/imgs/copy.png')" alt="" @click="$copy(value, '已复制')">
     </el-tooltip>
   </div>
 </template>
 
 <script>
   export default {
-    name: "copy",
+    name: "SessionCopy",
     props: {
-      value: { type: String, required: true }
+      value: {type: String, required: true}
     },
-    methods:{
-
-    }
+    methods: {}
   }
 </script>
 
 <style scoped>
-  .main{
+  .main {
     display: flex;
-  }
-img{
-  width: 22px;
-  height: 22px;
-}
-  .copy {
-    display: flex;
-    padding-left: 8px;
+    width: 35px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
   }
 
-  .copy:hover {
+  img {
+    width: 22px;
+    height: 22px;
+  }
+
+  img:hover {
     cursor: pointer;
-    box-shadow: 0px 0px 8px 0px rgb(70, 87, 102);
-    border-radius: 50%;
+    box-shadow: 0px 0px 8px 2px rgb(70, 87, 102);
   }
 
 </style>

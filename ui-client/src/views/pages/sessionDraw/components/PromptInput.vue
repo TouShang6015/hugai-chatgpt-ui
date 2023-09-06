@@ -38,7 +38,6 @@
   width: 70%;
   min-height: 100%;
   max-height: 120px;
-  font-family: "幼圆", sans-serif;
   position: relative;
   margin-left: 10%;
   margin-bottom: 25px;

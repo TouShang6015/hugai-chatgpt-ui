@@ -1,9 +1,9 @@
 <template>
   <div class="top-header">
     <div class="left-item">
-      <div class="logo">
-        <span class="pointer" @click="goHome">HugAi</span>
-      </div>
+<!--      <div class="logo">-->
+<!--        <span class="pointer" @click="goHome">HugAi</span>-->
+<!--      </div>-->
     </div>
 
     <div class="right-item-notice">
@@ -209,7 +209,6 @@
     color: #efefef;
     line-height: 40px;
     font-size: 16px;
-    font-family: "幼圆", sans-serif;
   }
   .item span:hover{
     color: #ebe6ff;

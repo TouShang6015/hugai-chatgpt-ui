@@ -1,24 +1,21 @@
 <template>
   <div class="main-session">
-    <div class="main-session-list">
+
+    <div class="main-session-list" :class="{hiddenStatusSession: hiddenStatusSession}">
       <SessionList
               ref="sessionList"
               :window-data="windowData"
               :session-data="sessionData"
               :loading="loading"
               @clickSessionListItem="getSessionDataBySessionId"
+              @handleCreateSession="handleCreateSession"
+              @handleClearSession="handleClearSession"
+              @handleDeleteSession="handleDeleteSession"
       >
       </SessionList>
     </div>
 
     <div class="main-session-window">
-      <SessionTop
-              ref="sessionTop"
-              :window-data="windowData"
-              @handleCreateSession="handleCreateSession"
-              @handleClearSession="handleClearSession"
-              @handleDeleteSession="handleDeleteSession"
-      ></SessionTop>
 
       <LoadingLine :loading-line="loadingLine"></LoadingLine>
 
@@ -39,7 +36,6 @@
 
 <script>
   import SessionList from "./window/SessionList";
-  import SessionTop from "./SessionTop";
   import SessionWindow from "./window/SessionWindow";
   import LoadingLine from "./LoadingLine";
   import StreamResponseType from "@/common/constants/StreamResponseType";
@@ -47,7 +43,7 @@
 
   export default {
     name: "SessionIndex",
-    components: { SessionTop,SessionList,SessionWindow,LoadingLine },
+    components: { SessionList,SessionWindow,LoadingLine },
     props: {
       windowData: {
         type: Object,
@@ -61,6 +57,7 @@
         loadingLine: false,
         sessionLoadingStatus: false,
         connectId: undefined,
+        hiddenStatusSession: this.$store.state.settings.hiddenStatusSessionList,
 
         sessionData: {},
         sessionRecordData: []
@@ -70,6 +67,11 @@
       sessionRecordData(val){
         if (val != null){
           this.$refs.sessionWindow.setSessionRecord(val)
+        }
+      },
+      '$store.state.settings.hiddenStatusSessionList':{
+        handler:function (val) {
+          this.hiddenStatusSession = val;
         }
       }
     },
@@ -106,6 +108,7 @@
         this.$api.get('/module/session/sessionrecord/getRecordSession',{sessionId}).then(res => {
           if (res.status){
             this.sessionRecordData = res.data;
+            this.$refs.sessionWindow.flushMarkdown()
           }
         })
       },
@@ -131,14 +134,18 @@
           this.loading = false
         });
       },
-      handleDeleteSession(){
+      handleDeleteSession(sessionId){
+        if (sessionId == undefined || sessionId == null){
+          this.$message.error("未找到会话信息")
+          return
+        }
         this.loading = true
         this.$confirm('确定要删除当前会话吗，删除后无法恢复?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$api.deleteRestful('/module/session/sessioninfo/deleteSession',this.sessionData.id).then(res => {
+          this.$api.deleteRestful('/module/session/sessioninfo/deleteSession',sessionId).then(res => {
             if (res.status){
               this.handleCreateSession();
             }else{
@@ -197,17 +204,18 @@
           };
 
           sseEvent.onerror = function () {
-            sseEvent.close();
-            sseEvent = null;
             that.$refs.sessionWindow.flushMarkdown()
             that.loadingLine = false
             that.connectId = undefined;
+            sseEvent.close();
+            sseEvent = null;
           };
         } else {
           console.error("不支持sse")
           this.loadingLine = false;
         }
       },
+      // websocket
       socketConnectMessage(inputMessage){
         const that = this;
 
@@ -250,7 +258,8 @@
           sessionId: this.sessionData.id,
           sessionType: this.windowData.sessionType,
           content: inputMessage,
-          domainUniqueKey: this.windowData.domainKey
+          domainUniqueKey: this.windowData.domainKey,
+          ifConc: this.$refs.sessionWindow.getIfConc()
         });
       },
       // 发送前整理数据
@@ -281,18 +290,21 @@
     display: flex;
   }
   .main-session-list{
-    width: 18%;
+    width: 15%;
     min-height: 100%;
-    padding: 0px 5px;
     display: flex;
+    transition: width 0.2s;
   }
+  .main-session-list.hiddenStatusSession{
+    width: 0;
+    transition-property: all;
+  }
+
   .main-session-window{
-    width: 82%;
+    min-width: 80%;
+    width: auto;
     height: 100%;
-    border: 1px #6572aa solid;
-    padding: 5px 4px 5px 12px;
-    border-radius: 10px;
-    box-shadow: 1px 0px 5px 2px rgba(221, 225, 234, 0.4) inset;
+    padding: 0px 4px 0px 12px;
     flex: 1;
   }
 

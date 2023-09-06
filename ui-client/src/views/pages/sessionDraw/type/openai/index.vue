@@ -3,36 +3,16 @@
     <transition name="web-dialog">
       <div class="loading-iframe" v-if="loading"></div>
     </transition>
-    <div class="prompt-input">
-      <PromptInput
-              ref="promptInput"
-              @submitPrompt="submitPrompt"
-      ></PromptInput>
-    </div>
-    <div class="prompt-content">
-      <div class="params">
-        <ParamForm
-                @getFormData="getFormData"
-        ></ParamForm>
-      </div>
-      <div class="show">
-        <ResponseShow ref="responseShow"></ResponseShow>
-      </div>
-    </div>
   </div>
 
 </template>
 
 <script>
-  import PromptInput from "/src/views/pages/sessionDraw/components/PromptInput";
-  import ResponseShow from "/src/views/pages/sessionDraw/components/ResponseShow";
-  import ParamForm from "/src/views/pages/sessionDraw/type/openai/ParamForm.vue";
   import SessionType from "@/common/constants/SessionType";
   import DrawType from "@/common/constants/DrawType";
   import {getToken} from "@/utils/auth";
   export default {
     name: "index",
-    components: { PromptInput,ParamForm,ResponseShow },
     data(){
       return {
         loading: true,
@@ -84,8 +64,8 @@
         if (data != null){
           this.imgUrlList = data.map(item => item.drawImgUrl)
         }
-        this.$refs.responseShow.dataList = this.imgUrlList
-        this.$refs.responseShow.userPrompt = this.userPrompt
+        // this.$refs.responseShow.dataList = this.imgUrlList
+        // this.$refs.responseShow.userPrompt = this.userPrompt
       },
       submitPrompt(input){
         this.loadingServer = true

@@ -1,7 +1,7 @@
 <template>
   <div class="desk" v-if="state">
-    <div class="item" v-on:dblclick="handleItemGo($event,item)" v-for="item in itemDataList">
-      <el-image lazy :src="viewsStaticImg(item.icon)" fit="contain" draggable="false"></el-image>
+    <div class="item" v-on:dblclick="handleItemGo($event,item)" v-for="(item,index) in itemDataList" :key="index">
+      <el-image lazy :src="staticUrl + item.iconPath" fit="contain" draggable="false"></el-image>
       <span>{{item.title}}</span>
     </div>
   </div>
@@ -23,6 +23,7 @@
     },
     data(){
       return {
+        staticUrl: this.$store.getters.configMain.staticWebsite
       }
     },
     methods: {

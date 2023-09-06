@@ -3,6 +3,7 @@
     <IndexChat
             ref="sessionIndex"
             :window-data="windowData"
+            :default-input-message="inputMsg"
     >
     </IndexChat>
 
@@ -27,10 +28,12 @@
     data(){
       return {
         windowData,
+        inputMsg: this.$route.params.inputMsg,
       }
     },
     created() {
-
+    },
+    mounted() {
     },
     methods: {
 

@@ -77,7 +77,6 @@
 .title span{
   color: white;
   display: block;
-  font-family: 'Segoe Script', cursive;
 }
 .title span:nth-child(1){
   font-size: 35px;

@@ -11,7 +11,15 @@ a, button, img {
 * {
   margin: 0;
   padding: 0;
-  font-family: "微软雅黑 Light", sans-serif;
+  font-family: Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: normal;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+}
+
+li{
+  list-style: none;
 }
 
 .iconfont {
@@ -45,19 +53,73 @@ a, button, img {
 }
 ::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
   border-radius: 10px !important;
-  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2) !important;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.35) !important;
   background: #535353 !important;
 }
 ::-webkit-scrollbar-track {/*滚动条里面轨道*/
-  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2) !important;
+  -webkit-box-shadow: inset 0 0 5px #EDEDED !important;
   border-radius: 10px !important;
-  background: #EDEDED !important;
+  //background: rgba(0,0,0,0.5) !important;
+  background: white !important;
+}
+
+/* hover动画 */
+.click-box{
+  transition: all 0.2s ease-out;
+}
+.click-box:hover{
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+
+/* 大文本输入框 */
+.a-textarea {
+  width: 95%;
+  height: auto;
+  max-width: 95%;
+  padding: 10px;
+  background-color: var(--background-textarea);
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: 0.2s;
+  font-size: 15px;
+  color: var(--font-color-default);
+  font-weight: 100;
+  margin-top: 1px;
+  border: 1px;
+  overflow:auto;
+  word-break:break-all;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+/* 按钮 */
+.btn{
+  color: var(--font-color-default);
+  padding: 8px 15px;
+  border-radius: 6px;
+  background: var(--background-button-default);
+  border: 1px var(--item-border-default-color) solid;
+  transition: all 0.1s linear;
+}
+.btn:hover{
+  border: 1px var(--item-border-hover-color) solid;
+  box-shadow: var(--item-border-hover-color) 0px 0px 3px 0px;
+}
+.btn:active{
+  border: 1px var(--item-border-active-color) solid;
+  box-shadow: var(--item-border-active-color) 0px 0px 3px 0px;
+}
+.btn.transparent{
+  background: rgba(255, 255, 255, 0);
 }
 
 /* 页面加载虚化 */
 .loading-iframe{
-  backdrop-filter: blur(2px);
-  background: rgba(135, 132, 132, 0.25);
+  backdrop-filter: blur(1px);
+  background: rgba(135, 132, 132, 0.0);
   position: absolute;
   width: 100%;
   height: 100%;
