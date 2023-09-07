@@ -118,6 +118,7 @@
           domainUniqueKey: this.windowData.domainKey,
         }).then(() => {
           this.getLastSessionData();
+          this.$refs.sessionList.initSessionList()
         })
       },
       handleClearSession(){
@@ -211,7 +212,7 @@
             sseEvent = null;
           };
         } else {
-          console.error("不支持sse")
+          this.$message.error("浏览器版本不支持sse，请更换浏览器")
           this.loadingLine = false;
         }
       },
@@ -242,12 +243,16 @@
         }
 
         webSocket.onerror = function () {
-          that.$message.error("请求失败");
-          that.sessionRecordData.pop();
-          that.sessionRecordData.pop();
-          that.loadingLine = false
+          that.apiErrorHandle("请求失败")
         }
 
+      },
+      apiErrorHandle(msg){
+        const that = this;
+        that.$message.error(msg);
+        that.sessionRecordData.pop();
+        that.sessionRecordData.pop();
+        that.loadingLine = false
       },
       apiSend(connectId,inputMessage){
         if (connectId == null){
@@ -260,7 +265,11 @@
           content: inputMessage,
           domainUniqueKey: this.windowData.domainKey,
           ifConc: this.$refs.sessionWindow.getIfConc()
-        });
+        }).then(res => {
+          if (!res.status){
+            this.apiErrorHandle(res.message)
+          }
+        })
       },
       // 发送前整理数据
       flushSendData(inputMessage) {

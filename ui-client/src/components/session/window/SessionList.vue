@@ -74,13 +74,21 @@
         }
         return true
       },
+      initSessionList(){
+        this.sessionList = [];
+      },
       getUserSessionList(){
         this.queryParam.type = this.sessionData.type
         this.queryParam.domainUniqueKey = this.sessionData.domainUniqueKey
         this.queryParam.drawUniqueKey = this.sessionData.drawUniqueKey
         this.$api.get('/module/session/sessioninfo/getUserSessionList',this.queryParam).then(res => {
           if (res.data.length > 0){
-            res.data.forEach(item => this.sessionList.push(item))
+            let sessionListIds = this.sessionList.map(item => item.id);
+            res.data.forEach(item => {
+              if (!sessionListIds.includes(item.id)){
+                this.sessionList.push(item)
+              }
+            })
           }
           this.scrollFlag = !(res.data.length > 0)
         })

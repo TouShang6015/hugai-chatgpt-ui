@@ -1,58 +1,36 @@
 <template>
   <div class="app-container">
 
-    <el-table
-      v-loading="loading"
-      :data="tableList"
-      border
-      style="width: 100%;"
-      @selection-change="baseHandleSelectionChange"
+    <base-table
+      :loading="loading"
+      :table-list="tableList"
+      :query-params="queryParams"
+      :page-total="total"
+      :builder-columns="builderTable.columns"
+      :builder-actions="builderTable.actions"
+      @baseHandleQuery="baseHandleQuery"
+      @submitDeleteByColumn="submitDeleteByColumn"
+      @baseHandleSelectionChange="baseHandleSelectionChange"
+      @handleForceLogout="handleForceLogout"
     >
-      <el-table-column label="会话编号" align="center" prop="token" width="320" :show-overflow-tooltip="true" />
-      <el-table-column label="登录名称" align="center" :show-overflow-tooltip="true" >
-        <template slot-scope="scope">
-          {{(scope.row.sysUserModel || {}).userName}}
-        </template>
-      </el-table-column>
-      <el-table-column label="主机" align="center" prop="ipaddr" :show-overflow-tooltip="true" >
-        <template slot-scope="scope">
-          {{(scope.row.loginUser || {}).ipaddr}}
-        </template>
-      </el-table-column>
-      <el-table-column label="登录地点" align="center" prop="loginLocation" :show-overflow-tooltip="true" >
-        <template slot-scope="scope">
-          {{(scope.row.loginUser || {}).loginLocation}}
-        </template>
-      </el-table-column>
-      <el-table-column label="浏览器" align="center" prop="browser" >
-        <template slot-scope="scope">
-          {{(scope.row.loginUser || {}).browser}}
-        </template>
-      </el-table-column>
-      <el-table-column label="操作系统" align="center" prop="os" >
-        <template slot-scope="scope">
-          {{(scope.row.loginUser || {}).os}}
-        </template>
-      </el-table-column>
-      <el-table-column label="登录时间" align="center" prop="loginTime" >
-        <template slot-scope="scope">
-          {{  new Date(parseInt((scope.row.loginUser || {}).loginTime || 0 )).toLocaleString() == '1970/1/1 08:00:00' ? '' : new Date(parseInt((scope.row.loginUser || {}).loginTime || 0 )).toLocaleString() }}
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="danger"
-            icon="el-icon-delete"
-            @click="handleForceLogout(scope.row)"
-            v-hasPermi="['monitor:online:forceLogout']"
-          >强退</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+      <template slot="column-userName" slot-scope="scope">
+        {{(scope.row.sysUserModel || {}).userName}}
+      </template>
+      <template slot="column-ipaddr" slot-scope="scope">
+        {{(scope.row.loginUser || {}).ipaddr}}
+      </template>
+      <template slot="column-loginLocation" slot-scope="scope">
+        {{(scope.row.loginUser || {}).loginLocation}}
+      </template>
+      <template slot="column-browser" slot-scope="scope">
+        {{(scope.row.loginUser || {}).browser}}
+      </template>
+      <template slot="column-loginTime" slot-scope="scope">
+        {{(scope.row.loginUser || {}).loginTime}}
+      </template>
 
-    <pagination v-show="total>0" :total="total" :page.sync="queryParams.page" :limit.sync="queryParams.size" />
+    </base-table>
+
   </div>
 </template>
 
@@ -64,6 +42,7 @@ export default {
   mixins: [crud],
   data() {
     return {
+      builderTable
     };
   },
   created() {
@@ -73,6 +52,7 @@ export default {
     baseInit(){
       this.url = '/module/system/monitor/online';
       this.viewName = '在线用户';
+      this.useBaseComponent = true
       return true;
     },
     /** 强退按钮操作 */
@@ -87,6 +67,30 @@ export default {
       });
     }
   }
+};
+
+const builderSearch = {
+  search: [
+    { title: '会话编号', key: 'token',  },
+  ],
+  actions: [
+    { title: '重置', key: 'reset', type: 'primary',icon: 'el-icon-refresh', action: 'resetQuery'  },
+    { title: '查询', key: 'search', type: 'primary',icon:'el-icon-search', action: 'baseHandleQuery'  },
+  ]
+};
+const builderTable = {
+  columns: [
+    { title: '会话编号', key: 'token',showOverflowTooltip: true },
+    { title: '登录名称', key: 'userName',showOverflowTooltip: true},
+    { title: '主机', key: 'ipaddr',showOverflowTooltip: true},
+    { title: '登录地点', key: 'loginLocation'},
+    { title: '浏览器', key: 'browser',showOverflowTooltip: true},
+    { title: '操作系统', key: 'os'},
+    { title: '登录时间', key: 'loginTime',showOverflowTooltip: true},
+  ],
+  actions: [
+    { title: '强退', key: 'delete', type: 'danger', icon:'el-icon-delete', action: 'handleForceLogout'},
+  ]
 };
 </script>
 
