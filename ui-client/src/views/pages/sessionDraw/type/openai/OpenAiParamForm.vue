@@ -24,7 +24,7 @@
               </textarea>
             </el-form-item>
             <el-form-item>
-              <button class="btn transparent" @click="handleSubmitTxtImg">提交</button>
+              <button type="button" class="btn transparent" @click="handleSubmitTxtImg">提交1</button>
             </el-form-item>
           </el-row>
         </el-form>
@@ -123,7 +123,17 @@
         this.apiType = val
       },
       handleSubmitTxtImg(){
-        
+        this.$api.post('/module/draw/task/createTask/openai_txt2img',this.form).then(res =>{
+          if (res.status){
+            this.$message.success(res.message)
+          }else{
+            this.$message.warning(res.message)
+          }
+          console.log(res)
+        })
+      },
+      handleSubmitImgToImg(){
+
       }
     }
   }
