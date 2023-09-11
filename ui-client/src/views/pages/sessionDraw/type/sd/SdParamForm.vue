@@ -14,7 +14,7 @@
               <ImageMassGroup :config="imageMassGroupConfig" @change="handleImageMassGroupChange"></ImageMassGroup>
             </el-form-item>
             <el-form-item label="数量">
-              <el-input-number size="mini" controls-position="right" v-model="form.n" :min="1" :max="1"></el-input-number>
+              <el-input-number size="mini" controls-position="right" v-model="form.batchSize" :min="1" :max="1"></el-input-number>
             </el-form-item>
             <el-form-item label="提示词">
               <textarea class="a-textarea"
@@ -29,45 +29,16 @@
           </el-row>
         </el-form>
       </transition>
-      <transition name="web-fade">
-        <el-form ref="form" :model="form" label-width="80px" v-if="apiType === '2'">
-          <el-row>
-            <el-form-item label="图像质量">
-              <ImageMassGroup :config="imageMassGroupConfig" @change="handleImageMassGroupChange"></ImageMassGroup>
-            </el-form-item>
-            <el-form-item label="数量">
-              <el-input-number size="mini" controls-position="right" v-model="form.n" :min="1" :max="1"></el-input-number>
-            </el-form-item>
-            <el-form-item label="上传图像">
-              <ImageUpload @input="uploadCallBackImage" :value="form.image" :ifWane="false"></ImageUpload>
-            </el-form-item>
-            <el-form-item label="额外图像">
-              <ImageUpload @input="uploadCallBackMask" :value="form.mask" :ifWane="false"></ImageUpload>
-            </el-form-item>
-            <el-form-item label="提示词">
-              <textarea class="a-textarea"
-                        rows="10"
-                        v-model="form.prompt"
-                        placeholder="提示词prompt">
-              </textarea>
-            </el-form-item>
-            <el-form-item>
-              <button class="btn transparent" @click="handleSubmitImgToImg">提交</button>
-            </el-form-item>
-          </el-row>
-        </el-form>
-      </transition>
     </div>
   </div>
 </template>
 
 <script>
-  import ImageUpload from '/src/components/ImageUpload/index';
   import ImageMassGroup from "@/views/pages/sessionDraw/components/ImageMassGroup";
   import {getToken} from "@/utils/auth";
   export default {
-    name: "OpenAiParamForm",
-    components: {ImageMassGroup, ImageUpload },
+    name: "SdParamForm",
+    components: {ImageMassGroup },
     data(){
       return{
         isLogin: !!getToken(),
@@ -104,13 +75,13 @@
     methods:{
       initForm(){
         this.form = {
-          n: 1,
+          batchSize: 1,
           size: 512
         }
       },
       handleImageMassGroupChange(val){
-        this.form.sizeWidth = val.width;
-        this.form.sizeHeight = val.height;
+        this.form.width = val.width;
+        this.form.height = val.height;
         this.$emit('getFormData',this.form)
       },
       uploadCallBackImage(val){
@@ -129,7 +100,7 @@
           this.$message.warning('请先登录后在操作~')
           return
         }
-        this.$api.post('/module/draw/task/createTask/openai_txt2img',this.form).then(res =>{
+        this.$api.post('/module/draw/task/createTask/sd_txt2img',this.form).then(res =>{
           if (res.status){
             this.$message.success(res.message)
             this.$emit('submitFormCallBack')
@@ -143,7 +114,7 @@
           this.$message.warning('请先登录后在操作~')
           return
         }
-        this.$api.post('/module/draw/task/createTask/openai_img2img',this.form).then(res =>{
+        this.$api.post('/module/draw/task/createTask/sd_img2img',this.form).then(res =>{
           if (res.status){
             this.$message.success(res.message)
             this.$emit('submitFormCallBack')
@@ -166,9 +137,9 @@
     text-align: center;
   }
 
-.main-form{
-  margin-top: 15px;
-}
+  .main-form{
+    margin-top: 15px;
+  }
 
   ::v-deep .el-upload-list--picture-card .el-upload-list__item {
     width: 250px;

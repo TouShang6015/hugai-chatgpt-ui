@@ -3,44 +3,59 @@
     <transition name="web-fade">
       <div class="param-form">
         <h2 v-for="item in tabItem" :key="item.value" v-show="item.value === tabValue">{{item.label}}</h2>
-        <OpenAiParamForm  v-if="tabValue === '1'"></OpenAiParamForm>
+        <OpenAiParamForm v-if="tabValue === 'openai'" @submitFormCallBack="submitFormCallBack"></OpenAiParamForm>
+        <SdParamForm v-if="tabValue === 'sd'" @submitFormCallBack="submitFormCallBack"></SdParamForm>
       </div>
     </transition>
     <div class="right-content">
       <div class="top-selected">
-        <a-tabs :value="tabValue" :tab-item="tabItem" @change="tabsChange"></a-tabs>
+        <a-tabs :value="tabValue" :tab-item="tabItem" width="28%" @change="tabsChange"></a-tabs>
       </div>
-      <transition name="web-fade">
-        <OpenaiIndex v-if="tabValue === '1'"></OpenaiIndex>
-      </transition>
+      <div class="draw-show">
+        <transition name="web-fade">
+          <DrawTaskShowList ref="drawTaskShowList" :draw-type="tabValue" v-if="status"></DrawTaskShowList>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  import OpenaiIndex from "/src/views/pages/sessionDraw/type/openai/index";
   import {getToken} from "@/utils/auth";
   import OpenAiParamForm from "@/views/pages/sessionDraw/type/openai/OpenAiParamForm";
+  import DrawTaskShowList from "@/views/pages/sessionDraw/components/DrawTaskShowList";
+  import SdParamForm from "@/views/pages/sessionDraw/type/sd/SdParamForm";
 
   export default {
     name: "SessionDrawIndex",
-    components: {OpenAiParamForm, OpenaiIndex },
+    components: {SdParamForm, DrawTaskShowList, OpenAiParamForm },
     data(){
       return{
         tabItem: [
-          { value: '1',label: 'OpenAi' },
-          { value: '2',label: '敬请期待' },
+          { value: 'sd',label: 'Stable Diffusion画图' },
+          { value: 'openai',label: 'OpenAi' },
         ],
+        status: false,
         tabValue: '',
         isLogin: !!getToken()
       }
     },
     mounted() {
-      this.tabValue = '1';
+      this.tabsChange(this.tabItem[0].value)
     },
     methods:{
       tabsChange(val){
-        this.tabValue = val;
+        this.status = false
+        setTimeout(() => {
+          this.tabValue = val;
+          this.status = true
+        },50)
+      },
+      /**
+       * 表单提交回调
+       */
+      submitFormCallBack(){
+        this.$refs.drawTaskShowList.getTaskList()
       }
     }
   }
@@ -68,7 +83,17 @@
 }
 .right-content{
   flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
+.draw-show{
+  flex: 1;
+  height: auto;
+  width: auto;
+}
+
   .top-selected{
     display: grid;
     justify-items: center;

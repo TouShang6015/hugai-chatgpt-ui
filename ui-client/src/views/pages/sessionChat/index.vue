@@ -6,7 +6,6 @@
             :default-input-message="inputMsg"
     >
     </IndexChat>
-
   </div>
 </template>
 

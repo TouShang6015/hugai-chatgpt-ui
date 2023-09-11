@@ -1,7 +1,6 @@
 <template>
   <div class="main">
     <div class="title">
-      <span>场景对话</span>
       <span>欢迎来到场景对话！在这里HugAi能够在某一个领域中为您提供专业性的解答~~</span>
     </div>
     <div class="search">
@@ -21,7 +20,7 @@
   import DeskItem from "@/components/DeskItem/DeskItem";
 
   export default {
-    name: "index",
+    name: "SessionDomainIndex",
     components: {DeskItem},
     data(){
       return{
@@ -78,9 +77,6 @@
   color: white;
   display: block;
 }
-.title span:nth-child(1){
-  font-size: 35px;
-}
 .title span:nth-child(2){
   font-size: 20px;
   color: #c9c9c9;
@@ -100,10 +96,10 @@
 
 .icon-content{
   overflow: auto;
-}
-::v-deep .icon-content .desk{
-  width: 100%;
-  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
   ::v-deep .icon-content .item{
     margin: 18px 10px;

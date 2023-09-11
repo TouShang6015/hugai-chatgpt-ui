@@ -95,7 +95,7 @@ const routerList = [
       {
         path: "/sessionDraw",
         name: 'sessionDraw',
-        meta: {title: '绘图助手'},
+        meta: {title: 'AI画图'},
         component: () => import('/src/views/pages/sessionDraw/index')
       }
     ]

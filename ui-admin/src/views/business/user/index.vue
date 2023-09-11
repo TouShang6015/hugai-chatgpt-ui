@@ -134,7 +134,7 @@
   const builderTable = {
     columns: [
       { title: '账户名', key: 'userName' },
-      { title: '头像', key: 'imgUrl',width: '130px' },
+      { title: '归属地', key: 'ipLocation',width: '200px' },
       { title: '昵称', key: 'nickName' },
       { title: '性别', key: 'sex',width: '90px'},
       { title: '邮箱', key: 'email',width: '200px'},

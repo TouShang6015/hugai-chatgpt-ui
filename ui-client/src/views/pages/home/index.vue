@@ -26,8 +26,8 @@
         tipsStatus: true,
         tabItem: [
           {value: '1', label: "问答", route: ''},
-          {value: '2', label: "热门场景", route: ''},
-          {value: '3', label: "创作", route: ''},
+          {value: '2', label: "AI画图", route: '/sessionDraw'},
+          {value: '3', label: "热门场景", route: '/sessionDomain'},
         ]
       }
     },

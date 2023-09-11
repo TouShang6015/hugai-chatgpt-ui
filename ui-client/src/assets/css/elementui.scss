@@ -1,5 +1,5 @@
 .el-card__body, .el-main {
-    padding: 0px 15px 5px 0px;
+    padding: 0px;
     overflow: hidden;
 }
 
@@ -175,5 +175,24 @@
 }
 .el-upload--picture-card:hover, .el-upload:focus{
     border-color: var(--item-border-hover-color);
+    color: var(--item-border-hover-color);
+}
+
+/* 分页 */
+.el-pagination .btn-prev{
+    color: var(--item-border-default-color);
+}
+
+.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
+    background-color: var(--aside-hover-color);
+    color: var(--font-color-default);
+}
+.el-pagination.is-background .btn-next.disabled, .el-pagination.is-background .btn-next:disabled, .el-pagination.is-background .btn-prev.disabled, .el-pagination.is-background .btn-prev:disabled, .el-pagination.is-background .el-pager li.disabled {
+    color: var(--aside-background);
+}
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: var(--item-border-active-color);
+}
+.el-pagination.is-background .el-pager li:not(.disabled):hover {
     color: var(--item-border-hover-color);
 }

@@ -30,7 +30,7 @@
     </div>
 
     <transition name="web-dialog">
-      <div class="loading-iframe" v-if="loading"></div>
+      <LoadingIframe v-if="loading"></LoadingIframe>
     </transition>
   </div>
 </template>

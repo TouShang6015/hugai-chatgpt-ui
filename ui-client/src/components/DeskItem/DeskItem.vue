@@ -39,9 +39,11 @@
 
 <style scoped>
   .desk {
-    width: 0;
+    width: 85%;
+    height: 800px;
+    max-height: 800px;
+    flex-direction: row;
     display: flex;
-    flex-direction: column;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-content: flex-start;
@@ -53,20 +55,22 @@
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 110px;
-    height: 125px;
-    margin: 10px;
+    min-width: 120px;
+    height: 110px;
+    margin: 5px;
+    border: 1px var(--draw-task-list-item-border-color) solid;
+    border-radius: 8px;
   }
 
   .item:hover {
     cursor: pointer;
     border-radius: 8px;
-    box-shadow: 5px 5px 15px 10px rgba(255, 255, 255, 0.6) inset;
+    box-shadow: 0px 0px 5px 1px var(--item-border-hover-color) inset;
   }
 
   ::v-deep .item .el-image {
-    width: 55%;
-    height: 70%;
+    width: 40%;
+    height: 55%;
     top: 0;
     z-index: 0;
   }
@@ -74,7 +78,8 @@
   .item span {
     width: 100%;
     height: auto;
-    color: white;
+    color: var(--font-color-default);
     text-align: center;
+    font-size: 14px;
   }
 </style>

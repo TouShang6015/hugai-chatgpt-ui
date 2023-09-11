@@ -5,7 +5,7 @@ const storageKey = "layout-setting"
 const defaultSetting = {
   hiddenStatusLeft: false,
   hiddenStatusSessionList: false,
-  ifConc: '1',
+  ifConc: '0',
   theme: 'theme-blue'
 }
 

@@ -14,6 +14,7 @@ import '@/assets/css/markdown-theme.css'
 import apiRequest from "/src/utils/request/BaseRequest";
 import plugins from './common/plugins'
 import DialogTopClose from "@/components/TopClose/TopClose";
+import LoadingIframe from "@/components/Loading/LoadingIframe";
 import ATabs from "@/components/Tabs/Tabs";
 
 import mavonEditor from 'mavon-editor'
@@ -24,6 +25,7 @@ import { copyToClipboard } from '@/utils/util'
 import router from './router/index'
 
 Vue.component('DialogTopClose', DialogTopClose)
+Vue.component('LoadingIframe', LoadingIframe)
 Vue.component('a-tabs', ATabs)
 
 Vue.use(VueRouter)

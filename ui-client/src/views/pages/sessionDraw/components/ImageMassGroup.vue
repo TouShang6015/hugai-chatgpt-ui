@@ -21,11 +21,15 @@
     props:{
       config: { type: Array, required: true },
       placement: { type: String, default: '' },
+      defaultConfigIndex: { type: Number ,default: 0 }
     },
     data(){
       return{
         value: undefined
       }
+    },
+    mounted() {
+      this.handleImgItemClick(this.config[this.defaultConfigIndex])
     },
     methods:{
       handleImgItemClick(item){
@@ -65,6 +69,8 @@
 }
 .imageMassGroup .img-item.active{
   border: 2px var(--item-border-active-color) solid;
+  box-shadow: 0px 0px 2px 1px var(--item-border-active-color);
+
 }
 
 .imageMassGroup .img-item-span{

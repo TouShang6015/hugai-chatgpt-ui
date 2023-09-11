@@ -41,6 +41,9 @@
       handleTabItemClick(item){
         let value = item.value;
         this.activeValue = value;
+        if (item.route !== ''){
+          this.$router.push(item.route)
+        }
         this.$emit('change',value)
       }
     }
