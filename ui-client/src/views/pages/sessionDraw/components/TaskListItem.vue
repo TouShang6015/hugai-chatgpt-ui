@@ -1,30 +1,32 @@
 <template>
-  <div class="taskListItem">
-    <div class="img-content">
-      <div class="img-box">
-        <el-image :src="staticUrl + itemData.showImg" lazy>
-          <div slot="error" class="image-slot">
-            <img :src="require('/src/assets/imgs/loadingError.png')" v-if="itemData.taskStatus !== 'WAIT'" alt="">
-            <img :src="require('/src/assets/imgs/loading.png')" v-if="itemData.taskStatus === 'WAIT'" alt="">
-          </div>
-        </el-image>
+  <div>
+    <div class="taskListItem" @click="handleItemClick">
+      <div class="img-content">
+        <div class="img-box">
+          <el-image :src="staticUrl + itemData.showImg" lazy>
+            <div slot="error" class="image-slot">
+              <img :src="require('/src/assets/imgs/loadingError.png')" v-if="itemData.taskStatus !== 'WAIT'" alt="">
+              <img :src="require('/src/assets/imgs/loading.png')" v-if="itemData.taskStatus === 'WAIT'" alt="">
+            </div>
+          </el-image>
+        </div>
       </div>
-    </div>
-    <div class="description">
-      <div class="item">
-        <span>任务状态</span>
-        <span class="taskStatus bgc-blue" v-if="itemData.taskStatus === 'WAIT'">待执行</span>
-        <span class="taskStatus bgc-blue" v-if="itemData.taskStatus === 'RUNNING'">进行中</span>
-        <span class="taskStatus bgc-green" v-if="itemData.taskStatus === 'SUCCESS'">已完成</span>
-        <span class="taskStatus bgc-red" v-if="itemData.taskStatus === 'FAIL'">失败</span>
-      </div>
-      <div class="item">
-        <span>开始时间</span>
-        <span class="time">{{itemData.createTime}}</span>
-      </div>
-      <div class="item">
-        <span>完成时间</span>
-        <span class="time">{{itemData.taskEndTime}}</span>
+      <div class="description">
+        <div class="item">
+          <span>任务状态</span>
+          <span class="taskStatus bgc-blue" v-if="itemData.taskStatus === 'WAIT'">待执行</span>
+          <span class="taskStatus bgc-blue" v-if="itemData.taskStatus === 'RUNNING'">进行中</span>
+          <span class="taskStatus bgc-green" v-if="itemData.taskStatus === 'SUCCESS'">已完成</span>
+          <span class="taskStatus bgc-red" v-if="itemData.taskStatus === 'FAIL'">失败</span>
+        </div>
+        <div class="item">
+          <span>开始时间</span>
+          <span class="time">{{itemData.createTime}}</span>
+        </div>
+        <div class="item">
+          <span>完成时间</span>
+          <span class="time">{{itemData.taskEndTime}}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +44,11 @@
       }
     },
     created() {
+    },
+    methods:{
+      handleItemClick(){
+        this.$emit('click',this.itemData)
+      },
     }
   }
 </script>
@@ -53,7 +60,7 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  margin: 0 10px;
+  margin: 20px 10px;
   border: 1px var(--draw-task-list-item-border-color) solid;
   border-radius: 5px;
   transition: all 0.2s ease-out;

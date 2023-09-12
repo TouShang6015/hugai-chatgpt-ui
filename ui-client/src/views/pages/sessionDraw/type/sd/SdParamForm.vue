@@ -14,7 +14,7 @@
               <ImageMassGroup :config="imageMassGroupConfig" @change="handleImageMassGroupChange"></ImageMassGroup>
             </el-form-item>
             <el-form-item label="数量">
-              <el-input-number size="mini" controls-position="right" v-model="form.batchSize" :min="1" :max="1"></el-input-number>
+              <el-input-number size="mini" controls-position="right" v-model="form.batchSize" :min="1" :max="4"></el-input-number>
             </el-form-item>
             <el-form-item label="提示词">
               <textarea class="a-textarea"
@@ -76,7 +76,9 @@
       initForm(){
         this.form = {
           batchSize: 1,
-          size: 512
+          size: 512,
+          width: this.form.width,
+          height: this.form.height,
         }
       },
       handleImageMassGroupChange(val){

@@ -12,7 +12,7 @@ const webConfig = {
   actions: {
     FlushWebConfigMain({ commit }) {
       return new Promise((resolve) => {
-        api.getRestful('/module/system/baseresourceconfig/queryByConfigKey','main').then(res => {
+        api.get('/module/system/baseresourceconfig/configMain').then(res => {
           commit('SET_CONFIG_MAIN',JSON.parse(res.data.resourceValue))
           commit('SET_LOADING_STATE_CONFIG',true)
           resolve()

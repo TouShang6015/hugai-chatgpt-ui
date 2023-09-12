@@ -1,9 +1,9 @@
 <template>
   <div class="head-info">
     <label @click="cancel">
-      <el-tooltip content="关闭" placement="top">
+<!--      <el-tooltip content="关闭" placement="top">-->
         <span class="iconfont icon-e_guanbi"></span>
-      </el-tooltip>
+<!--      </el-tooltip>-->
     </label>
   </div>
 </template>
@@ -11,10 +11,15 @@
 <script>
   export default {
     name: "DialogTopClose",
+    props:{
+      ifGlobal: { type: Boolean, default: true }
+    },
     methods:{
       cancel(){
         this.$emit('cancel')
-        this.$store.commit('CLEAR_DIALOG')
+        if (this.ifGlobal){
+          this.$store.commit('CLEAR_DIALOG')
+        }
       }
     }
   }
@@ -49,8 +54,12 @@
   }
   .head-info label:hover {
     cursor: pointer;
-    transform: scale(1.1);
-    transition: all 0.3s ease-in-out;
+    transform: scale(1.05);
+    transition: all 0.1s ease-in-out;
+
+    .iconfont{
+      color: var(--item-border-hover-color);
+    }
   }
 
   .head-info label span {

@@ -17,7 +17,7 @@
 
       <div class="task-content"  v-if="total > 0">
         <div class="content">
-          <TaskListItem v-for="(item,index) in dataList" :item-data="item" :key="index"></TaskListItem>
+          <TaskListItem v-for="(item,index) in dataList" :item-data="item" :key="index" @click="handleTaskItemClick"></TaskListItem>
         </div>
         <div class="bottom-page">
           <el-pagination
@@ -33,6 +33,10 @@
     </div>
 
     <transition name="web-dialog">
+      <DialogDetailInfo v-if="dialogState" :dialog-state="dialogState" :session-info-draw-id="sessionInfoDrawId" @close="closeDialog"></DialogDetailInfo>
+    </transition>
+
+    <transition name="web-dialog">
       <LoadingIframe width="80%" height="95%" v-if="loading"></LoadingIframe>
     </transition>
 
@@ -43,9 +47,10 @@
 <script>
   import TaskListItem from "@/views/pages/sessionDraw/components/TaskListItem";
   import {getToken} from "@/utils/auth";
+  import DialogDetailInfo from "@/views/pages/sessionDraw/components/DialogDetailInfo";
   export default {
     name: "DrawTaskShowList",
-    components: {TaskListItem},
+    components: {DialogDetailInfo, TaskListItem},
     props:{
       drawType: { type: String, required: true }
     },
@@ -54,6 +59,10 @@
         isLogin: !!getToken(),
         drawTypeKey: this.drawType,
         loading: false,
+
+        dialogState: false,
+        sessionInfoDrawId: undefined,
+
         queryParam: {
           page: 1
         },
@@ -91,6 +100,18 @@
       pageChange(val){
         this.queryParam.page = val;
         this.getTaskList()
+      },
+      handleTaskItemClick(item){
+        if (item == null || item.sessionInfoDrawId == null){
+          console.log("任务未完成，没有数据信息")
+          return
+        }
+        this.dialogState = true;
+        this.sessionInfoDrawId = item.sessionInfoDrawId
+      },
+      closeDialog(){
+        this.dialogState = false;
+        this.sessionInfoDrawId = undefined;
       }
     }
   }
@@ -118,7 +139,7 @@
       margin-right: 35px;
     }
     .top-item .left{
-      width: 88%;
+      width: 82%;
       margin-left: 35px;
     }
     .top-item .left span{
@@ -151,15 +172,16 @@
 
     .task-content{
       width: 100%;
-      height: 100%;
+      max-height: 80%;
       display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
       overflow: auto;
 
       .content{
-        width: 100%;
-        height: 780px;
-        max-height: 780px;
+        width: calc(100% - 20px);
+        height: 80%;
+        max-height: 80%;
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
@@ -171,9 +193,12 @@
 
       .bottom-page{
         flex: 1;
+        position: fixed;
+        bottom: 1%;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
+        margin-left: 25%;
       }
 
     }

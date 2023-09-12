@@ -29,7 +29,7 @@
     --tabs-active-background: rgb(57, 60, 78);
     --tabs-active-simple-background: rgb(226, 226, 231);
 
-    --item-border-default-color: rgb(184,184,184);
+    --item-border-default-color: rgb(184, 184, 184);
     --item-border-active-color: rgb(117, 219, 203);
     --item-border-hover-color: rgb(168, 232, 222);
 
@@ -55,6 +55,6 @@
     --markdown-lang-background: #272822;
     --markdown-lang-color: #fff;
 
-    --dialog-background: linear-gradient(to bottom, #2c2f3d, #313750);
-    --dialog-box-shadow: 5px 2px 0px 3px rgb(39, 42, 55);
+    --dialog-background: linear-gradient(to bottom, #3f4355, #30354b);
+    --dialog-box-shadow: 5px 2px 2px 3px rgb(39, 42, 55);
 }

@@ -196,3 +196,16 @@
 .el-pagination.is-background .el-pager li:not(.disabled):hover {
     color: var(--item-border-hover-color);
 }
+
+/* dialog */
+.el-dialog {
+    background: var(--dialog-background);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+.el-dialog__headerbtn:focus .el-dialog__close, .el-dialog__headerbtn:hover .el-dialog__close {
+    color: var(--item-border-hover-color);
+}
+.el-dialog__header {
+    padding: 16px 20px 10px;
+}
