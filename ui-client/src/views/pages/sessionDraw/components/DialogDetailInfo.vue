@@ -17,7 +17,7 @@
 
         </div>
 
-        <div class="show-content" v-if="recordItemData">
+        <div class="show-content" v-if="recordDrawList.length > 0">
           <div class="show-img">
             <img style="width: 95%;" :src="staticUrl + recordItemData.drawImgUrl" alt="" @click="handleImgClick(staticUrl + recordItemData.drawImgUrl)">
           </div>

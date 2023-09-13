@@ -16,6 +16,12 @@
             <el-form-item label="数量">
               <el-input-number size="mini" controls-position="right" v-model="form.batchSize" :min="1" :max="4"></el-input-number>
             </el-form-item>
+            <el-form-item label="AI优化">
+              <el-switch v-model="form.optimizePrompt" :active-value="'1'" :inactive-value="'0'"></el-switch>
+              <el-tooltip content="支持中文，如果你不知道怎么写提示词，可以打开此项，如：黄昏时间，一个黑发女孩坐在沙滩上" placement="right">
+                <span class="iconfont icon-guanyu tips pointer"></span>
+              </el-tooltip>
+            </el-form-item>
             <el-form-item label="提示词">
               <textarea class="a-textarea"
                         rows="13"
@@ -79,6 +85,7 @@
           size: 512,
           width: this.form.width,
           height: this.form.height,
+          optimizePrompt: '0'
         }
       },
       handleImageMassGroupChange(val){
@@ -132,7 +139,10 @@
 <style scoped>
   .draw-param-form-main{
     width: 100%;
-    height: auto;
+    height: 90%;
+    max-height: 95%;
+    display: flex;
+    flex-direction: column;
   }
   .param-top{
     align-items: center;
@@ -141,6 +151,11 @@
 
   .main-form{
     margin-top: 15px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex: 1;
   }
 
   ::v-deep .el-upload-list--picture-card .el-upload-list__item {

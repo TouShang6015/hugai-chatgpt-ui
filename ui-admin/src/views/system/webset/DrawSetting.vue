@@ -4,12 +4,20 @@
 
       <el-divider>绘图系统参数配置</el-divider>
 
-      <el-row>
+      <el-row :gutter="25">
+        <el-col :span="6">
+          <el-form-item label="sd服务域名" prop="sdHostUrl">
+            <el-input v-model="form.sdHostUrl" label="sd服务域名"></el-input>
+          </el-form-item>
+        </el-col>
         <el-col :span="4">
           <el-form-item label="开启openai绘图接口" prop="openDrawOpenai">
             <el-switch v-model="form.openDrawOpenai" active-text="开启" inactive-text="关闭"></el-switch>
           </el-form-item>
         </el-col>
+      </el-row>
+
+      <el-row :gutter="25">
         <el-col :span="4">
           <el-form-item label="是否开启正向prompt前置内容" prop="openBeforePromptContent">
             <el-switch v-model="form.openBeforePromptContent" active-text="开启" inactive-text="关闭"></el-switch>
@@ -21,24 +29,23 @@
           </el-form-item>
         </el-col>
       </el-row>
-
       <el-row :gutter="25">
-        <el-col :span="6">
-          <el-form-item label="sd服务域名" prop="sdHostUrl">
-            <el-input v-model="form.sdHostUrl" label="sd服务域名"></el-input>
+        <el-col :span="4">
+          <el-form-item label="是否开启反向prompt前置内容" prop="openBeforeNegativePromptContent">
+            <el-switch v-model="form.openBeforeNegativePromptContent" active-text="开启" inactive-text="关闭"></el-switch>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-form-item label="默认请求JSON" prop="defaultRequestBean">
-            <el-input type="textarea" rows="5" v-model="form.defaultRequestBean" label="正向prompt优化"></el-input>
+        <el-col :span="12" v-if="form.openBeforeNegativePromptContent">
+          <el-form-item label="反向prompt固定前置内容" prop="beforeNegativePromptContent">
+            <el-input v-model="form.beforeNegativePromptContent" label="正向prompt固定前置内容"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
 
       <el-row :gutter="25">
-        <el-col :span="12">
-          <el-form-item label="正向prompt优化" prop="defaultPrompt">
-            <el-input type="textarea" rows="5" v-model="form.defaultPrompt" label="正向prompt优化"></el-input>
+        <el-col :span="8">
+          <el-form-item label="默认请求JSON" prop="defaultRequestBean">
+            <el-input type="textarea" rows="5" v-model="form.defaultRequestBean" label="正向prompt优化"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -46,6 +53,10 @@
             <el-input type="textarea" rows="5" v-model="form.defaultNegativePrompt" label="反向prompt优化"></el-input>
           </el-form-item>
         </el-col>
+      </el-row>
+
+      <el-row :gutter="25">
+
       </el-row>
     </el-form>
     <div slot="footer" class="dialog-footer">
