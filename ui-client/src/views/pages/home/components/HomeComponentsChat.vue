@@ -116,7 +116,6 @@
     flex-direction: column;
   }
   .center-content .item .iconfont{
-    color: #ffffff;
     font-size: 35px;
   }
   .center-content .item h2{

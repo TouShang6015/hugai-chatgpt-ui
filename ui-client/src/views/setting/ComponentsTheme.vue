@@ -64,7 +64,6 @@
   }
 
   .theme-item li .iconfont {
-    color: var(--font-color-default);
     padding: 2px 4px;
     border: 1px var(--item-border-default-color) solid;
     border-radius: 4px;

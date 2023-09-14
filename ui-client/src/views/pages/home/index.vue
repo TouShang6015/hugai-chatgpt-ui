@@ -6,6 +6,7 @@
     <div class="content">
       <HomeComponentsChat v-if="tabsSelect === '1'"></HomeComponentsChat>
     </div>
+    <RightTopTips></RightTopTips>
     <el-tooltip content="常见问题/帮助" placement="top" v-model="tipsStatus">
       <div class="right-bottom-help click-box" @click="goHelp">
         <span class="iconfont icon-guanyu pointer"></span>
@@ -16,10 +17,11 @@
 
 <script>
   import HomeComponentsChat from "@/views/pages/home/components/HomeComponentsChat";
+  import RightTopTips from "@/views/pages/home/components/RightTopTips";
 
   export default {
     name: "HomeIndex",
-    components: {HomeComponentsChat},
+    components: {RightTopTips, HomeComponentsChat},
     data() {
       return {
         tabsSelect: undefined,
@@ -72,7 +74,5 @@
   }
   ::v-deep .right-bottom-help .iconfont{
     font-size: 38px;
-    color: var(--font-color-default);
-
   }
 </style>
