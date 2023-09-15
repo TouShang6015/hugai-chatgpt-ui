@@ -7,6 +7,7 @@
               :window-data="windowData"
               :session-data="sessionData"
               :loading="loading"
+              :loadingLine="loadingLine"
               @clickSessionListItem="getSessionDataBySessionId"
               @handleCreateSession="handleCreateSession"
               @handleClearSession="handleClearSession"
@@ -24,8 +25,10 @@
               :window-data="windowData"
               :session-data="sessionData"
               :loading="loading"
+              :loadingLine="loadingLine"
               :default-input-message="defaultInputMessage"
               @sendInputMessage="sendInputMessage"
+              @stopStream="handleStopStream"
       ></SessionWindow>
     </div>
 
@@ -57,7 +60,6 @@
     },
     data(){
       return {
-
         loading: true,
         loadingLine: false,
         sessionLoadingStatus: false,
@@ -268,6 +270,9 @@
             this.apiErrorHandle(res.message)
           }
         })
+      },
+      handleStopStream(){
+        this.$api.get('/module/chat/stopStreamResponse/' + this.connectId);
       },
       // 发送前整理数据
       flushSendData(inputMessage) {

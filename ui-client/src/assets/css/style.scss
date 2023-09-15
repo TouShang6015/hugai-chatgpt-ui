@@ -80,11 +80,11 @@ li{
 
 /* hover动画 */
 .click-box{
-  transition: all 0.2s ease-out;
+  transition: all 0.15s ease-out;
 }
 .click-box:hover{
-  transform: scale(1.1);
-  transition: all 0.2s ease-in-out;
+  transform: scale(1.05);
+  transition: all 0.15s ease-in-out;
 }
 
 /* 大文本输入框 */

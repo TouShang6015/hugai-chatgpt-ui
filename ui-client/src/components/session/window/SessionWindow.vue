@@ -10,6 +10,12 @@
       </div>
     </div>
     <div class="input-main">
+      <div class="stop">
+        <div class="stop-item pointer" v-if="loadingLine" @click="handleStopStream">
+          <img :src="require('/src/assets/imgs/stop.png')" alt=""/>
+          <span>停止输出</span>
+        </div>
+      </div>
       <InputMsg
               ref="componentInputMsg"
               @setInputMsg="setInputMsg"
@@ -45,6 +51,7 @@
         }
       },
       loading: {type: Boolean, default: false},
+      loadingLine: {type: Boolean, default: false},
       defaultInputMessage: {
         type: String,
         default: ""
@@ -107,6 +114,9 @@
       sendInputMessage() {
         this.$emit('sendInputMessage', this.inputMsg)
         this.scrollBottom();
+      },
+      handleStopStream(){
+        this.$emit('stopStream')
       },
       /**
        * 获取窗口高度并滚动至最底层
@@ -189,6 +199,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     padding: 8px 0;
     bottom: 0;
     left: 0;
@@ -196,8 +207,48 @@
     z-index: 1510;
   }
 
+  .input-main .stop{
+    width: 100%;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+
+    .stop-item{
+      width: 10%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--font-color-default);
+      border: 1px var(--item-border-normal-color) solid;
+      border-radius: 12px;
+      z-index: 1;
+      transition: all 0.1s ease-out;
+      background: var(--background-main);
+
+      &:hover{
+        box-shadow: 0 0 3px 1px var(--item-border-default-color);
+        transition: all 0.2s ease-out;
+
+      }
+      &:active{
+        transform: scale(0.92);
+        transition: all 0.2s ease-in-out;
+      }
+
+      span{
+        margin: 0 5px
+      }
+    }
+  }
+  ::v-deep .stop img{
+    width: 15%;
+  }
+
   .spacer {
-    height: 120px;
+    height: 150px;
   }
 
   ::v-deep .markdown-body {

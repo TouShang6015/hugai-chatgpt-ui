@@ -6,22 +6,28 @@
     <div class="content">
       <HomeComponentsChat v-if="tabsSelect === '1'"></HomeComponentsChat>
     </div>
-    <RightTopTips></RightTopTips>
-    <el-tooltip content="常见问题/帮助" placement="top" v-model="tipsStatus">
-      <div class="right-bottom-help click-box" @click="goHelp">
-        <span class="iconfont icon-guanyu pointer"></span>
-      </div>
-    </el-tooltip>
+    <div class="right-bottom-help">
+      <el-popover placement="left" trigger="click">
+        <el-image src="http://chat.static.equinox19.xyz/image/HugAi%E4%BA%A4%E6%B5%81%E7%BE%A4%E8%81%8A%E4%BA%8C%E7%BB%B4%E7%A0%81.png"></el-image>
+        <div slot="reference">
+          <el-tooltip content="QQ交流群" placement="left">
+            <span class="iconfont icon-kefu pointer click-box"></span>
+          </el-tooltip>
+        </div>
+      </el-popover>
+      <el-tooltip content="常见问题/帮助" placement="left">
+        <span class="iconfont icon-guanyu pointer click-box" @click="goHelp"></span>
+      </el-tooltip>
+    </div>
   </div>
 </template>
 
 <script>
   import HomeComponentsChat from "@/views/pages/home/components/HomeComponentsChat";
-  import RightTopTips from "@/views/pages/home/components/RightTopTips";
 
   export default {
     name: "HomeIndex",
-    components: {RightTopTips, HomeComponentsChat},
+    components: {HomeComponentsChat},
     data() {
       return {
         tabsSelect: undefined,
@@ -71,6 +77,13 @@
     position: absolute;
     right: 2%;
     bottom: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .right-bottom-help span{
+    margin: 10px 0;
   }
   ::v-deep .right-bottom-help .iconfont{
     font-size: 38px;

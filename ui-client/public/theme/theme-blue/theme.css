@@ -33,6 +33,7 @@
     --item-border-default-color: rgb(184, 184, 184);
     --item-border-active-color: rgb(117, 219, 203);
     --item-border-hover-color: rgb(168, 232, 222);
+    --item-border-normal-color: rgba(255, 255, 255, 0.3);
 
     --draw-task-list-item-border-color: rgb(92, 94, 109);
     --draw-task-list-item-content-background: rgba(0, 0, 0, 0.12);

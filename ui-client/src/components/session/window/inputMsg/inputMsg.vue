@@ -87,6 +87,7 @@
     flex-direction: row;
     align-items: center;
     padding-bottom: 5px;
+    padding-top: 15px;
   }
 
   .input-box {
@@ -99,7 +100,7 @@
       width: 100%;
       height: 100%;
       padding: 10px;
-      background-color: rgb(66, 70, 86);
+      background-color: var(--background-textarea);
       border-radius: 6px;
       box-sizing: border-box;
       transition: 0.2s;
@@ -126,7 +127,7 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    border:1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--item-border-normal-color);
     border-radius: 15%;
     transition: 0.2s;
 
