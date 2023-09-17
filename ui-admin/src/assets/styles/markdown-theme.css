@@ -1,0 +1,133 @@
+.v-note-wrapper {
+    min-width: auto !important;
+    min-height: auto !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+}
+.markdown-body {
+    line-height: 1.1 !important;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content, .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
+    padding: 8px !important;
+}
+
+.markdown-body p{
+    margin-bottom: 0px !important;
+}
+
+.markdown-body li{
+    list-style: inherit !important;
+}
+
+pre {
+    margin: 10px 0 !important;
+    padding: 10px !important;
+    opacity: 1 !important;
+    border-radius: 15px !important;
+}
+
+pre .auto-textarea-block{
+  line-height: 1.1 !important;
+}
+
+.auto-textarea-input.no-border.no-resize{
+  line-height: 1.1 !important;
+}
+
+.line-num-box {
+    display: inline-block !important;
+    line-height: 20px !important;
+    font-size: 16px !important;
+    text-align: right !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.code-box {
+    display: inline-block !important;
+    vertical-align: top !important;
+    width: calc(100% - 50px) !important;
+    border-left-style: none !important;
+}
+
+code {
+    line-height: 20px !important;
+    font-size: 16px !important;
+    vertical-align: top;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 10px !important;
+}
+
+code::-webkit-scrollbar {
+    height: 10px !important;
+    border-radius: 5px !important;
+}
+
+code::-webkit-scrollbar-thumb {
+    border-radius: 5px !important;
+}
+
+code::-webkit-scrollbar-button {
+    /*滚动条的轨道的两端按钮，允许通过点击微调小方块的位置*/
+    border-radius: 5px !important;
+}
+
+.mac-icon {
+    height: 30px !important;
+    margin-bottom: 5px !important;
+}
+
+.mac-icon > span {
+    display: inline-block !important;
+    letter-spacing: 5px !important;
+    word-spacing: 5px !important;
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 8px !important;
+}
+
+.mac-icon-lang {
+    width: 50px !important;
+    padding-left: 10px !important;
+    font-size: 15px !important;
+    vertical-align: top !important;
+}
+
+.copy-button {
+    padding: 2px 8px !important;
+    margin-bottom: 5px !important;
+    margin-right: 5px !important;
+    margin-top: 5px !important;
+    border-radius: 5px !important;
+    outline: none !important;
+    border: none !important;
+}
+
+.copy-button {
+    float: right !important;
+}
+
+.copy-button:hover {
+    cursor: pointer !important;
+}
+
+.markdown-body .lang- {
+    display: block !important;;
+    overflow: auto !important;;
+    font-size: 15px !important;
+}
+
+.markdown-body pre .code-box{
+    padding-left: 10px !important;
+}
+
+.markdown-body pre code.lang-properties{
+    color: white !important;
+}
+
+.markdown-body .hljs {
+    display: block !important;
+    overflow: auto !important;
+    font-size: 15px !important;
+}

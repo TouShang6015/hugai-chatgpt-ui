@@ -4,7 +4,9 @@
       v-model="value"
       :editable="editable"
       :subfield="subfield"
+      :defaultOpen="defaultOpen"
       :toolbarsFlag="toolbarsFlag"
+      :boxShadow="false"
     />
   </div>
 </template>
@@ -22,6 +24,7 @@
       editable: { type: Boolean, default: true},
       subfield: { type: Boolean, default: false},
       toolbarsFlag: { type: Boolean, default: true},
+      defaultOpen: { type: String, default: 'edit'},
     },
     data() {
       return {

@@ -5,8 +5,9 @@ import Cookies from 'js-cookie'
 import Element from 'element-ui'
 import './assets/styles/element-variables.scss'
 
-import '@/assets/styles/index.scss' // global css
-import '@/assets/styles/ruoyi.scss' // ruoyi css
+import '@/assets/styles/index.scss'
+import '@/assets/styles/ruoyi.scss'
+import '@/assets/styles/markdown-theme.css'
 import App from './App'
 import store from './store'
 import router from './router'
