@@ -126,7 +126,7 @@
       },
       handleSubmitTxtImg(){
         if (!this.isLogin){
-          this.$message.warning('请先登录后在操作~')
+          this.$message.info('请先登录后在操作~')
           return
         }
         this.$api.post('/module/draw/task/createTask/openai_txt2img',this.form).then(res =>{
@@ -140,7 +140,7 @@
       },
       handleSubmitImgToImg(){
         if (!this.isLogin){
-          this.$message.warning('请先登录后在操作~')
+          this.$message.info('请先登录后在操作~')
           return
         }
         this.$api.post('/module/draw/task/createTask/openai_img2img',this.form).then(res =>{

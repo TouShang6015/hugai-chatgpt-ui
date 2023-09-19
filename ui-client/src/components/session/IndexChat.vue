@@ -6,9 +6,11 @@
               ref="sessionList"
               :window-data="windowData"
               :session-data="sessionData"
+              :type="SessionTypeConstant.CHAT"
               :loading="loading"
               :loadingLine="loadingLine"
-              @clickSessionListItem="getSessionDataBySessionId"
+              @clickSessionListItem="getSessionData"
+              @handleFlushList="handleFlushList"
               @handleCreateSession="handleCreateSession"
               @handleClearSession="handleClearSession"
               @handleDeleteSession="handleDeleteSession"
@@ -39,11 +41,13 @@
 </template>
 
 <script>
+  import SessionTypeConstant from '@/common/constants/SessionType';
   import SessionWindow from "./window/SessionWindow";
   import SessionList from "./window/SessionList";
   import LoadingLine from "./LoadingLine";
   import {linkSseEvent} from "@/utils/request/SseRequest";
   import StreamResponseType from "@/common/constants/StreamResponseType";
+  import {getToken} from "@/utils/auth";
 
   export default {
     name: "SessionIndex",
@@ -55,15 +59,17 @@
       },
       defaultInputMessage: {
         type: String,
-        default: ""
+        default: null
       }
     },
     data(){
       return {
+        SessionTypeConstant,
         loading: true,
         loadingLine: false,
         sessionLoadingStatus: false,
         connectId: undefined,
+        isLogin: !!getToken(),
         hiddenStatusSession: this.$store.state.settings.hiddenStatusSessionList,
 
         sessionData: {},
@@ -83,19 +89,40 @@
       }
     },
     created() {
-      this.getLastSessionData();
+      if (this.handleBefore()){
+        if(this.defaultInputMessage == null) {
+          this.getLastSessionData();
+        }else{
+          this.handleCreateSession()
+        }
+      }
     },
     methods: {
+      handleBefore(){
+        if (!this.isLogin) {
+          this.$message.info('请先登录后在操作~')
+          return false;
+        }
+        return true
+      },
       // 获取当前窗口最新的会话
       getLastSessionData(){
         this.loading = true
         this.$api.getRestful('/module/session/sessioninfo/userLastSession',this.windowData.sessionType).then(res => {
           if (res.data != null){
             this.sessionData = res.data;
-            this.getSessionRecordData(this.sessionData.id);
             this.loading = false
+            this.$refs.sessionList.clickSessionListItem(this.sessionData)
           }
         })
+      },
+      getSessionData(item){
+        this.loading = true
+        setTimeout(() => {
+          this.sessionData = JSON.parse(JSON.stringify(item));
+          this.getSessionRecordData(this.sessionData.id);
+          this.loading = false
+        },30)
       },
       getSessionDataBySessionId(sessionId){
         this.loading = true
@@ -116,21 +143,26 @@
           }
         })
       },
+      handleFlushList(){
+        this.$refs.sessionList.handleFlushList()
+      },
       handleCreateSession(){
         this.$api.getRestful('/module/session/sessioninfo/addSession',this.windowData.sessionType).then(res => {
           this.getLastSessionData();
-          this.$refs.sessionList.initSessionList()
+          this.$refs.sessionList.handleFlushList()
         })
       },
-      handleClearSession(){
+      handleClearSession(sessionId){
         this.loading = true
         this.$confirm('确定要清空当前会话记录吗?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$api.getRestful('/module/session/sessioninfo/clearSession',this.sessionData.id).then(res => {
-            this.getLastSessionData()
+          this.$api.getRestful('/module/session/sessioninfo/clearSession',sessionId).then(res => {
+            this.$refs.sessionList.handleFlushList()
+            this.$refs.sessionList.flushRecord()
+            this.loading = false
           })
         }).catch(() => {
           this.loading = false
@@ -294,7 +326,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
   .main-session{
     height: 100%;
@@ -307,7 +339,6 @@
     display: flex;
     transition: width 0.2s;
   }
-
   .main-session-list.hiddenStatusSession{
     width: 0;
     transition-property: all;

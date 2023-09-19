@@ -6,22 +6,32 @@
         <span>新的对话</span>
       </div>
     </div>
-    <div class="list-box" @scroll="pageData($event)">
-      <transition-group name="fade-list-to-right">
-        <li :class="sessionData.id === item.id ? 'pointer itemActive' : 'pointer'" v-for="(item,index) in sessionList" :key="index" @click="clickSessionListItem(item.id)">
-          <span class="iconfont icon-chat"></span>
-          <span>{{item.sessionName || '无标题'}}</span>
-          <div class="action" v-if="sessionData.id === item.id">
-            <el-tooltip content="删除会话" placement="top">
-              <span class="iconfont icon-waste" @click="handleDeleteSession(item.id)"></span>
-            </el-tooltip>
-          </div>
-        </li>
-      </transition-group>
+    <div class="list-box">
+      <div style="max-height: 700px">
+        <transition-group name="fade-list-to-right">
+          <li :class="thisSessionData.id === item.id ? 'pointer itemActive' : 'pointer'" v-for="(item,index) in sessionList" :key="index" @click="clickSessionListItem(item)">
+            <span class="iconfont icon-chat"></span>
+            <span>{{item.sessionName || '无标题'}}</span>
+            <div class="action" v-if="thisSessionData.id === item.id">
+              <el-tooltip content="删除会话" placement="top">
+                <span class="iconfont icon-waste" @click="handleDeleteSession"></span>
+              </el-tooltip>
+            </div>
+          </li>
+        </transition-group>
+      </div>
     </div>
-
+    <div class="loading-more pointer" @click="handleLoadingMore">
+      <span>加载更多</span>
+    </div>
     <div class="bottom-box">
-
+      <div class="item">
+        <button type="button" class="btn transparent" @click="handleFlushList"><span class="iconfont icon-shuaxin"></span>刷新列表</button>
+      </div>
+      <div class="item">
+        <button type="button" class="btn transparent" @click="handleClearSession"><span class="iconfont icon-waste-restore"></span>清空</button>
+        <button type="button" class="btn transparent" @click="handleDeleteSession"><span class="iconfont icon-shanchu"></span>删除</button>
+      </div>
     </div>
   </div>
 </template>
@@ -42,70 +52,86 @@
         default: () => {
         }
       },
-      loading: { type: Boolean, default: false }
+      loading: { type: Boolean, default: false },
+      type:{ type: String,default: null },
+      domainUniqueKey:{ type: String,default: null },
+      drawUniqueKey:{ type: String,default: null },
     },
     watch:{
-      loading(val){
-        if (!val){
-          this.getUserSessionList()
-        }
-      },
+      // loading(val){
+      //   if (!val){
+      //     this.getUserSessionList()
+      //   }
+      // },
     },
     data(){
       return{
-        scrollFlag: true,
+        scrollFlag: false,
         queryParam: {
           page: 1,
-          size: 15
+          size: 10
         },
         sessionList: [],
         isLogin: !!getToken(),
+        thisSessionData: {}
       }
     },
     created() {
     },
     mounted() {
+      if (this.loading && this.isLogin) {
+        this.getUserSessionList()
+      }
     },
     methods:{
       handleBefore(){
         if (!this.isLogin) {
-          this.$message.warning('请先登录后在操作~')
+          this.$message.info('请先登录后在操作~')
           return false;
         }
         return true
       },
       initSessionList(){
         this.sessionList = [];
+        this.queryParam = {page: 1, size: 10};
       },
       getUserSessionList(){
-        this.queryParam.type = this.sessionData.type
-        this.queryParam.domainUniqueKey = this.sessionData.domainUniqueKey
-        this.queryParam.drawUniqueKey = this.sessionData.drawUniqueKey
+        this.queryParam.type = this.type
+        this.queryParam.domainUniqueKey = this.domainUniqueKey
+        this.queryParam.drawUniqueKey = this.drawUniqueKey
         this.$api.get('/module/session/sessioninfo/getUserSessionList',this.queryParam).then(res => {
-          if (res.data.length > 0){
-            let sessionListIds = this.sessionList.map(item => item.id);
-            res.data.forEach(item => {
-              if (!sessionListIds.includes(item.id)){
-                this.sessionList.push(item)
-              }
-            })
+          if (res.status){
+            if (res.data.length > 0){
+              let sessionListIds = this.sessionList.map(item => item.id);
+              res.data.forEach(item => {
+                if (!sessionListIds.includes(item.id)){
+                  this.sessionList.push(item)
+                }
+              })
+              this.scrollFlag = false
+            }
           }
-          this.scrollFlag = !(res.data.length > 0)
         })
       },
-      pageData(e){
-        let Scroll = e.target;
-        let scrollHeight = Scroll.scrollHeight - Scroll.clientHeight;
-        if (scrollHeight - Scroll.scrollTop < 100 && !this.scrollFlag) {
-          this.scrollFlag = true;
-          this.queryParam.page++;
-          this.getUserSessionList();
-        }
+      handleFlushList(){
+        this.initSessionList()
+        this.getUserSessionList()
       },
-      clickSessionListItem(sessionId){
-        if (sessionId !== this.sessionData.id){
-          this.$emit('clickSessionListItem',sessionId);
+      handleLoadingMore(){
+        if (this.scrollFlag){
+          this.$message.info("没有更多项了")
+          return
         }
+        this.scrollFlag = true;
+        this.queryParam.page++;
+        this.getUserSessionList();
+      },
+      clickSessionListItem(item){
+        this.thisSessionData = item
+        this.$emit('clickSessionListItem',item);
+      },
+      flushRecord(){
+        this.$emit('clickSessionListItem',this.thisSessionData);
       },
       handleCreateSession(){
         if (this.handleBefore()){
@@ -114,12 +140,12 @@
       },
       handleClearSession(){
         if (this.handleBefore()){
-          this.$emit('handleClearSession');
+          this.$emit('handleClearSession',this.thisSessionData.id);
         }
       },
-      handleDeleteSession(sessionId){
+      handleDeleteSession(){
         if (this.handleBefore()){
-          this.$emit('handleDeleteSession',sessionId);
+          this.$emit('handleDeleteSession',this.thisSessionData.id);
         }
       },
     }
@@ -180,7 +206,7 @@
   .list-box {
     flex: 1;
     width: 100%;
-    max-height: 75%;
+    height: 70%;
     scrollbar-width: none;
     -ms-overflow-style: none;
     overflow-x: hidden;
@@ -226,6 +252,25 @@
     margin: 0 4px 0 8px
   }
 
+  .loading-more{
+    margin: 5px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px var(--item-border-normal-color) dashed;
+    transition: all 0.2s ease;
+
+    &:hover{
+      border: 1px dashed var(--session-list-create-session-border-hover);
+      transform: scale(0.99);
+    }
+
+    span{
+      padding: 5px 0;
+    }
+  }
+
   .action{
     right: 0;
     position: absolute;
@@ -239,9 +284,32 @@
   }
 
   .bottom-box {
-    align-self: flex-end;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    flex-direction: column;
     width: 100%;
     height: 15%;
     max-height: 15%;
+  }
+  .bottom-box .item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .bottom-box .item button{
+    flex: 1;
+    margin: 5px 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .iconfont{
+      margin-right: 5px;
+      font-size: 15px !important;
+    }
   }
 </style>

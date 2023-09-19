@@ -3,7 +3,7 @@
     <div class="taskListItem" @click="handleItemClick">
       <div class="img-content">
         <div class="img-box">
-          <el-image :src="staticUrl + itemData.showImg" lazy>
+          <el-image :src="staticUrl + itemData.showImg" :lazy="true">
             <div slot="error" class="image-slot">
               <img :src="require('/src/assets/imgs/loadingError.png')" v-if="itemData.taskStatus !== 'WAIT'" alt="">
               <img :src="require('/src/assets/imgs/loading.png')" v-if="itemData.taskStatus === 'WAIT'" alt="">

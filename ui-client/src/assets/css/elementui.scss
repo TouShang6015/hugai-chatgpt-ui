@@ -24,6 +24,8 @@
     color: white;
     border: 1px solid #acacac;
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    height: 32px;
+    line-height: 32px;
 }
 
 .el-input input{
@@ -213,4 +215,29 @@
 /* tip */
 .el-tooltip__popper {
     max-width: 15%;
+}
+
+/* el-select */
+.el-range-editor.is-active, .el-range-editor.is-active:hover, .el-select .el-input.is-focus .el-input__inner {
+    border-color: var(--item-border-hover-color);
+}
+.el-select-dropdown {
+    border: 1px solid var(--item-border-default-color);
+    background-color: var(--aside-background);
+}
+.el-select .el-input .el-select__caret {
+    color: var(--item-border-hover-color);
+}
+.el-select-dropdown__item.selected {
+    color: var(--item-border-active-color);
+}
+.el-select .el-input__inner:focus {
+    border-color: var(--item-border-active-color);
+}
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
+    background-color: var(--aside-hover-color);
+}
+.el-select-dropdown__item {
+    color: var(--font-color-default);
+    cursor: url('/src/assets/imgs/mouse/pointer.cur'),default;
 }

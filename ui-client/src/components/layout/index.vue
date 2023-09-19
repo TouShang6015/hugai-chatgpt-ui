@@ -16,6 +16,9 @@
     <transition name="box-down">
       <SettingsInd v-show="settingDialog"></SettingsInd>
     </transition>
+    <transition name="box-down">
+      <AccountIndex v-show="accountDialog"></AccountIndex>
+    </transition>
   </el-container>
 
 </template>
@@ -26,14 +29,16 @@
   import NavIndex from "./nav/nav";
   import HiddenButton from "@/components/layout/components/HiddenButton";
   import SettingsInd from "@/views/setting/Settings";
+  import AccountIndex from "@/views/account/Account";
 
   export default {
     name: "LayoutIndex",
-    components: {SettingsInd, AppMain, NavIndex, Auth, HiddenButton},
+    components: {AccountIndex, SettingsInd, AppMain, NavIndex, Auth, HiddenButton},
     data() {
       return {
         loginDialog: false,
         settingDialog: false,
+        accountDialog: false,
         registerDialog: false,
         hiddenStatus: this.$store.state.settings.hiddenStatusLeft,
       }
@@ -52,6 +57,11 @@
       '$store.getters.settingDialog': {
         handler: function (val) {
           this.settingDialog = val
+        },
+      },
+      '$store.getters.accountDialog': {
+        handler: function (val) {
+          this.accountDialog = val
         },
       }
     },

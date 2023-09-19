@@ -61,6 +61,9 @@
           case 'setting':
             this.openSettingDialog()
             break;
+          case 'account':
+            this.openAccountDialog()
+            break;
         }
       },
       openLoginDialog(){
@@ -74,8 +77,10 @@
         this.$store.commit('SET_LOGIN_DIALOG',false)
       },
       openSettingDialog(){
-        console.log(!this.$store.getters.settingDialog)
         this.$store.commit('SET_SETTING_DIALOG',!this.$store.getters.settingDialog)
+      },
+      openAccountDialog(){
+        this.$store.commit('SET_ACCOUNT_DIALOG',!this.$store.getters.accountDialog)
       }
     }
   }

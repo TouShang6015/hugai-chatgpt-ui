@@ -19,7 +19,7 @@
 
         <div class="show-content" v-if="recordDrawList.length > 0">
           <div class="show-img">
-            <img style="width: 95%;" :src="staticUrl + recordItemData.drawImgUrl" alt="" @click="handleImgClick(staticUrl + recordItemData.drawImgUrl)">
+            <el-image style="width: 95%" :src="staticUrl + recordItemData.drawImgUrl" :preview-src-list="[staticUrl + recordItemData.drawImgUrl]" :lazy="true"></el-image>
           </div>
           <div class="description">
             <div class="item">

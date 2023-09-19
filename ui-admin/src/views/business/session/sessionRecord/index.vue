@@ -5,6 +5,7 @@
       ref="baseSearchForm"
       :query-params="queryParams"
       :builder-form="builderSearch.search"
+      :builder-button="builderSearch.button"
       :label-width="'100px'"
       @baseHandleQuery="baseHandleQuery"
       @resetQuery="resetQuery"
@@ -28,12 +29,12 @@
       @handleShowRecord="handleShowRecord"
       @baseHandleSelectionChange="baseHandleSelectionChange"
     >
+      <template slot="column-userName" slot-scope="scope">
+        {{scope.row.userName || scope.row.ipAddress}}
+      </template>
       <template slot="column-ifTourist" slot-scope="scope">
         <el-tag v-if="scope.row.ifTourist === '0'" type="success">会员</el-tag>
         <el-tag v-if="scope.row.ifTourist === '1'" type="warning">游客</el-tag>
-      </template>
-      <template slot="column-noticeType" slot-scope="scope">
-        <el-tag v-for="(item,index) in NoticeType" v-if="item.value == scope.row.noticeType">{{item.label}}</el-tag>
       </template>
     </base-table>
 
@@ -72,6 +73,8 @@
         this.url = '/module/session/sessioninfo';
         this.viewName = '会话记录';
         this.useBaseComponent = true;
+        delete this.sortCondition.updateTime;
+        this.sortCondition.createTime = false;
         return true;
       },
       handleShowRecord(row){
@@ -87,7 +90,6 @@
 
   const builderSearch = {
     search: [
-      { title: '用户名', key: 'userName',span:8  },
       { title: '用户ID', key: 'id',span:8  },
     ],
     button: [

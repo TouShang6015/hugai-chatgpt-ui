@@ -45,12 +45,11 @@
   import { getToken } from "@/utils/auth";
   import Preview from "@/components/ImageUpload/Preview";
 
-  const fileUploadApiUrl = '/common/uploadImage';
-
   export default {
     components: {Preview},
     props: {
       value: [String, Object, Array],
+      uploadApiUrl: { type: String, default: '/common/uploadImage' },
       // 图片数量限制
       limit: {
         type: Number,
@@ -85,7 +84,7 @@
         dialogVisible: false,
         hideUpload: true,
         baseUrl: this.$store.getters.configMain.staticWebsite,
-        uploadImgUrl: process.env.VUE_APP_BASE_API + fileUploadApiUrl,
+        uploadImgUrl: process.env.VUE_APP_BASE_API + this.uploadApiUrl,
         headers: {
           Authorization: "Bearer " + getToken(),
         },
