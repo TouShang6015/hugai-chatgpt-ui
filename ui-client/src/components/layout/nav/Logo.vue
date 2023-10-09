@@ -1,12 +1,12 @@
 <template>
   <div class="logo">
-    <img lazy :src="require('/src/assets/imgs/logo/logo_icon2.png')" width="70" height="70" @click="goHome">
+    <el-image style="width: 70px" :lazy="true" :src="require('/src/assets/imgs/logo/HugAiLogo1.png')"  @click="goHome"/>
   </div>
 </template>
 
 <script>
   export default {
-    name: "Logo",
+    name: "LogoIndex",
     methods:{
       goHome(){
         this.$router.push("/home")
@@ -17,7 +17,7 @@
 
 <style scoped>
 .logo{
-  height: 10%;
+  height: 70px;
   width: auto;
   padding-top: 30px;
   padding-bottom: 30px;

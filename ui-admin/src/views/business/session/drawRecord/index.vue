@@ -30,6 +30,9 @@
                   :lazy="true"
                   ></el-image>
       </template>
+      <template slot="column-drawUniqueKey" slot-scope="scope">
+        <el-tag v-for="item in labelOptionDrawType" v-show="scope.row.drawUniqueKey  == item.value" :type="item.tagType">{{item.label}}</el-tag>
+      </template>
     </base-table>
 
   </div>
@@ -37,6 +40,7 @@
 
 <script>
   import crud from '/src/common/crud/crud'
+  import DrawType from "/src/common/constants/DrawType";
 
   export default {
     name: 'DrawRecordIndex',
@@ -45,6 +49,7 @@
     data() {
       return {
         builderSearch, builderTable,
+        labelOptionDrawType: Object.values(DrawType),
         rules: {
           xxx: [{ required: true, trigger: 'blur', message: '' }]
         }
@@ -89,7 +94,7 @@
       { title: '创建时间', key: 'createTime' }
     ],
     actions: [
-      { title: '删除', key: 'delete', type: 'danger', action: 'submitDeleteByColumn' }
+      // { title: '删除', key: 'delete', type: 'danger', action: 'submitDeleteByColumn' }
     ]
   }
 </script>

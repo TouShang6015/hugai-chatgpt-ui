@@ -21,7 +21,19 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="25">
+        <el-col :span="8">
+          <el-form-item label="openAi代理地址" prop="proxyHost">
+            <el-input v-model="form.proxyHost" placeholder="openAi代理地址（127.0.0.1）" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="openAi代理端口" prop="proxyPort">
+            <el-input v-model="form.proxyPort" placeholder="openAi代理端口（7890）" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="25">
         <el-col :span="5">
           <el-form-item label="文件存储策略" prop="fileSaveStrategy">
             <el-select v-model="form.fileSaveStrategy" placeholder="请选择文件存储策略">
@@ -40,24 +52,14 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
-<!--        <el-col :span="4">-->
-<!--          <el-form-item label="是否开启注册" prop="registerOpen">-->
-<!--            <el-switch v-model="form.registerOpen" active-text="开启" inactive-text="关闭"></el-switch>-->
-<!--          </el-form-item>-->
-<!--        </el-col>-->
-<!--        <el-col :span="4">-->
-<!--          <el-form-item label="是否开启登陆验证码" prop="authCodeOpen">-->
-<!--            <el-switch v-model="form.authCodeOpen" active-text="开启" inactive-text="关闭"></el-switch>-->
-<!--          </el-form-item>-->
-<!--        </el-col>-->
+      <el-row :gutter="25">
         <el-col :span="4">
           <el-form-item label="是否使用系统ApiKey" prop="ableSystemApiKey">
             <el-switch v-model="form.ableSystemApiKey" active-text="开启" inactive-text="关闭"></el-switch>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="25">
         <el-col :span="4">
           <el-form-item label="网站发布时间" prop="webIssueTime">
             <el-date-picker v-model="form.webIssueTime"
@@ -74,7 +76,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="25">
         <el-col :span="4">
           <el-form-item label="系统版本" prop="projectVersion">
             <el-input v-model="form.projectVersion" label="系统版本"></el-input>

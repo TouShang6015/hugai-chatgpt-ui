@@ -3,20 +3,17 @@
     <div class="component-upload-image">
       <el-upload
               multiple
-              :action="uploadImgUrl"
-              list-type="picture-card"
-              :on-success="handleUploadSuccess"
-              :before-upload="handleBeforeUpload"
-              :limit="limit"
-              :on-error="handleUploadError"
-              :on-exceed="handleExceed"
-              name="file"
+              :action="'#'"
+              :http-request="customHttpRequest"
               :on-remove="handleRemove"
+              list-type="picture-card"
+              :limit="limit"
+              name="file"
               :show-file-list="true"
               :headers="headers"
               :file-list="fileList"
               :on-preview="handlePictureCardPreview"
-              :class="{hide: this.fileList.length >= this.limit,ifWane: this.ifWane}"
+              :class="{hide: uploadList.length >= limit,ifWane: this.ifWane}"
       >
         <i class="el-icon-plus"></i>
       </el-upload>
@@ -46,11 +43,12 @@
   import Preview from "@/components/ImageUpload/Preview";
 
   export default {
-    name:'ImageUpload',
+    name:'ImageUploadFile',
     components: {Preview},
     props: {
       value: [String, Object, Array],
-      uploadApiUrl: { type: String, default: '/common/uploadImage' },
+      useAttachment: { type: Boolean, default: false },
+      uploadApiUrl: { type: String, default: '/common/uploadImageAttachment' },
       // 图片数量限制
       limit: {
         type: Number,
@@ -81,9 +79,10 @@
       return {
         number: 0,
         uploadList: [],
+        uploadListAttachment: [],
         dialogImageUrl: "",
         dialogVisible: false,
-        hideUpload: true,
+        hideUpload: false,
         baseUrl: this.$store.getters.configMain.staticWebsite,
         uploadImgUrl: process.env.VUE_APP_BASE_API + this.uploadApiUrl,
         headers: {
@@ -93,30 +92,6 @@
       };
     },
     watch: {
-      value: {
-        handler(val) {
-          if (val) {
-            // 首先将值转为数组
-            const list = Array.isArray(val) ? val : this.value.split(',');
-            // 然后将数组转为对象数组
-            this.fileList = list.map(item => {
-              if (typeof item === "string") {
-                if (item.indexOf(this.baseUrl) === -1) {
-                  item = { name: this.baseUrl + item, url: this.baseUrl + item };
-                } else {
-                  item = { name: item, url: item };
-                }
-              }
-              return item;
-            });
-          } else {
-            this.fileList = [];
-            return [];
-          }
-        },
-        deep: true,
-        immediate: true
-      }
     },
     computed: {
       // 是否显示提示
@@ -128,36 +103,8 @@
       imagePreviewClose(){
         this.dialogVisible = false;
       },
-      // 删除图片
-      handleRemove(file, fileList) {
-        const findex = this.fileList.map(f => f.name).indexOf(file.name);
-        if(findex > -1) {
-          this.fileList.splice(findex, 1);
-          this.$emit("input", this.listToString(this.fileList));
-        }
-      },
-      // 上传成功回调
-      handleUploadSuccess(res) {
-        if (!res.status){
-          this.uploadList = [];
-          this.number = 0;
-          this.$emit("input", this.listToString(this.fileList));
-          this.$modal.closeLoading();
-          this.$message.error(res.message)
-          return;
-        }
-        let response = res.data;
-        this.uploadList.push({ name: response.fileName, finalUrl: response.filePath ,url: this.baseUrl + response.filePath });
-        if (this.uploadList.length === this.number) {
-          this.fileList = this.fileList.concat(this.uploadList);
-          this.uploadList = [];
-          this.number = 0;
-          this.$emit("input", this.listToString(this.fileList));
-          this.$modal.closeLoading();
-        }
-      },
-      // 上传前loading加载
-      handleBeforeUpload(file) {
+      customHttpRequest(data){
+        let file = data.file;
         let isImg = false;
         if (this.fileType.length) {
           let fileExtension = "";
@@ -184,8 +131,30 @@
             return false;
           }
         }
-        this.$modal.loading("正在上传图片，请稍候...");
-        this.number++;
+        this.uploadList.push(file)
+        if(this.useAttachment){
+          let formData = new FormData();
+          formData.append('file',file)
+          this.$api.postFormData(this.uploadApiUrl,formData).then(res => {
+            this.uploadListAttachment.push({
+              'uid': file.uid,
+              "attachmentId": res.data
+            })
+            this.$emit('input',this.uploadListAttachment)
+          })
+        }else{
+          this.$emit('input',this.uploadList)
+        }
+      },
+      // 删除图片
+      handleRemove(file) {
+        this.uploadList = this.uploadList.filter(item => item.uid !== file.uid)
+        if(this.useAttachment){
+          this.uploadListAttachment = this.uploadListAttachment.filter(item => item.uid !== file.uid)
+          this.$emit('input',this.uploadListAttachment)
+        }else{
+          this.$emit('input',this.uploadList)
+        }
       },
       // 文件个数超出
       handleExceed() {

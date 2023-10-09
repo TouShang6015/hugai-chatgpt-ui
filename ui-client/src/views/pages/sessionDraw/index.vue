@@ -5,11 +5,12 @@
         <h2 v-for="item in tabItem" :key="item.value" v-show="item.value === tabValue">{{item.label}}</h2>
         <OpenAiParamForm v-if="tabValue === 'openai'" @submitFormCallBack="submitFormCallBack"></OpenAiParamForm>
         <SdParamForm v-if="tabValue === 'sd'" @submitFormCallBack="submitFormCallBack"></SdParamForm>
+        <MjParamForm v-if="tabValue === 'mj'" @submitFormCallBack="submitFormCallBack"></MjParamForm>
       </div>
     </transition>
     <div class="right-content">
       <div class="top-selected">
-        <a-tabs :value="tabValue" :tab-item="tabItem" width="28%" @change="tabsChange"></a-tabs>
+        <a-tabs :value="tabValue" :tab-item="tabItem" width="45%" @change="tabsChange"></a-tabs>
       </div>
       <div class="draw-show">
         <transition name="web-fade">
@@ -25,14 +26,16 @@
   import OpenAiParamForm from "@/views/pages/sessionDraw/type/openai/OpenAiParamForm";
   import DrawTaskShowList from "@/views/pages/sessionDraw/components/DrawTaskShowList";
   import SdParamForm from "@/views/pages/sessionDraw/type/sd/SdParamForm";
+  import MjParamForm from "@/views/pages/sessionDraw/type/mj/MjParamForm";
 
   export default {
     name: "SessionDrawIndex",
-    components: {SdParamForm, DrawTaskShowList, OpenAiParamForm },
+    components: {MjParamForm, SdParamForm, DrawTaskShowList, OpenAiParamForm },
     data(){
       return{
         tabItem: [
           { value: 'sd',label: 'Stable Diffusion画图' },
+          { value: 'mj',label: 'Midjourney画图' },
           { value: 'openai',label: 'OpenAi' },
         ],
         status: false,
@@ -45,6 +48,9 @@
     },
     methods:{
       tabsChange(val){
+        if (this.tabValue === val){
+          return
+        }
         this.status = false
         setTimeout(() => {
           this.tabValue = val;
@@ -90,14 +96,14 @@
 }
 .draw-show{
   flex: 1;
-  height: auto;
-  width: auto;
+  height: 100%;
+  width: 100%;
 }
 
   .top-selected{
     display: grid;
     justify-items: center;
     align-items: center;
-    padding: 20px 0;
+    padding: 16px 0;
   }
 </style>

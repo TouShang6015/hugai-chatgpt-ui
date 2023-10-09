@@ -4,8 +4,8 @@
       <div class="handle-top">
         <div class="top-item">
           <div class="left">
-            <span>当前任务数量：{{this.taskQueueData.taskSize == null ? '空闲的' : this.taskQueueData.taskSize}}</span>
-            <span>我的任务：{{this.taskQueueData.userIndex == null ? '暂无任务' : '第' + this.taskQueueData.userIndex + '位'}}</span>
+            <span>当前任务：{{this.taskQueueData.runningCount == null ? '0' : this.taskQueueData.runningCount}}</span>
+            <span>排队中：{{this.taskQueueData.sum == null ? '0' : this.taskQueueData.sum}}</span>
           </div>
           <h2 class="pointer" @click="getTaskList">
             <span class="iconfont icon-shuaxin"></span>
@@ -13,21 +13,36 @@
           </h2>
         </div>
       </div>
+      <div class="list-page">
+        <el-pagination
+                v-if="total > 0"
+                background
+                layout="prev, pager, next"
+                :total="total"
+                @current-change="pageChange"
+        >
+        </el-pagination>
+      </div>
       <el-empty description="暂无任务" v-if="total === 0"></el-empty>
 
       <div class="task-content"  v-if="total > 0">
-        <div class="content">
-          <TaskListItem v-for="(item,index) in dataList" :item-data="item" :key="index" @click="handleTaskItemClick"></TaskListItem>
+        <div class="content" v-if="drawType !== 'mj'">
+          <TaskListItem
+                  v-for="(item,index) in dataList"
+                  :item-data="item"
+                  :key="index"
+                  @click="handleTaskItemClick"
+                  @flushList="getTaskList"
+          ></TaskListItem>
         </div>
-        <div class="bottom-page">
-          <el-pagination
-                  v-if="total > 0"
-                  background
-                  layout="prev, pager, next"
-                  :total="total"
-                  @current-change="pageChange"
-          >
-          </el-pagination>
+        <div class="content" v-if="drawType === 'mj'">
+          <TaskListItemMJ
+                  v-for="(item,index) in dataList"
+                  :item-data="item"
+                  :key="index"
+                  @click="handleTaskItemClick"
+                  @flushList="getTaskList"
+          ></TaskListItemMJ>
         </div>
       </div>
     </div>
@@ -48,9 +63,10 @@
   import TaskListItem from "@/views/pages/sessionDraw/components/TaskListItem";
   import {getToken} from "@/utils/auth";
   import DialogDetailInfo from "@/views/pages/sessionDraw/components/DialogDetailInfo";
+  import TaskListItemMJ from "@/views/pages/sessionDraw/components/TaskListItemMJ";
   export default {
     name: "DrawTaskShowList",
-    components: {DialogDetailInfo, TaskListItem},
+    components: {TaskListItemMJ, DialogDetailInfo, TaskListItem},
     props:{
       drawType: { type: String, required: true }
     },
@@ -121,6 +137,7 @@
   .drawTaskListMain{
     width: 100%;
     height: 100%;
+    max-height: 100%;
 
     .handle-top{
       height: 5%;
@@ -171,38 +188,34 @@
 
 
     .task-content{
+      box-sizing: border-box;
       width: 100%;
-      max-height: 80%;
+      height: 88%;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       flex-wrap: wrap;
-      overflow: auto;
 
       .content{
+        box-sizing: border-box;
         width: calc(100% - 20px);
-        height: 80%;
-        max-height: 80%;
+        height: 100%;
         display: flex;
         flex-wrap: wrap;
+        white-space: nowrap;
         flex-direction: row;
         justify-content: flex-start;
         align-items: flex-start;
-        margin-left: 20px;
+        padding-left: 10px;
         overflow: auto;
-      }
-
-      .bottom-page{
-        flex: 1;
-        position: fixed;
-        bottom: 1%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 25%;
+        padding-bottom: 100px;
       }
 
     }
 
   }
-
+  .list-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>

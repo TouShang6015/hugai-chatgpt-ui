@@ -14,6 +14,7 @@
                               :type="item.type"
                               :placeholder="item.placeholder || ''" clearable
                               :disabled="item.disabled || false"
+                              :rows="item.rows"
                               :style="item.style"/>
                     <!-- select -->
                     <el-select v-model="form[item.key]" v-if="item.type === 'select'" :placeholder="item.placeholder" :style="item.style">

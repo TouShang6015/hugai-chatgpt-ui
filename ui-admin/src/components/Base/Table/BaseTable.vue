@@ -40,6 +40,7 @@
                 :size="item.size || 'mini'"
                 :type="item.type || 'success'"
                 :icon="item.icon"
+                :plain="item.plain"
                 v-hasPermi="item.hasPermi"
                 @click="handleCallBackAction(item.action,scope.row)"
               >

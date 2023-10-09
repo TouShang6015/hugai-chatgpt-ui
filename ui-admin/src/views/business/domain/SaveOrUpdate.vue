@@ -59,7 +59,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="显示名称" prop="iconName">
+            <el-form-item label="标题名称" prop="iconName">
               <el-input v-model="form.iconName"></el-input>
             </el-form-item>
           </el-col>
@@ -79,11 +79,6 @@
         </el-row>
         <el-divider content-position="center">会话数据配置</el-divider>
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="标题" prop="title">
-              <el-input v-model="windowData.title"></el-input>
-            </el-form-item>
-          </el-col>
           <el-col :span="12">
             <el-form-item label="会话类型" prop="sessionType">
               <el-select v-model="windowData.sessionType" clearable>

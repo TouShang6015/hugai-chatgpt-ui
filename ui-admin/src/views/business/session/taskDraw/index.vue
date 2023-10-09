@@ -10,7 +10,15 @@
       @baseHandleQuery="baseHandleQuery"
       @resetQuery="resetQuery"
     >
-      <template slot="item-xxx" slot-scope="scope">
+      <template slot="item-drawType" slot-scope="scope">
+        <el-select v-model="queryParams.drawType" clearable>
+          <el-option v-for="item in labelOptionDrawType" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+      </template>
+      <template slot="item-drawApiKey" slot-scope="scope">
+        <el-select v-model="queryParams.drawApiKey" clearable>
+          <el-option v-for="item in labelOptionDrawApiKey" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
       </template>
     </search-form>
 
@@ -33,6 +41,15 @@
                   :lazy="true"
         ></el-image>
       </template>
+      <template slot="column-drawType" slot-scope="scope">
+        <el-tag v-for="item in labelOptionDrawType" v-show="scope.row.drawType == item.value" :type="item.tagType">{{item.label}}</el-tag>
+      </template>
+      <template slot="column-drawApiKey" slot-scope="scope">
+        <el-tag v-for="item in labelOptionDrawApiKey" v-show="scope.row.drawApiKey == item.value" :type="item.tagType">{{item.label}}</el-tag>
+      </template>
+      <template slot="column-taskStatus" slot-scope="scope">
+        <el-tag v-for="item in labelOptionTaskStatus" v-show="scope.row.taskStatus == item.value" :type="item.tagType">{{item.label}}</el-tag>
+      </template>
     </base-table>
 
   </div>
@@ -40,6 +57,9 @@
 
 <script>
   import crud from '/src/common/crud/crud'
+  import DrawType from "/src/common/constants/DrawType";
+  import DrawApiKey from "/src/common/constants/DrawApiKey";
+  import TaskStatus from "/src/common/constants/TaskStatus";
 
   export default {
     name: 'domainIndex',
@@ -48,6 +68,9 @@
     data() {
       return {
         builderSearch, builderTable,
+        labelOptionDrawType: Object.values(DrawType),
+        labelOptionDrawApiKey: Object.values(DrawApiKey),
+        labelOptionTaskStatus: Object.values(TaskStatus),
         rules: {
           xxx: [{ required: true, trigger: 'blur', message: '' }]
         }
@@ -55,6 +78,7 @@
     },
     watch: {},
     created() {
+      console.log();
     },
     mounted() {
       this.baseHandleQuery()
@@ -73,7 +97,7 @@
     search: [
       { title: '任务状态', key: 'taskStatus', span: 8 },
       { title: '接口类型', key: 'drawApiKey', span: 8 },
-      { title: '类型', key: 'drawType', span: 8 }
+      { title: '绘图类型', key: 'drawType', span: 8 }
     ],
     button: [
       { title: '重置', key: 'reset', type: 'primary', action: 'resetQuery' },
@@ -82,9 +106,9 @@
   }
   const builderTable = {
     columns: [
+      { title: '展示图', key: 'showImg' },
       { title: '类型', key: 'drawType' },
       { title: '绘图接口类型', key: 'drawApiKey' },
-      { title: '展示图', key: 'showImg' },
       { title: '任务状态', key: 'taskStatus' },
       { title: '完成时间', key: 'taskEndTime' },
       { title: '创建时间', key: 'createTime' }
