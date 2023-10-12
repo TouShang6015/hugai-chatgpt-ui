@@ -16,7 +16,8 @@
 <script>
   const themes = {
     normal: 'normal',
-    simple: 'simple'
+    simple: 'simple',
+    noBorder: 'noBorder'
   }
 
   export default {
@@ -63,6 +64,9 @@
   .simple.a-tabs{
     background: rgba(0, 0, 0, 0.0);
   }
+  .noBorder.a-tabs{
+    background: rgba(0, 0, 0, 0.0);
+  }
 
 /* normal */
   .normal {
@@ -97,6 +101,24 @@
     .a-tabs-item.active{
       color: var(--item-border-active-color);
       border-bottom: 3px solid var(--item-border-active-color);
+    }
+  }
+
+  /* noBorder */
+  .noBorder {
+    .a-tabs-item{
+      flex: 1;
+      text-align: center;
+      display: inline-block;
+      padding: 4px 12px;
+      margin: 4px;
+      border-radius: 1px;
+      border-bottom: 0px solid var(--tabs-simple-background);
+      transition: all 0.15s;
+    }
+    .a-tabs-item.active{
+      color: var(--item-border-active-color);
+      border-bottom: 0px solid var(--item-border-active-color);
     }
   }
 </style>

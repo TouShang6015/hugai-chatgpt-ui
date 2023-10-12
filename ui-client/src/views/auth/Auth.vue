@@ -1,21 +1,20 @@
 <template>
-  <div class="auth-main">
+  <div class="auth-main" @click="cancel">
     <transition name="flip">
-      <Login v-if="stateLogin"></Login>
-    </transition>
-    <transition name="flip">
-      <Register v-if="stateRegister"></Register>
+      <LoginAndRegister></LoginAndRegister>
     </transition>
   </div>
 </template>
 
 <script>
-  import Login from "./Login";
-  import Register from "./Register";
+  import LoginAndRegister from "@/views/auth/LoginAndRegister";
 
   export default {
-    name: "Auth",
-    components: {Login, Register},
+    name: "AuthComponent",
+    components: {LoginAndRegister},
+    props:{
+      tabsValueProps: { type: String, default: '1' }
+    },
     data() {
       return {
         stateLogin: false,
@@ -39,7 +38,11 @@
     mounted() {
 
     },
-    methods: {}
+    methods: {
+      cancel(){
+        this.$store.commit('CLEAR_DIALOG')
+      }
+    }
   }
 </script>
 
@@ -50,6 +53,9 @@
     width: 100%;
     height: 100%;
     z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .flip-enter-active,

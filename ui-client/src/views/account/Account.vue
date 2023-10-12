@@ -1,6 +1,6 @@
 <template>
-  <div class="account">
-    <div class="content">
+  <div class="account" @click="cancel">
+    <div class="content" @click.stop>
       <DialogTopClose></DialogTopClose>
       <div class="top">
         <a-tabs :value="tabValue" :tab-item="tabItem" theme="simple" width="25%" @change="handleTabsChange"></a-tabs>
@@ -29,6 +29,9 @@
       handleTabsChange(val){
         this.tabValue = val;
       },
+      cancel(){
+        this.$store.commit('CLEAR_DIALOG')
+      }
     }
   }
 </script>

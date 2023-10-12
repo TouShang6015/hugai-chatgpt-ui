@@ -72,10 +72,9 @@
       return{
         isLogin: !!getToken(),
         imageMassGroupConfig: [
-          { width: 512, height: 512, content: '1:1',content2: '小图模式',tips: '512×512',key: '512'},
-          { width: 1024, height: 1024, content: '1:1',content2: '默认',tips: '1024×1024',key: '1024'},
-          { width: 720, height: 1280, content: '9:16',content2: '手机壁纸',tips: '720×1280',key: '720*1280'},
-          { width: 1280, height: 720, content: '16:9',content2: '电脑壁纸',tips: '1280×720',key: '1280×720'},
+          { width: 256, height: 256, content: '小图',content2: '256',tips: '256×256',key: '256'},
+          { width: 512, height: 512, content: '默认',content2: '512',tips: '512×512',key: '512'},
+          { width: 1024, height: 1024, content: '大图',content2: '1024',tips: '1024×1024',key: '1024'},
         ],
         // 1 创建图像 2 编辑图像
         apiType: '1',
@@ -88,7 +87,6 @@
         handler(val) {
           const data = JSON.parse(JSON.stringify(val));
           data.apiType = this.apiType;
-          this.$emit('getFormData',data)
         }
       },
       apiType: {
@@ -111,15 +109,12 @@
       handleImageMassGroupChange(val){
         this.form.sizeWidth = val.width;
         this.form.sizeHeight = val.height;
-        this.$emit('getFormData',this.form)
       },
       uploadCallBackImage(val){
         this.form.image = val;
-        this.$emit('getFormData',this.form)
       },
       uploadCallBackMask(val){
         this.form.mask = val;
-        this.$emit('getFormData',this.form)
       },
       tabsChange(val) {
         this.apiType = val

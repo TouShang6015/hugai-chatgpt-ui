@@ -8,10 +8,7 @@
 
           <div v-if="!isLogin">
             <el-dropdown-item command="login">
-              <span class="iconfont icon-twitch-01"></span><span class="dropdown-span">登陆</span>
-            </el-dropdown-item>
-            <el-dropdown-item command="register" v-if="!isLogin">
-              <span class="iconfont icon-a-addtoperson"></span><span class="dropdown-span">注册用户</span>
+              <span class="iconfont icon-twitch-01"></span><span class="dropdown-span">登陆/注册</span>
             </el-dropdown-item>
           </div>
 
@@ -55,9 +52,6 @@
           case 'login':
             this.openLoginDialog()
             break;
-          case 'register':
-            this.openRegisterDialog()
-            break;
           case 'setting':
             this.openSettingDialog()
             break;
@@ -68,13 +62,6 @@
       },
       openLoginDialog(){
         this.$store.commit('SET_AUTH_DIALOG',!this.$store.getters.authDialog)
-        this.$store.commit('SET_LOGIN_DIALOG',!this.$store.getters.loginDialog)
-        this.$store.commit('SET_REGISTER_DIALOG',false)
-      },
-      openRegisterDialog(){
-        this.$store.commit('SET_AUTH_DIALOG',!this.$store.getters.authDialog)
-        this.$store.commit('SET_REGISTER_DIALOG',!this.$store.getters.registerDialog)
-        this.$store.commit('SET_LOGIN_DIALOG',false)
       },
       openSettingDialog(){
         this.$store.commit('SET_SETTING_DIALOG',!this.$store.getters.settingDialog)

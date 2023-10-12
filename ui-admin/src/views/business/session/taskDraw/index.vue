@@ -90,6 +90,8 @@
         this.useBaseComponent = true
         return true
       },
+      cancel() {
+      },
     }
   }
 
@@ -114,7 +116,6 @@
       { title: '创建时间', key: 'createTime' }
     ],
     actions: [
-      { title: '编辑', key: 'edit', type: 'success', action: 'baseHandleEdit' },
       { title: '删除', key: 'delete', type: 'danger', action: 'submitDeleteByColumn' }
     ]
   }

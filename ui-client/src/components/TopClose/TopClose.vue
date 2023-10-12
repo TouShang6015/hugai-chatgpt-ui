@@ -1,9 +1,7 @@
 <template>
   <div class="head-info">
     <label @click="cancel">
-<!--      <el-tooltip content="关闭" placement="top">-->
-        <span class="iconfont icon-e_guanbi"></span>
-<!--      </el-tooltip>-->
+      <span class="iconfont icon-e_guanbi"></span>
     </label>
   </div>
 </template>
@@ -33,7 +31,7 @@
     text-align: center;
     font-weight: 600;
     font-size: 2em;
-    height: 38px;
+    height: 45px;
     border-top-left-radius: 10px;
     -webkit-border-top-left-radius: 10px;
     -moz-border-top-left-radius: 10px;
@@ -42,15 +40,18 @@
     -webkit-border-top-right-radius: 10px;
     -moz-border-top-right-radius: 10px;
     -o-border-top-right-radius: 10 p;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 
   .head-info label {
-    width: 28px;
-    height: 28px;
-    display: block;
-    float: right;
+    width: 60px;
+    height: 100%;
     border-radius: 50%;
-    margin: 5px 10px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .head-info label:hover {
     cursor: pointer;

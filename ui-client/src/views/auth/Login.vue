@@ -1,43 +1,28 @@
 <template>
   <div class="center">
-    <div class="main">
-      <div class="login-form">
-        <DialogTopClose @cancel="cancel"></DialogTopClose>
-        <div class="title">
-          <img :src="require('/src/assets/imgs/logo2.png')" alt=""/>
-        </div>
+    <div class="login-form">
+      <div class="main-form">
         <el-form ref="form" :model="form">
-          <el-row>
-            <div class="input-item">
-              <label>
-                <span>账号</span>
-              </label>
-              <el-input prefix-icon="iconfont icon-zhanghao" v-model="form.userName" placeholder="请输入用户名/邮箱"></el-input>
-            </div>
-          </el-row>
-          <el-row>
-            <div class="input-item">
-              <label>
-                <span>密码</span>
-              </label>
-              <el-input prefix-icon="iconfont icon-yincangmima" v-model="form.password" type="password" placeholder="请输入登陆密码"></el-input>
-            </div>
-          </el-row>
-          <el-row>
-            <div class="form-link">
-              <span>忘记密码？</span>
-            </div>
-          </el-row>
-          <el-row>
-            <div class="form-submit">
+          <div class="input-item">
+            <el-input prefix-icon="iconfont icon-zhanghao" v-model="form.userName" placeholder="用户名" clearable></el-input>
+          </div>
+          <div class="input-item">
+            <el-input prefix-icon="iconfont icon-yincangmima" v-model="form.password" type="password" placeholder="密码" clearable></el-input>
+          </div>
+          <!--          <el-row>-->
+          <!--            <div class="form-link">-->
+          <!--              <span>忘记密码？</span>-->
+          <!--            </div>-->
+          <!--          </el-row>-->
+          <div class="form-submit">
+            <div class="form-submit-item">
               <el-button type="success" size="medium" :loading="loading" @click="handleLogin">登陆</el-button>
-              <el-button type="info" size="medium" :loading="loading" @click="handleTouristLogin">游客登陆</el-button>
-              <div></div>
-              <el-button type="primary" size="medium" style="width:71%;margin: 10px 0;" @click="goRegister" :loading="loading">加入HugAi（立即注册）</el-button>
             </div>
-          </el-row>
+            <div class="form-submit-item">
+              <el-button type="info" size="medium" :loading="loading" @click="handleTouristLogin">游客登陆</el-button>
+            </div>
+          </div>
         </el-form>
-
       </div>
     </div>
     <transition name="web-fade">
@@ -56,7 +41,7 @@
   import Verify from "@/components/verifition/Verify";
 
   export default {
-    name: "AutoLogin",
+    name: "LoginComponent",
     components: {Verify},
     data(){
       return {
@@ -112,10 +97,6 @@
           this.form.captcha = {}
         })
       },
-      goRegister(){
-        this.$store.commit('SET_LOGIN_DIALOG',false)
-        this.$store.commit('SET_REGISTER_DIALOG',true)
-      },
       cancel(){
         this.form = {}
       }
@@ -129,74 +110,55 @@
     height: 100%;
   }
 
-  .main {
-    width: 900px;
-    height: auto;
-    position: fixed;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
   .login-form {
-    background: var(--dialog-background);
-    box-shadow: 5px 2px 0px 3px var(--aside-background);
     position: relative;
     width: 100%;
     text-align: center;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -o-border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
 
-  .title{
-    position: relative;
+  .main-form{
     width: 100%;
-    height: 150px;
-  }
-  .title img{
-    position: absolute;
-    max-width: 100%;
-    max-height: 100%;
-    left: 50%;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    transform: translate(-50%, 0%);
-    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .input-item{
     display: flex;
     position: relative;
-    max-height: 50px;
-    padding: 3px 32px;
+    height: auto;
+    padding: 14px 0;
     justify-content: center;
     align-items: center;
   }
-  .input-item label{
-    min-width: 8%;
-    height: auto;
-    display: block;
-    text-align: center;
-  }
-  .input-item label span{
-    display: block;
-    text-align: center;
-    line-height: 50px;
-    color: white;
-  }
 
-  ::v-deep .el-input{
-    width: 65%;
-    max-height: 35px;
+  ::v-deep .el-input input:hover {
+    opacity: 1;
+    display: inline-block;
+    border: 0px;
   }
   ::v-deep .el-input__inner{
-    max-height: 35px;
+    height: 42px;
+    display: inline-block;
+    border: 0px;
+    opacity: 1;
+  }
+  ::v-deep .el-input input:focus {
+    display: inline-block;
+    border: 0px;
+    opacity: 1;
+  }
+  ::v-deep .el-input--prefix .el-input__inner {
+    padding-left: 50px;
   }
   ::v-deep .el-input__prefix{
+    width: 50px;
     display: flex;
+    justify-content: center;
+    align-items: center;
   }
   ::v-deep .el-input__icon{
     font-size: 18px;
@@ -218,7 +180,7 @@
   }
   .form-link span:hover {
     cursor: pointer;
-    color: #ca82ff;
+    color: var(--item-border-hover-color);
     transition: 0.3s;
   }
 
@@ -227,32 +189,38 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    align-content: flex-start;
     justify-content: center;
     align-items: center;
-    padding: 20px 20px 50px 20px;
-    /*white-space: nowrap;*/
+    flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .form-submit-item{
+    width: 100%;
+    margin: 8px 0;
+  }
+  ::v-deep .el-form{
+    width: 65%;
+    margin: 15px 0;
   }
   ::v-deep .el-button{
-    width: 35%;
+    width: 100%;
+    height: 38px;
     font-size: 14px;
     letter-spacing: 8px;
+    border-radius: 20px;
+    color: var(--font-color-default);
   }
   ::v-deep .el-button--success{
-    background-color: #7de244;
-    border-color: #7de244;
+    background-color: var(--item-border-active-color);
+    border-color: var(--item-border-active-color);
   }
   ::v-deep .el-button--success:hover{
-    background-color: #80f341;
-    border-color: #80f341;
+    background-color: var(--item-border-hover-color);
+    border-color: var(--item-border-hover-color);
   }
-  ::v-deep .el-button--primary{
-    background-color: #4097ff;
-    border-color: #4097ff;
+  ::v-deep .el-button--info:hover{
+    background-color: var(--item-border-default-color);
+    border-color: var(--item-border-default-color);
   }
-  ::v-deep .el-button--primary:hover{
-    background-color: #2186ff;
-    border-color: #2186ff;
-  }
-
 </style>
