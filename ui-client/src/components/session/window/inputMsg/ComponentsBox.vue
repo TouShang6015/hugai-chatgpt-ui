@@ -3,7 +3,7 @@
     <div class="item">
       <p>连续对话</p>
       <div class="item-content">
-        <el-switch v-model="ifConc" :active-value="'1'" :inactive-value="'0'"></el-switch>
+        <el-switch v-model="ifConc" :active-value="true" :inactive-value="false"></el-switch>
       </div>
     </div>
     <div class="item">

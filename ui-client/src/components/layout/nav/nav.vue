@@ -34,5 +34,9 @@
     justify-content: flex-start;
     align-content: flex-start;
   }
+  .nav > *:first-child {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
 </style>

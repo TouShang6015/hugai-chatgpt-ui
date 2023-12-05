@@ -1,11 +1,16 @@
 <template>
   <div style="width: 100%;height: 100%;display: flex;">
     <div class="drawTaskListMain">
-      <div class="handle-top">
+      <div class="handle-top rounded-md">
         <div class="top-item">
           <div class="left">
+<<<<<<< HEAD
+            <span class="rounded-md">当前任务：{{this.taskQueueData.runningCount == null ? '0' : this.taskQueueData.runningCount}}</span>
+            <span class="rounded-md">排队中：{{this.taskQueueData.sum == null ? '0' : this.taskQueueData.sum}}</span>
+=======
             <span>当前任务：{{this.taskQueueData.runningCount == null ? '0' : this.taskQueueData.runningCount}}</span>
             <span>排队中：{{this.taskQueueData.sum == null ? '0' : this.taskQueueData.sum}}</span>
+>>>>>>> origin/devloper
           </div>
           <h2 class="pointer" @click="getTaskList">
             <span class="iconfont icon-shuaxin"></span>
@@ -31,7 +36,11 @@
                   v-for="(item,index) in dataList"
                   :item-data="item"
                   :key="index"
+<<<<<<< HEAD
+                  @click="handleTaskItemClick(item)"
+=======
                   @click="handleTaskItemClick"
+>>>>>>> origin/devloper
                   @flushList="getTaskList"
           ></TaskListItem>
         </div>
@@ -40,16 +49,30 @@
                   v-for="(item,index) in dataList"
                   :item-data="item"
                   :key="index"
+<<<<<<< HEAD
+                  @click="handleTaskItemClick(item)"
+=======
                   @click="handleTaskItemClick"
+>>>>>>> origin/devloper
                   @flushList="getTaskList"
           ></TaskListItemMJ>
         </div>
       </div>
     </div>
 
-    <transition name="web-dialog">
-      <DialogDetailInfo v-if="dialogState" :dialog-state="dialogState" :session-info-draw-id="sessionInfoDrawId" @close="closeDialog"></DialogDetailInfo>
-    </transition>
+    <div class="frame-detail" v-if="dialogState" @click="closeDialog">
+      <transition name="web-dialog">
+        <DialogDetailInfo v-if="dialogState"
+                          :dialog-state="dialogState"
+                          :session-info-draw-id="sessionInfoDrawId"
+                          :prompt="itemPrompt"
+                          :img-url="itemImg"
+                          :platform="getPlatform()"
+                          :draw-api-name="getDrawApiName()"
+                          @close="closeDialog"
+        ></DialogDetailInfo>
+      </transition>
+    </div>
 
     <transition name="web-dialog">
       <LoadingIframe width="80%" height="95%" v-if="loading"></LoadingIframe>
@@ -64,6 +87,11 @@
   import {getToken} from "@/utils/auth";
   import DialogDetailInfo from "@/views/pages/sessionDraw/components/DialogDetailInfo";
   import TaskListItemMJ from "@/views/pages/sessionDraw/components/TaskListItemMJ";
+<<<<<<< HEAD
+  import DrawType from "@/common/constants/DrawType";
+  import DrawApiKey from "@/common/constants/DrawApiKey";
+=======
+>>>>>>> origin/devloper
   export default {
     name: "DrawTaskShowList",
     components: {TaskListItemMJ, DialogDetailInfo, TaskListItem},
@@ -78,6 +106,9 @@
 
         dialogState: false,
         sessionInfoDrawId: undefined,
+        itemData: undefined,
+        itemPrompt: '',
+        itemImg: undefined,
 
         queryParam: {
           page: 1
@@ -122,12 +153,24 @@
           console.log("任务未完成，没有数据信息")
           return
         }
-        this.dialogState = true;
         this.sessionInfoDrawId = item.sessionInfoDrawId
+        this.itemData = JSON.parse(JSON.stringify(item))
+        this.itemImg = this.itemData.showImg;
+        if(this.itemData.requestParam != null){
+          this.itemPrompt = JSON.parse(this.itemData.requestParam).prompt
+        }
+        this.dialogState = true;
       },
       closeDialog(){
         this.dialogState = false;
         this.sessionInfoDrawId = undefined;
+        this.itemData = undefined;
+      },
+      getPlatform(){
+        return DrawType[this.drawType.toUpperCase()];
+      },
+      getDrawApiName(){
+        return DrawApiKey[this.itemData.drawApiKey];
       }
     }
   }
@@ -145,7 +188,6 @@
       flex-direction: column;
       justify-content: center;
       border-top: 1px var(--background-textarea) solid;
-      border-radius: 5px;
     }
     .top-item{
       width: calc(100% - 35px);
@@ -161,9 +203,8 @@
     }
     .top-item .left span{
       font-size: 14px;
-      border-radius: 20px;
       padding: 4px 15px;
-      background: var(--draw-task-list-item-border-color);
+      background: var(--bkgy);
     }
     .top-item span{
       margin: 0 15px;
@@ -217,5 +258,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+<<<<<<< HEAD
+    margin-bottom: 10px;
+  }
+
+  .frame-detail{
+    position: fixed;
+    backdrop-filter: blur(1px);
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1501;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+=======
+>>>>>>> origin/devloper
   }
 </style>

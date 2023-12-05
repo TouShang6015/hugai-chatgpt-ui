@@ -17,8 +17,6 @@
     created() {
     },
     mounted() {
-      // 访问次数接口
-      this.$api.get('/common/interface/info');
     }
   }
 </script>
@@ -27,5 +25,6 @@
   section{
     width: 100%;
     height: 100%;
+    position: relative;
   }
 </style>

@@ -21,6 +21,11 @@
 
     <div class="main-session-window">
 
+      <session-window-header
+        ref="sessionWindowHeader"
+        @changeModel="handleChangeModel"
+      ></session-window-header>
+
       <LoadingLine :loading-line="loadingLine"></LoadingLine>
 
       <SessionWindow
@@ -48,10 +53,11 @@
   import {linkSseEvent} from "@/utils/request/SseRequest";
   import StreamResponseType from "@/common/constants/StreamResponseType";
   import {getToken} from "@/utils/auth";
+  import SessionWindowHeader from "@/components/session/window/header/Header";
 
   export default {
     name: "SessionIndex",
-    components: { SessionWindow,SessionList,LoadingLine },
+    components: {SessionWindowHeader, SessionWindow,SessionList,LoadingLine },
     props: {
       windowData: {
         type: Object,
@@ -65,6 +71,8 @@
         loadingLine: false,
         sessionLoadingStatus: false,
         connectId: undefined,
+        ifConnect: false,
+        chatModelId: undefined,
         isLogin: !!getToken(),
         hiddenStatusSession: this.$store.state.settings.hiddenStatusSessionList,
 
@@ -92,7 +100,7 @@
     methods: {
       handleBefore(){
         if (!this.isLogin) {
-          this.$message.info('请先登录后在操作~')
+          this.$message.info('登录后体验更多功能~')
           return false;
         }
         return true
@@ -101,13 +109,14 @@
       getLastSessionData(){
         this.loading = true
         this.$api.get('/module/session/sessioninfo/userLastDomainSession',{
-          sessionType: this.windowData.sessionType,
+          sessionType: SessionTypeConstant.DOMAIN,
           domainUniqueKey: this.windowData.domainKey,
         }).then(res => {
           if (res.data != null){
             this.sessionData = res.data;
             this.loading = false
             this.$refs.sessionList.clickSessionListItem(this.sessionData)
+            this.handleFlushList()
           }
         })
       },
@@ -134,7 +143,7 @@
         this.$api.get('/module/session/sessionrecord/getRecordSession',{sessionId}).then(res => {
           if (res.status){
             this.sessionRecordData = res.data;
-            this.$refs.sessionWindow.flushMarkdown()
+            this.ifConnect = false
           }
         })
       },
@@ -143,7 +152,7 @@
       },
       handleCreateSession(){
         this.$api.post('/module/session/sessioninfo/addDomainSession',{
-          sessionType: this.windowData.sessionType,
+          sessionType: SessionTypeConstant.DOMAIN,
           domainUniqueKey: this.windowData.domainKey,
         }).then(() => {
           this.getLastSessionData();
@@ -191,7 +200,7 @@
       // 发送消息
       sendInputMessage(inputMessage){
         if (this.loadingLine){
-          this.$message.error("会话加载中，不要心急嗷~~")
+          this.$message.error("会话加载中......")
           return
         }
         this.loadingLine = true
@@ -223,9 +232,13 @@
 
             if (connectId == data){
               that.connectId = connectId;
+              that.ifConnect = true
               that.flushSendData(inputMessage);
               that.apiSend(connectId,inputMessage)
             }else{
+              if (!that.ifConnect){
+                return
+              }
               let popData = that.sessionRecordData[that.sessionRecordData.length - 1];
               let data = event.data;
               data = data.replaceAll("↖emsp↘"," ")
@@ -236,7 +249,6 @@
           };
 
           sseEvent.onerror = function () {
-            that.$refs.sessionWindow.flushMarkdown()
             that.loadingLine = false
             that.connectId = undefined;
             sseEvent.close();
@@ -251,7 +263,7 @@
       socketConnectMessage(inputMessage){
         const that = this;
 
-        const websocketUrl = this.$store.getters.configMain.websocketUrl;
+        const websocketUrl = this.$store.getters.resourceMain.websocketUrl;
         const wsUrl = websocketUrl +'/socket/chat';
         const webSocket = new WebSocket(wsUrl);
 
@@ -259,16 +271,19 @@
           let data = event.data;
           if (that.connectId === undefined){
             that.connectId = data;
+            that.ifConnect = true
             that.flushSendData(inputMessage);
             that.apiSend(that.connectId,inputMessage)
           }else{
+            if (!that.ifConnect){
+              return
+            }
             let popData = that.sessionRecordData[that.sessionRecordData.length - 1];
             popData.content += data;
           }
         };
 
         webSocket.onclose = function () {
-          that.$refs.sessionWindow.flushMarkdown()
           that.loadingLine = false
           that.connectId = undefined;
         }
@@ -292,7 +307,8 @@
         this.$api.post(`/module/chat/sendDomain`,{
           connectId: connectId,
           sessionId: this.sessionData.id,
-          sessionType: this.windowData.sessionType,
+          chatModelId: this.chatModelId,
+          sessionType: SessionTypeConstant.DOMAIN,
           content: inputMessage,
           domainUniqueKey: this.windowData.domainKey,
           ifConc: this.$refs.sessionWindow.getIfConc()
@@ -320,6 +336,9 @@
           createTime: new Date().toLocaleString()
         }
         this.sessionRecordData.push(assistantData)
+      },
+      handleChangeModel(chatModelId){
+        this.chatModelId = chatModelId
       }
     }
   }
@@ -337,6 +356,7 @@
     min-height: 100%;
     display: flex;
     transition: width 0.2s;
+    word-break: keep-all;
   }
   .main-session-list.hiddenStatusSession{
     width: 0;
@@ -344,11 +364,13 @@
   }
 
   .main-session-window{
+    position: relative;
     min-width: 80%;
     width: auto;
-    height: 100%;
-    padding: 0px 4px 0px 12px;
+    height: 100vh;
     flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
 </style>

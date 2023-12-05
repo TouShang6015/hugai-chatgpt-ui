@@ -3,9 +3,13 @@
     min-height: auto !important;
     border: 0 !important;
     border-radius: 0 !important;
+    background: rgba(255, 255, 255, 0) !important;
 }
 .markdown-body {
     line-height: 1.4 !important;
+}
+.v-show-content{
+    background-color: rgba(251, 251, 251, 0) !important;
 }
 .v-note-wrapper .v-note-panel .v-note-show .v-show-content, .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
     padding: 8px !important;
@@ -132,6 +136,9 @@ code::-webkit-scrollbar-button {
 }
 
 .markdown-body pre code.lang-properties{
+    color: white !important;
+}
+.markdown-body pre code{
     color: white !important;
 }
 

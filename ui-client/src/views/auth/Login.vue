@@ -4,7 +4,11 @@
       <div class="main-form">
         <el-form ref="form" :model="form">
           <div class="input-item">
+<<<<<<< HEAD
+            <el-input prefix-icon="iconfont icon-zhanghao" v-model="form.userName" placeholder="用户名/邮箱" clearable></el-input>
+=======
             <el-input prefix-icon="iconfont icon-zhanghao" v-model="form.userName" placeholder="用户名" clearable></el-input>
+>>>>>>> origin/devloper
           </div>
           <div class="input-item">
             <el-input prefix-icon="iconfont icon-yincangmima" v-model="form.password" type="password" placeholder="密码" clearable></el-input>
@@ -145,6 +149,10 @@
     display: inline-block;
     border: 0px;
     opacity: 1;
+<<<<<<< HEAD
+    background: var(--background-main);
+=======
+>>>>>>> origin/devloper
   }
   ::v-deep .el-input input:focus {
     display: inline-block;
@@ -162,7 +170,7 @@
   }
   ::v-deep .el-input__icon{
     font-size: 18px;
-    color: #a3a3a3;
+    color: var(--item-border-normal-color);
     display: block;
     line-height: 38px;
   }

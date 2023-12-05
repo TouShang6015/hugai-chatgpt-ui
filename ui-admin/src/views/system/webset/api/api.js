@@ -7,4 +7,7 @@ export default {
   queryListFileConfig: (arg) => api.post('/module/system/sysfileconfig/baseQueryByParam',arg),
 
   updateFileConfig: (arg) => api.put('/module/system/sysfileconfig/baseEdit',arg),
+
+  // 模型列表
+  queryChatModelLabelOption: (arg) => api.get('/module/config/chatmodel/getLabelOption',arg),
 }

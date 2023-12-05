@@ -1,8 +1,8 @@
 <template>
-  <div class="a-tabs" :class="theme" :style="{
+  <div class="a-tabs rounded-md" :class="theme" :style="{
            width: width
          }">
-    <div class="a-tabs-item pointer"
+    <div class="a-tabs-item pointer rounded-md"
          v-for="(item,index) in tabItem"
          :key="index"
          :class="{active: activeValue === item.value}"
@@ -57,7 +57,6 @@
     display: flex;
     padding: 2px;
     background: var(--tabs-background);
-    border-radius: 8px;
     color: var(--font-color-default);
     font-size: 14px;
   }
@@ -77,7 +76,6 @@
       padding: 4px 10px;
       margin: 2px;
       background: var(--tabs-background);
-      border-radius: 4px;
       transition: all 0.15s;
     }
     .a-tabs-item.active{
@@ -94,7 +92,7 @@
       display: inline-block;
       padding: 4px 12px;
       margin: 4px;
-      border-radius: 1px;
+      border-radius: 0px;
       border-bottom: 3px solid var(--tabs-simple-background);
       transition: all 0.15s;
     }
@@ -112,7 +110,10 @@
       display: inline-block;
       padding: 4px 12px;
       margin: 4px;
+<<<<<<< HEAD
+=======
       border-radius: 1px;
+>>>>>>> origin/devloper
       border-bottom: 0px solid var(--tabs-simple-background);
       transition: all 0.15s;
     }

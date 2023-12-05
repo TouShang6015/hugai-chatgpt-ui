@@ -3,7 +3,8 @@ const getters = {
   token: state => state.user.token,
   username: state => state.user.username,
   imgHeader: state => state.user.imgHeader,
-  userDeskImgUrl: state => state.user.deskImgUrl,
+  socketId: state => state.userSocket.socketId,
+  userSocket: state => state.userSocket.socket,
   ifTourist: state => state.user.ifTourist,
   sex: state => state.user.sex,
   authDialog: state => state.status.authDialog,
@@ -13,7 +14,9 @@ const getters = {
   loadingStateUserInfo: state => state.status.loadingStateUserInfo,
   accountDialog: state => state.status.accountDialog,
   settingDialog: state => state.status.settingDialog,
-  configMain: state => state.webConfig.configMain,
-  streamResponseType: state => state.webConfig.configMain.streamResponseType,
+  resourceMain: state => state.webConfig.resourceMain,
+  resourcePromotionConfig: state => state.webConfig.resourcePromotionConfig,
+  resourceAccountConfig: state => state.webConfig.resourceAccountConfig,
+  streamResponseType: state => state.webConfig.resourceMain.streamResponseType,
 }
 export default getters

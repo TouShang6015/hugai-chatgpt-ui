@@ -23,6 +23,7 @@
 </template>
 
 <script>
+  import Cache from "@/utils/cache";
   import HomeComponentsChat from "@/views/pages/home/components/HomeComponentsChat";
 
   export default {
@@ -34,13 +35,19 @@
         tipsStatus: true,
         tabItem: [
           {value: '1', label: "问答", route: ''},
-          {value: '2', label: "AI画图", route: '/sessionDraw'},
+          {value: '2', label: "画廊广场", route: '/gallery'},
           {value: '3', label: "热门场景", route: '/sessionDomain'},
         ]
       }
     },
     created() {
       this.tabsSelect = '1'
+    },
+    mounted() {
+      const inviteCode = this.$route.query.inviteCode;
+      if (inviteCode != null && inviteCode !== ''){
+        Cache.local.set('inviteCode',inviteCode)
+      }
     },
     methods: {
       handleTabsChange(val){

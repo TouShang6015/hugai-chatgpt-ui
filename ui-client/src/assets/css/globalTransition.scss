@@ -98,6 +98,7 @@
 }
 .fade-list-enter-to {
   opacity: 1;
+  transition: all 0.15s;
   transform: translateY(0);
 }
 .fade-list-enter-active:nth-child(1) {
@@ -116,7 +117,7 @@
   transition-delay: 0.3s;
 }
 .fade-list-enter-active:nth-child(6) {
-  transition-delay: 0.4s;
+  transition-delay: 0.2s;
 }
 
 /* 元素 左到右 */

@@ -94,7 +94,7 @@
         if (imgHeader == null && imgHeader != ''){
           this.imgHeader = require('/src/assets/imgs/user_img_default1.png')
         }else{
-          this.imgHeader = this.$store.getters.configMain.staticWebsite + imgHeader
+          this.imgHeader = this.$store.getters.resourceMain.staticWebsite + imgHeader
         }
       },
       openLoginDialog(){

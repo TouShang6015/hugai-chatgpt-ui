@@ -6,7 +6,7 @@
     <div class="content-text">
       <div class="setting-item" style="color: var(--item-border-active-color)">
         <h3>当前版本：</h3>
-        <span>{{$store.state.webConfig.configMain.projectVersion}}</span>
+        <span>{{$store.state.webConfig.resourceMain.projectVersion}}</span>
       </div>
       <div class="setting-item">
         <h3>已运行天数：</h3>

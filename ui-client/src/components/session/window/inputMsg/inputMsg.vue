@@ -1,35 +1,40 @@
 <template>
   <div class="main">
     <slot name="chatInputs">
-      <el-popover placement="top" trigger="click">
-        <ComponentsBox ref="componentBox" @flushIfConc="flushIfConc"></ComponentsBox>
-        <div class="input-button-box" slot="reference">
-          <img :src="require('/src/assets/imgs/block2.png')" alt=""/>
+      <el-tooltip :content="hiddenStatus ? '开启侧边栏' : '隐藏侧边栏'" placement="top">
+        <div class="input-button-box pointer" :class="{active: hiddenStatus}" @click="handleBoxClickSidebarHidden">
+          <img :src="require('/src/assets/imgs/other/icon-sidebar-left.png')" alt=""/>
         </div>
-      </el-popover>
+      </el-tooltip>
+      <el-tooltip :content="ifConc ? '连续对话(已开启)' : '连续对话(已关闭)'" placement="top">
+        <div class="input-button-box pointer" :class="{active: ifConc}" @click="handleBoxClickIfConc">
+          <img :src="require('/src/assets/imgs/other/icon-continuous.png')" alt=""/>
+        </div>
+      </el-tooltip>
       <div class="input-box">
         <!--输入框-->
-        <textarea class="inputs" id="textareaMsg" placeholder="请输入您的内容~（Enter 换行，Ctrl + Enter 发送）" v-autoheight
+        <textarea class="inputs rounded-md" id="textareaMsg" placeholder="请输入您的内容~（Enter 换行，Ctrl + Enter 发送）" v-autoheight
                   rows="3" dir autocorrect="off" aria-autocomplete="both" spellcheck="false"
                   autocapitalize="on" autocomplete="off" v-model="inputMsg"
                   @keyup.enter="handleKeyDown"></textarea>
       </div>
       <!--发送-->
-      <div class="input-button-box" @click="sendInputMessage">
-        <img :src="require('/src/assets/imgs/send.png')" alt=""/>
-      </div>
+      <el-tooltip content="发送" placement="top">
+        <div class="input-button-box pointer" @click="sendInputMessage">
+          <img :src="require('/src/assets/imgs/send.png')" alt=""/>
+        </div>
+      </el-tooltip>
     </slot>
   </div>
 </template>
 
 <script>
-  import ComponentsBox from "@/components/session/window/inputMsg/ComponentsBox";
   export default {
     name: "inputMsg",
-    components: {ComponentsBox},
     data(){
       return{
         inputMsg: '',
+        hiddenStatus: this.$store.state.settings.hiddenStatusSessionList,
         ifConc: this.$store.state.settings.ifConc,
       }
     },
@@ -49,8 +54,18 @@
         this.$emit('sendInputMessage', this.inputMsg)
         this.inputMsg = '';
       },
-      flushIfConc(val){
-        this.ifConc = val
+      handleBoxClickIfConc(){
+        let ifConc = this.ifConc;
+        if (ifConc === '1')
+          ifConc = true
+        if (ifConc === '0')
+          ifConc = false
+        this.ifConc = !this.ifConc
+        this.$store.commit('SET_SETTING_ITEM',{key: 'ifConc',value: this.ifConc})
+      },
+      handleBoxClickSidebarHidden() {
+        this.hiddenStatus = !this.hiddenStatus
+        this.$store.commit('SET_SETTING_ITEM',{key: 'hiddenStatusSessionList',value: this.hiddenStatus})
       }
     },
     directives: {
@@ -86,22 +101,21 @@
     justify-content: center;
     flex-direction: row;
     align-items: center;
-    padding-bottom: 5px;
+    padding-bottom: 12px;
     padding-top: 15px;
+    box-shadow: 5px 0px 1px 1px var(--item-border-default-color);
   }
 
   .input-box {
-
     width: 70%;
     height: 100%;
-    margin: 0 10px;
+    margin: 0 15px;
 
     .inputs {
       width: 100%;
       height: 100%;
       padding: 10px;
       background-color: var(--background-textarea);
-      border-radius: 6px;
       box-sizing: border-box;
       transition: 0.2s;
       font-size: 15px;
@@ -119,10 +133,10 @@
   }
 
   .input-button-box {
-    width: 35px;
+    width: 28px;
     height: 100%;
     margin: 0 5px;
-    padding: 5px;
+    padding: 6px;
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -135,6 +149,11 @@
       box-shadow: 0px 0px 2px 1px rgba(255, 255, 255, 0.3) inset;
     }
 
+    &:active{
+      transform: scale(0.92);
+      transition: all 0.1s ease-in-out;
+    }
+
     img {
       flex: 1;
       width: 100%;
@@ -144,8 +163,13 @@
     }
   }
 
+  .input-button-box.active{
+    box-shadow: 0px 0px 6px 2px var(--item-border-active-color) inset;
+  }
+
   textarea {
-    min-height: 45px;
+    min-height: 40px;
+    max-height: 28%;
     width: 100%;
     min-width: 100%;
     max-width: 100%;

@@ -5,10 +5,18 @@
       ref="baseSearchForm"
       :query-params="queryParams"
       :builder-form="builderSearch.search"
+<<<<<<< HEAD
+      :builder-button="builderSearch.button"
+=======
+>>>>>>> origin/devloper
       :label-width="'100px'"
       @baseHandleQuery="baseHandleQuery"
       @resetQuery="resetQuery"
       @baseHandleAdd="baseHandleAdd"
+<<<<<<< HEAD
+      @goApiParamConfig="goApiParamConfig"
+=======
+>>>>>>> origin/devloper
     >
       <template slot="item-xxx" slot-scope="scope">
       </template>
@@ -29,7 +37,17 @@
       @handleChannelManager="handleChannelManager"
     >
       <template slot="column-accountStatus" slot-scope="scope">
+<<<<<<< HEAD
+        <el-switch
+          v-model="scope.row.accountStatus"
+          active-value="NORMAL"
+          inactive-value="FREEZE"
+          @change="handleStatusChange(scope.row)"
+        ></el-switch>
+<!--        <el-tag v-for="item in labelOptionAccountStatus" v-show="scope.row.accountStatus == item.value" :type="item.tagType">{{item.label}}</el-tag>-->
+=======
         <el-tag v-for="item in labelOptionAccountStatus" v-show="scope.row.accountStatus == item.value" :type="item.tagType">{{item.label}}</el-tag>
+>>>>>>> origin/devloper
       </template>
       <template slot="column-socketStatus" slot-scope="scope">
         <el-tag v-show="scope.row.socketStatus === 1" type="success">🟢 已连接</el-tag>
@@ -91,7 +109,11 @@
     },
     methods: {
       baseInit() {
+<<<<<<< HEAD
+        this.url = '/module/config/cmjaccount'
+=======
         this.url = '/module/cmj/cmjaccount'
+>>>>>>> origin/devloper
         this.viewName = 'Midjourney账户'
         this.useBaseComponent = true
         return true
@@ -111,6 +133,21 @@
           }
         })
       },
+<<<<<<< HEAD
+      handleStatusChange(row){
+        if (row != null){
+          this.apiPut(this.CRUD.edit,JSON.parse(JSON.stringify(row))).then(res => {
+            if (res.status){
+              this.notifySuccess(res.message)
+            }else{
+              this.notifyError(res.message)
+            }
+            this.baseHandleQuery()
+          })
+        }
+      },
+=======
+>>>>>>> origin/devloper
       handleChannelManager(row){
         this.clearForm();
         this.form = JSON.parse(JSON.stringify(row))
@@ -118,6 +155,12 @@
       },
       handleDialogChannelCancel(){
         this.dialogChannel = false
+<<<<<<< HEAD
+      },
+      goApiParamConfig(){
+        this.$router.push("/mjconfig/apiParamConfig")
+=======
+>>>>>>> origin/devloper
       }
     }
   }
@@ -127,16 +170,26 @@
       {title: '账户名', key: 'userName', span: 8},
     ],
     button: [
+<<<<<<< HEAD
+      {title: '重置', key: 'reset', type: 'primary',icon: 'el-icon-refresh-right', action: 'resetQuery'},
+      {title: '查询', key: 'search', type: 'primary',icon:'el-icon-zoom-in', action: 'baseHandleQuery'},
+      {title: '新增', key: 'add', type: 'success',icon:'el-icon-circle-plus-outline', action: 'baseHandleAdd'},
+      {title: 'Api参数配置', key: 'apiParamConfig', type: 'info', action: 'goApiParamConfig'},
+=======
       {title: '重置', key: 'reset', type: 'primary', action: 'resetQuery'},
       {title: '查询', key: 'search', type: 'primary', action: 'baseHandleQuery'},
       {title: '新增', key: 'add', type: 'success', action: 'baseHandleAdd'}
+>>>>>>> origin/devloper
     ]
   }
   const builderTable = {
     columns: [
       {title: '账户名', key: 'userName'},
       {title: 'token', key: 'userToken'},
+<<<<<<< HEAD
+=======
       // {title: 'ua', key: 'userAgent'},
+>>>>>>> origin/devloper
       {title: '帐号状态', key: 'accountStatus',width: '150px'},
       {title: 'Socket状态', key: 'socketStatus',width: '150px'},
       {title: '创建时间', key: 'createTime'}

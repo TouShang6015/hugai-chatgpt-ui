@@ -10,9 +10,8 @@ const user = {
     imgHeader: '',
     sex: '',
     ifTourist: '',
-    deskImgUrl: '',
     userId: '',
-    userDetail: {}
+    userDetail: {},
   },
 
   mutations: {
@@ -36,9 +35,6 @@ const user = {
     },
     SET_IF_TOURIST: (state, data) => {
       state.ifTourist = data
-    },
-    SET_DESK_IMG_URL: (state, data) => {
-      state.deskImgUrl = data
     },
   },
 
@@ -117,14 +113,12 @@ const user = {
             commit('SET_IMG_HEADER', data.imgUrl)
             commit('SET_SEX', data.sex)
             commit('SET_IF_TOURIST', data.ifTourist)
-            commit('SET_DESK_IMG_URL', data.deskImgUrl)
             commit('SET_LOADING_STATE_USER_INFO',true)
           }else{
             Message({message: res.message, type: 'error'})
           }
           resolve(res)
         })
-
       })
     },
 

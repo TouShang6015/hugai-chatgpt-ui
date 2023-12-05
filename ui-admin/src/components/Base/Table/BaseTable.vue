@@ -12,13 +12,13 @@
       :tree-props="treeProps"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column type="selection" width="55" align="center" v-if="openSelection" />
       <slot v-for="item in builderColumns" :name="'table-column-' + item.key">
         <el-table-column
           :label="item.title"
           :align="item.align || 'center'"
           :prop="item.key"
-          :show-overflow-tooltip="item.showOverFlowToolTip || false"
+          :show-overflow-tooltip="item.showOverFlowToolTip || true"
           :style="item.style"
           :width="item.width"
         >
@@ -33,7 +33,12 @@
         </el-table-column>
       </slot>
       <slot name="tableAction">
-        <el-table-column label="操作" align="center" class-name="small-padding fixed-width" :width="actionWidth" v-if="builderActions.length > 0">
+        <el-table-column label="操作"
+                         align="center"
+                         class-name="small-padding fixed-width"
+                         :width="actionWidth"
+                         :fixed="actionFixed"
+                         v-if="builderActions.length > 0">
           <template slot-scope="scope">
             <slot v-for="item in builderActions" :name="'action-' + item.key" :row="scope.row" >
               <el-button
@@ -100,6 +105,12 @@
       },
       vIf: {
         type: Boolean, default: true
+      },
+      openSelection: {
+        type: Boolean, default: true
+      },
+      actionFixed: {
+        type: String, default: 'right'
       },
       // function
       selectionChange: {

@@ -12,8 +12,8 @@ const webConfig = {
   actions: {
     FlushWebConfigMain({ commit }) {
       return new Promise((resolve) => {
-        api.getRestful('/module/system/baseresourceconfig/queryByConfigKey','main').then(res => {
-          commit('SET_CONFIG_MAIN',JSON.parse(res.data.resourceValue))
+        api.get('/module/system/baseresourceconfig/clientConfig').then(res => {
+          commit('SET_CONFIG_MAIN',res.data.resourceMain)
           resolve()
         })
       })

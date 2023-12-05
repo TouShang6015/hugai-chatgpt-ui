@@ -8,17 +8,6 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="领域组" prop="domainGroup">
-            <el-select v-model="form.domainGroup" style="width: 100%">
-              <el-option v-for="(item,index) of labelDomainGroup"
-                :key="index"
-                :label="item.label"
-                :value="item.value"
-              >{{item.label}}</el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
           <el-form-item label="排序号" prop="sort">
             <el-input v-model="form.sort"></el-input>
           </el-form-item>
@@ -27,13 +16,6 @@
           <el-form-item label="领域类型" prop="type">
             <el-select v-model="form.type" clearable>
               <el-option v-for="dict in dict.type.domain_type" :key="dict.value" :label="dict.label" :value="dict.value"/>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="使用模型" prop="useModel">
-            <el-select v-model="form.useModel" clearable>
-              <el-option v-for="dict in dict.type.openai_chat_model" :key="dict.value" :label="dict.label" :value="dict.value"/>
             </el-select>
           </el-form-item>
         </el-col>
@@ -120,15 +102,13 @@
 
   export default {
     name: 'SaveOrUpdate',
-    dicts: ['domain_type','openai_chat_model'],
+    dicts: ['domain_type'],
     data(){
       return{
-        labelDomainGroup: [],
         form: {},
         windowData: {},
         rules: {
           uniqueKey: [{ required: true, message: "唯一标识不能为空", trigger: "blur" }],
-          domainGroup: [{ required: true, message: "领域组不能为空", trigger: "blur" }],
           aboveContent: [{ required: true, message: "上下文内容不能为空", trigger: "blur" }],
           type: [{ required: true, message: "领域类型不能为空", trigger: "blur" }],
           ifShow: [{ required: true, message: "展示状态不能为空", trigger: "blur" }],
@@ -152,14 +132,8 @@
       }
     },
     created() {
-      this.flushLabel()
     },
     methods:{
-      flushLabel(){
-        api.getEnumLabel("DomainGroup").then(res => {
-          this.labelDomainGroup = res.data
-        })
-      },
       handleUploadIcon(val){
         this.form.iconPath = val;
       },

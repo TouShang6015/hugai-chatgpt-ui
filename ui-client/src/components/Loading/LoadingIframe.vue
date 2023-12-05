@@ -1,5 +1,5 @@
 <template>
-  <div class="loading-iframe" :style="{width: width,height: height}">
+  <div class="loading-iframe rounded-md" :style="{width: width,height: height}">
     <ring-loader></ring-loader>
   </div>
 </template>
@@ -26,7 +26,6 @@
     width: 100%;
     height: 100%;
     z-index: 9999;
-    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;

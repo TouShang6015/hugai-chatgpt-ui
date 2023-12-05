@@ -1,36 +1,35 @@
 <template>
   <div class="session-list">
-    <div class="createSession pointer">
+    <div class="createSession pointer" style="flex: 0 5%">
       <div @click="handleCreateSession">
         <span class="iconfont icon-add-01"></span>
         <span>新的对话</span>
       </div>
     </div>
-    <div class="list-box">
-      <div style="max-height: 700px">
-        <transition-group name="fade-list-to-right">
-          <li :class="thisSessionData.id === item.id ? 'pointer itemActive' : 'pointer'" v-for="(item,index) in sessionList" :key="index" @click="clickSessionListItem(item)">
-            <span class="iconfont icon-chat"></span>
-            <span>{{item.sessionName || '无标题'}}</span>
-            <div class="action" v-if="thisSessionData.id === item.id">
-              <el-tooltip content="删除会话" placement="top">
-                <span class="iconfont icon-waste" @click="handleDeleteSession"></span>
-              </el-tooltip>
-            </div>
-          </li>
-        </transition-group>
-      </div>
+    <div class="list-box" style="flex: 0 80%;max-height: 80vh">
+      <transition-group name="fade-list-to-right" class="h100">
+        <li :class="{ itemActive: thisSessionData.id === item.id }"
+            class="pointer rounded-md"
+            v-for="(item,index) in sessionList"
+            :key="index"
+            @click="clickSessionListItem(item)">
+          <span class="iconfont icon-chat"></span>
+          <span>{{item.sessionName || '无标题'}}</span>
+          <div class="action" v-if="thisSessionData.id === item.id">
+            <el-tooltip content="删除会话" placement="top">
+              <span class="iconfont icon-waste" @click="handleDeleteSession"></span>
+            </el-tooltip>
+          </div>
+        </li>
+      </transition-group>
     </div>
-    <div class="loading-more pointer" @click="handleLoadingMore">
-      <span>加载更多</span>
-    </div>
-    <div class="bottom-box">
-      <div class="item">
-        <button type="button" class="btn transparent" @click="handleFlushList"><span class="iconfont icon-shuaxin"></span>刷新列表</button>
+    <div class="session-bottom w100" style="flex: 0 15%">
+      <div class="loading-more pointer" @click="handleLoadingMore">
+        <span>加载更多</span>
       </div>
-      <div class="item">
-        <button type="button" class="btn transparent" @click="handleClearSession"><span class="iconfont icon-waste-restore"></span>清空</button>
-        <button type="button" class="btn transparent" @click="handleDeleteSession"><span class="iconfont icon-shanchu"></span>删除</button>
+      <div class="flex mg-top-sm">
+        <button type="button" style="flex: 1;margin-left: .2rem;margin-right: .2rem" class="btn" @click="handleClearSession">清空</button>
+        <button type="button" style="flex: 1;margin-left: .2rem;margin-right: .2rem" class="btn" @click="handleDeleteSession">删除</button>
       </div>
     </div>
   </div>
@@ -41,6 +40,7 @@
 
   export default {
     name: "SessionList",
+    components: {},
     props: {
       windowData: {
         type: Object,
@@ -57,36 +57,34 @@
       domainUniqueKey:{ type: String,default: null },
       drawUniqueKey:{ type: String,default: null },
     },
-    watch:{
-      // loading(val){
-      //   if (!val){
-      //     this.getUserSessionList()
-      //   }
-      // },
-    },
     data(){
       return{
         scrollFlag: false,
+        ifTourist: this.$store.getters.ifTourist === '1',
+        staticUrl: this.$store.getters.resourceMain.staticWebsite,
+        imgHeader: this.$store.getters.imgHeader,
         queryParam: {
           page: 1,
           size: 10
         },
         sessionList: [],
         isLogin: !!getToken(),
-        thisSessionData: {}
+        thisSessionData: {},
       }
+    },
+    watch:{
     },
     created() {
     },
     mounted() {
-      if (this.loading && this.isLogin) {
-        this.getUserSessionList()
-      }
+      // if (this.loading && this.isLogin) {
+      //   this.getUserSessionList()
+      // }
     },
     methods:{
       handleBefore(){
         if (!this.isLogin) {
-          this.$message.info('请先登录后在操作~')
+          this.$message.info('登录后体验更多功能~')
           return false;
         }
         return true
@@ -98,7 +96,6 @@
       getUserSessionList(){
         this.queryParam.type = this.type
         this.queryParam.domainUniqueKey = this.domainUniqueKey
-        this.queryParam.drawUniqueKey = this.drawUniqueKey
         this.$api.get('/module/session/sessioninfo/getUserSessionList',this.queryParam).then(res => {
           if (res.status){
             if (res.data.length > 0){
@@ -159,14 +156,16 @@
     flex: 1;
     padding: 10px 14px;
     display: flex;
-    flex-wrap: wrap;
     overflow: hidden;
     align-items: flex-start;
-    border-right: 1px solid var(--aside-background);
+    flex-wrap: nowrap;
     flex-direction: column;
     color: var(--font-color-default);
     background: var(--session-list-background);
+    border-right: 1px var(--col-border-color) solid;
     transition: padding 0.5s;
+    user-select: none;
+    overflow: hidden;
   }
   .hiddenStatusSession .session-list {
     padding: 0;
@@ -174,7 +173,6 @@
 
   .createSession{
     width: 100%;
-    height: auto;
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
@@ -204,13 +202,38 @@
   }
 
   .list-box {
-    flex: 1;
+    position: relative;
     width: 100%;
-    height: 70%;
     scrollbar-width: none;
     -ms-overflow-style: none;
     overflow-x: hidden;
     overflow-y: auto;
+
+    li {
+      list-style: none;
+      position: relative;
+      width: 100%;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      margin: 4px 0;
+
+      &:hover {
+        background: var(--session-list-li-background);
+      }
+    }
+
+    li.pointer.itemActive{
+      background: var(--session-list-li-active-background);
+    }
+
+    li span {
+      max-width: 75%;
+      font-size: 15px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .list-box::-webkit-scrollbar {
@@ -219,37 +242,16 @@
     display: none; /* Chrome Safari */
   }
 
-  .list-box li {
-    list-style: none;
-    position: relative;
-    width: 100%;
-    height: 48px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    margin: 4px 0;
-
-    &:hover {
-      background: var(--session-list-li-background);
-    }
-  }
-
-  .list-box li.pointer.itemActive{
-    background: var(--session-list-li-active-background);
-  }
-
-  .list-box li span {
-    max-width: 75%;
-    font-size: 15px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 
   ::v-deep.list-box li span.iconfont {
-    color: var(--session-list-li-iconfont-color);
+    color: var(--font-color-default);
     font-size: 20px;
     margin: 0 4px 0 8px
+  }
+
+  .session-bottom{
+    display: flex;
+    flex-direction: column;
   }
 
   .loading-more{
@@ -279,37 +281,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    border-radius: 0 5px 5px 0;
     background: var(--session-list-item-action-background);
   }
 
-  .bottom-box {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    flex-direction: column;
-    width: 100%;
-    height: 15%;
-    max-height: 15%;
-  }
-  .bottom-box .item{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  .bottom-box .item button{
-    flex: 1;
-    margin: 5px 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    .iconfont{
-      margin-right: 5px;
-      font-size: 15px !important;
-    }
-  }
 </style>

@@ -73,7 +73,11 @@
     },
     methods: {
       baseInit() {
+<<<<<<< HEAD
+        this.url = '/module/config/cmjchannelconfig'
+=======
         this.url = '/module/cmj/cmjchannelconfig'
+>>>>>>> origin/devloper
         this.viewName = '频道管理'
         this.useBaseComponent = true
         this.queryParams.cmjAccountId = this.id;

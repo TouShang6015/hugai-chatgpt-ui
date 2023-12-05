@@ -143,7 +143,21 @@ export const dynamicRoutes = [
         meta: { title: '调度日志', activeMenu: '/monitor/job' }
       }
     ]
-  }
+  },
+  {
+    path: '/mjconfig',
+    component: Layout,
+    hidden: true,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: 'apiParamConfig',
+        component: () => import('@/views/system/webset/midjourney/ApiParamConfig'),
+        name: 'ApiParamConfig',
+        meta: { title: 'Mj参数配置' }
+      }
+    ]
+  },
 ]
 
 // 防止连续点击多次路由报错

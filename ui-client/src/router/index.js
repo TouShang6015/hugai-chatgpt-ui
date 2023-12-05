@@ -63,14 +63,27 @@ const routerList = [
   },
   {
     path: "/",
+    name: "gallery",
+    component: Layout,
+    children: [
+      {
+        path: "/gallery",
+        name: 'gallery',
+        meta: {title: '画廊'},
+        component: () => import('/src/views/pages/gallery/index')
+      }
+    ]
+  },
+  {
+    path: "/",
     name: "UserHome",
     component: Layout,
     children: [
       {
         path: "/UserHome",
         name: 'UserHome',
-        meta: {title: '个人中心'},
-        component: () => import('/src/views/pages/user/UserHome')
+        meta: {title: '用户中心'},
+        component: () => import('/src/views/pages/user/userHome/UserInfo')
       }
     ]
   },

@@ -9,6 +9,7 @@ import cache from '@/utils/cache'
 import '/src/router/filter/filter';
 import '@/assets/css/elementui.scss'
 import '@/assets/css/style.scss'
+import '@/assets/css/hugai-style.scss'
 import '@/assets/css/globalTransition.scss'
 import '@/assets/css/markdown-theme.css'
 import apiRequest from "/src/utils/request/BaseRequest";
@@ -16,9 +17,11 @@ import plugins from './common/plugins'
 import DialogTopClose from "@/components/TopClose/TopClose";
 import LoadingIframe from "@/components/Loading/LoadingIframe";
 import ATabs from "@/components/Tabs/Tabs";
-
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import waterfall from "vue-waterfall2";
+
+Vue.use(waterfall);
 
 import { copyToClipboard } from '@/utils/util'
 

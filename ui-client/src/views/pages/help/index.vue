@@ -4,15 +4,15 @@
       <div class="watermark"></div>
       <transition-group name="fade-list-to-right">
         <div class="top-item" v-for="(item,index) in convertItemData" :key="index">
-          <WindowUser v-if="item.role === 'user'" :item-data="item"></WindowUser>
-          <WindowAssistant v-else :item-data="item" :content-show-type="ContentShowType.Markdown"></WindowAssistant>
+          <WindowUser v-if="item.role === 'user'" :open-tools="false" :item-data="item"></WindowUser>
+          <WindowAssistant v-else :item-data="item" :open-tools="false" :content-show-type="ContentShowType.Markdown"></WindowAssistant>
         </div>
       </transition-group>
     </div>
     <div class="help-bottom">
       <h2></h2>
       <div class="bottom-item-main">
-        <li class="click-box pointer" v-for="(item,index) in noticeData" :key="index" @click="handleQuestion(item)">
+        <li class="click-box pointer rounded-md" v-for="(item,index) in noticeData" :key="index" @click="handleQuestion(item)">
           <span>{{index + 1}}. {{item.title}}</span>
         </li>
       </div>
@@ -42,7 +42,7 @@
     },
     methods: {
       getNoticeData() {
-        this.$api.post('/module/business/noticeclient/baseQueryByParam', {noticeType: 'HELP'}).then(res => {
+        this.$api.post('/module/business/noticeclient/baseQueryByParam', {noticeType: 'HELP',sortCondition: { sort: true }}).then(res => {
           if (res.status) {
             this.noticeData = res.data
             let one = this.noticeData[0];
@@ -54,8 +54,8 @@
       },
       handleQuestion(item){
         let arr = [];
-        arr.push({content: item.title, createTime: item.createTime, role: 'user'});
-        arr.push({content: item.content, createTime: item.createTime, role: 'assistant'});
+        arr.push({content: item.title, createTime: item.createTime, role: 'user',id: '',sessionId: '',sessionRecordId: ''});
+        arr.push({content: item.content, createTime: item.createTime, role: 'assistant',id: '',sessionId: '',sessionRecordId: ''});
         this.convertItemData = arr;
       }
     }
@@ -68,8 +68,8 @@
     width: 100%;
     height: 99%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
     background: var(--help-background);
   }
@@ -77,7 +77,7 @@
   .help-top {
     width: 100%;
     height: 70%;
-    padding: 8px 10% 14px 10%;
+    padding: 8px 0 14px 0;
     box-sizing: border-box;
     flex-grow: 1;
     z-index: 0;
@@ -88,6 +88,8 @@
   .help-top .top-item {
     width: 100%;
     height: auto;
+    position: relative;
+    display: flex;
   }
 
   .help-bottom {
@@ -122,7 +124,6 @@
     background: var(--help-bottom-li-background);
     padding: 3px 10px;
     margin: 3px 15px;
-    border-radius: 10px;
     display: flex;
     justify-content: flex-start;
     align-items: center;

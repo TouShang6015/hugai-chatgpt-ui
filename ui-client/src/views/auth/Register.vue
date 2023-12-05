@@ -4,9 +4,12 @@
       <div class="main-form">
         <el-form ref="form" :model="form">
           <div class="input-item">
+<<<<<<< HEAD
+=======
             <el-input prefix-icon="iconfont icon-zhanghao" v-model="form.userName" placeholder="用户名" clearable></el-input>
           </div>
           <div class="input-item">
+>>>>>>> origin/devloper
             <el-input prefix-icon="iconfont icon-youxiang " v-model="form.email" placeholder="请输入邮箱"></el-input>
           </div>
           <div class="input-item">
@@ -19,6 +22,14 @@
           <div class="input-item">
             <el-input prefix-icon="iconfont icon-yincangmima" v-model="form.password2" type="password" placeholder="请确认登陆密码"></el-input>
           </div>
+<<<<<<< HEAD
+          <div class="input-item">
+            <el-tooltip content="邀请码"  effect="light" placement="right-start">
+              <el-input prefix-icon="iconfont icon-linkedin-01" v-model="form.promoCode" placeholder="邀请码"></el-input>
+            </el-tooltip>
+          </div>
+=======
+>>>>>>> origin/devloper
           <div class="form-submit">
             <div class="form-submit-item">
               <el-button type="success" size="medium" :loading="loading" @click="handleRegister">立即注册</el-button>
@@ -40,6 +51,10 @@
 </template>
 
 <script>
+<<<<<<< HEAD
+  import Cache from '@/utils/cache'
+=======
+>>>>>>> origin/devloper
   import Verify from "@/components/verifition/Verify";
 
   export default {
@@ -48,7 +63,8 @@
     data(){
       return {
         form: {
-          captcha: {}
+          captcha: {},
+          promoCode: Cache.local.get('inviteCode')
         },
         loading: false,
         stateVerify: false,
@@ -63,16 +79,14 @@
     mounted() {
     },
     methods:{
+      success(data){
+
+      },
       handleRegister(){
-        const userName = this.form.userName;
         const password = this.form.password;
         const email = this.form.email;
         const code = this.form.code;
         const password2 = this.form.password2;
-        if (userName == null || userName === ''){
-          this.$message.warning("请输入帐号")
-          return
-        }
         if (password == null || password === ''){
           this.$message.warning("请输入登陆密码")
           return
@@ -187,6 +201,10 @@
     display: inline-block;
     border: 0px;
     opacity: 1;
+<<<<<<< HEAD
+    background: var(--background-main);
+=======
+>>>>>>> origin/devloper
   }
   ::v-deep .el-input input:focus {
     display: inline-block;

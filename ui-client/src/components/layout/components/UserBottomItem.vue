@@ -1,15 +1,10 @@
 <template>
   <div class="user-item">
     <div class="img" style="display: flex">
-      <el-image lazy :src="imgHeader" fit="fill" v-if="imgHeader">
-        <div slot="error" class="image-slot">
-          <img :src="require('/src/assets/imgs/user_img_default1.png')" alt="" v-if="$store.getters.sex == null || $store.getters.sex == ''">
-          <img :src="require('/src/assets/imgs/user_img_default1.png')" alt="" v-if="$store.getters.sex == '1'">
-          <img :src="require('/src/assets/imgs/user_img_default2.png')" alt="" v-if="$store.getters.sex == '0'">
-        </div>
-      </el-image>
+      <img :src="imgHeader" v-if="!imgError" @error="imgError = true"/>
+      <img :src="require('/src/assets/imgs/user_img_default1.png')" v-if="imgError"/>
     </div>
-    <span class="username" v-show="!hiddenStatus">{{userName || '未登录'}}</span>
+    <span class="username" v-show="!hiddenStatus">{{nickName || '未登录'}}</span>
     <span class="iconfont icon-zhanghao user-icon" v-show="!hiddenStatus"></span>
   </div>
 </template>
@@ -23,7 +18,8 @@
       return{
         isLogin: !!getToken(),
         imgHeader: undefined,
-        userName: '',
+        imgError: false,
+        nickName: '',
         hiddenStatus: this.$store.state.settings.hiddenStatusLeft,
       }
     },
@@ -36,7 +32,7 @@
     },
     mounted() {
       this.flushImgUrl();
-      this.userName = this.$store.getters.username;
+      this.nickName = (this.$store.state.user.userDetail || {}).nickName;
     },
     methods: {
       flushImgUrl(){
@@ -44,7 +40,7 @@
         if (imgHeader == null && imgHeader != ''){
           this.imgHeader = require('/src/assets/imgs/user_img_default1.png')
         }else{
-          this.imgHeader = this.$store.getters.configMain.staticWebsite + imgHeader
+          this.imgHeader = this.$store.getters.resourceMain.staticWebsite + imgHeader
         }
       },
       openLoginDialog(){

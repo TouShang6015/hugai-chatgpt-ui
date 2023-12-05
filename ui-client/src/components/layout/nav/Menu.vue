@@ -2,7 +2,7 @@
   <div class="nav-menu-wrapper">
     <ul class="menu-list">
       <div v-for="(item, index) in menuList" :key="index" class="menu-item">
-        <li :class="{ activeNav: index == current,hiddenStatus: hiddenStatus }" class="pointer"
+        <li :class="{ activeNav: index == current,hiddenStatus: hiddenStatus }" class="pointer rounded-md"
             @click="changeMenu(item)">
           <span class="item-icon iconfont" :class="item.icon" v-show="!hiddenStatus"></span>
           <span class="item-title" :class="{hiddenStatus:hiddenStatus}">{{item.title}}</span>
@@ -18,10 +18,11 @@
 <script>
 
   const menuList = [
-    { icon: 'icon-AI', routePath: '/home',title: '主页', index: 0 },
-    { icon: 'icon-chat-bolt', routePath: '/sessionChat',title: '万能问答', index: 1 },
-    { icon: 'icon-tiaoseban ', routePath: '/sessionDraw',title: 'AI画图', index: 2 },
-    { icon: 'icon-qixiangleida', routePath: '/sessionDomain',title: '场景对话', index: 3 },
+    // { icon: 'icon-AI', routePath: '/home',title: '主页', index: 0 },
+    { icon: 'icon-chat-bolt', routePath: '/sessionChat',title: '万能问答', index: 0 },
+    { icon: 'icon-tiaoseban ', routePath: '/sessionDraw',title: 'AI画图', index: 1 },
+    { icon: 'icon-qixiangleida', routePath: '/sessionDomain',title: '场景对话', index: 2 },
+    { icon: 'icon-tuxiangleixing', routePath: '/gallery',title: '画廊', index: 3 },
   ]
 
   export default {
@@ -78,7 +79,6 @@
       text-align: left;
 
       li {
-        border-radius: 10px;
         margin: 0 35px;
         list-style: none;
         position: relative;

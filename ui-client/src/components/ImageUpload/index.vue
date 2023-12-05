@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="image-main">
     <div class="component-upload-image">
       <el-upload
               multiple
@@ -50,7 +50,7 @@
     components: {Preview},
     props: {
       value: [String, Object, Array],
-      uploadApiUrl: { type: String, default: '/common/uploadImage' },
+      uploadApiUrl: { type: String, default: '/common/uploadHeadImage' },
       // 图片数量限制
       limit: {
         type: Number,
@@ -84,7 +84,7 @@
         dialogImageUrl: "",
         dialogVisible: false,
         hideUpload: true,
-        baseUrl: this.$store.getters.configMain.staticWebsite,
+        baseUrl: this.$store.getters.resourceMain.staticWebsite,
         uploadImgUrl: process.env.VUE_APP_BASE_API + this.uploadApiUrl,
         headers: {
           Authorization: "Bearer " + getToken(),
@@ -214,6 +214,11 @@
   };
 </script>
 <style scoped lang="scss">
+  .image-main{
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
   // 圆角头像
   ::v-deep.ifWane .el-upload--picture-card{
     border-radius: 50%;

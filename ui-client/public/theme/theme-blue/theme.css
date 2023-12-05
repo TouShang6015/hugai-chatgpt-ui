@@ -1,46 +1,50 @@
 :root{
-    --font-color-markdown: black;
+    --bkgy: rgb(92, 94, 109);
+
+    --font-color-markdown: white;
     --font-color-default: #ffffff;
-    --font-color-no-normal: #dcdcdc;
+    --font-color-default2: black;
+    --font-color-no-normal: #d5d5d5;
     --font-color-aside: white;
     --font-color-iconfont: white;
+    --font-color-notable: rgb(198, 239, 233);
+    --font-color-intror: rgb(189, 189, 189);
 
     --background-main: rgb(57, 60, 78);
     --background-textarea: rgb(66, 70, 86);
-    --background-button-default: white;
 
     --aside-background: rgb(39, 42, 55);
     --aside-hover-color: rgba(74, 76, 92, 0.7);
 
     --session-list-background: #2f3340;
     --session-list-item-action-background: linear-gradient(to right, rgba(0, 0, 0, 0.01), rgb(53, 54, 61));
-    --session-list-li-iconfont-color: white;
     --session-list-li-background: rgba(74, 76, 92, 0.7);
     --session-list-li-active-background: rgba(74, 76, 92, 0.7);
     --session-list-create-session-border: rgba(255, 255, 255, 0.5);
     --session-list-create-session-border-hover: #fff;
 
-    --session-window-system-background: #fff;
-    --session-window-user-background: #95ec69;
+    /*--session-window-system-background: #fff;*/
+    /*--session-window-user-background: #95ec69;*/
+    --session-window-system-background: rgb(80, 82, 104);
+    --session-window-user-background: #72ec69;;
 
     --topclose-font-color: #7b7b7b;
 
     --tabs-background: rgb(78, 79, 92);
-    --tabs-simple-background: rgb(78, 79, 92 , 0);
+    --tabs-simple-background: rgba(78, 79, 92, 0);
     --tabs-active-background: rgb(57, 60, 78);
     --tabs-active-simple-background: rgb(226, 226, 231);
 
-    --item-border-default-color: rgb(184, 184, 184);
+    --item-border-default-color: rgba(184, 184, 184, 0.52);
     --item-border-active-color: rgb(117, 219, 203);
     --item-border-hover-color: rgb(168, 232, 222);
-    --item-border-normal-color: rgba(255, 255, 255, 0.3);
+    --item-border-normal-color: rgba(114, 112, 112, 0.5);
 
-    --draw-task-list-item-border-color: rgb(92, 94, 109);
     --draw-task-list-item-content-background: rgba(0, 0, 0, 0.12);
     --draw-task-list-item-bottom-background: rgba(0, 0, 0, 0.3);
 
-    --help-background: linear-gradient(to bottom, rgb(45, 46, 50), rgba(50, 50, 50, 0.15));
-    --help-bottom-li-background: rgba(35, 34, 34, 0.91);
+    --help-background: linear-gradient(to bottom, rgb(32, 35, 45), rgba(50, 50, 50, 0.15));
+    --help-bottom-li-background: rgba(0, 0, 0, 0.91);
 
     --markdown-box-shadow: rgba(0, 0, 0, 0) 0px 2px 12px 0px;
     --markdown-pre-border: 1px solid #272822;
@@ -57,6 +61,28 @@
     --markdown-lang-background: #272822;
     --markdown-lang-color: #fff;
 
-    --dialog-background: linear-gradient(to bottom, #3f4355, #30354b);
+    --dialog-background: linear-gradient(to bottom, #1e1e28 , #2e343d);
     --dialog-box-shadow: 5px 2px 2px 3px rgb(39, 42, 55);
+
+    --gallery-item-hover-background: linear-gradient(to top, rgba(12, 12, 12, 0.5), rgba(50, 50, 50, 0));
+    --gallery-prompt-background: #2c333d;
+
+    --col-border-color: rgb(71, 73, 94);
+
+    /*--button-default-background: linear-gradient(#747580, #52555f 50%, #454857 51%, #6b727b);*/
+    --button-default-background: linear-gradient(to bottom, #4d4d5f, #474753);
+    --button-default-background-hover: rgba(255, 255, 255, 0.1);
+    --button-normal-background: #555a65;
+
+    --el-table-background: #373a48;
+    --el-table-head-background: #212432;
+    --el-table-tr-background: #373a48;
+    --el-table-tr-hover-background: #212432;
+
+    --span-button-bkg-default: rgb(70, 194, 172);
+    --span-button-font-color: #fff8f8;
+    --span-button-bkg-red: rgb(205, 83, 96);
+    --span-button-bkg-violet: rgb(140, 84, 208);
+    --span-button-bkg-yellow: rgb(206, 215, 83);
+
 }

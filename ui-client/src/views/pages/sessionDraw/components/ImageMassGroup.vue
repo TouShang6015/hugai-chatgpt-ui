@@ -1,6 +1,6 @@
 <template>
   <div class="imageMassGroup">
-    <div class="img-item pointer"
+    <div class="img-item pointer rounded-md"
          v-for="(item,index) in config"
          :class="{active: item.key === value}"
          :key="index"
@@ -61,7 +61,6 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease-in-out;
-    border-radius: 8px;
     text-align: center;
   }
 .imageMassGroup .img-item:hover{

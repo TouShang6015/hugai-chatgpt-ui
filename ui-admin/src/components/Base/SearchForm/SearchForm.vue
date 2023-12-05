@@ -32,7 +32,7 @@
                   <el-form-item :label="item.title + ':'" :prop="item.key">
                     <slot :name="'item-' + item.key">
                       <!-- input -->
-                      <el-input v-model="queryParams[item.key]" v-if="item.type === 'input' || item.type == null" :placeholder="item.placeholder || ''" clearable :disabled="item.disabled || false" :style="item.style"/>
+                      <el-input v-model="queryParams[item.key]" v-if="item.type === 'input' || item.type == null" autosize :placeholder="item.placeholder || ''" clearable :disabled="item.disabled || false" :style="item.style"/>
                       <!-- select -->
                       <el-select v-model="queryParams[item.key]" v-if="item.type === 'select'" :placeholder="item.placeholder" :style="item.style">
                         <el-option v-for="option in (item.options || [])" :label="option.label" :value="option.value"></el-option>

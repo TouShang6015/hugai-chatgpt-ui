@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) => {
   });
   document.title = title + (to.meta.title === undefined ? '' : ' - ' + to.meta.title)
 
-  if (Object.keys(store.getters.configMain).length === 0) {
+  if (Object.keys(store.getters.resourceMain).length === 0) {
     store.dispatch('FlushWebConfigMain').then(res => {
       if (whiteList.indexOf(to.path) !== -1) {
         next()
@@ -26,6 +26,7 @@ router.beforeEach((to, from, next) => {
           if (store.getters.username == null || store.getters.username === ''){
             store.dispatch('GetInfo').then((res) => {
               next()
+              store.dispatch('ConnectUserSocket').then(r => console.log(r));
               Pace.stop()
             }).catch(err => {
               Message.error(err)

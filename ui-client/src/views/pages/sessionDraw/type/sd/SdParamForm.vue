@@ -55,7 +55,63 @@
               </textarea>
             </el-form-item>
             <el-form-item>
-              <button type="button" class="btn transparent" @click="handleSubmitTxtImg">提交</button>
+              <button type="button" class="btn" @click="handleSubmitTxtImg">提交</button>
+            </el-form-item>
+          </el-row>
+        </el-form>
+      </transition>
+      <transition name="web-fade">
+        <el-form ref="form" :model="form" label-width="80px" v-if="apiType === '2'">
+          <el-row>
+            <el-form-item label="专业模式">
+              <el-switch v-model="form.professionMode" :active-value="'1'" :inactive-value="'0'"></el-switch>
+            </el-form-item>
+            <el-form-item label="垫图">
+              <ImageUploadFile @input="inputImg2Img" :ifWane="false" :use-attachment="true" :file-type="['png','jpg','jpeg']"></ImageUploadFile>
+            </el-form-item>
+            <el-form-item label="图像质量">
+              <ImageMassGroup :config="imageMassGroupConfig" @change="handleImageMassGroupChange"></ImageMassGroup>
+            </el-form-item>
+            <el-form-item label="数量">
+              <el-input-number size="mini" controls-position="right" v-model="form.batchSize" :min="1" :max="4"></el-input-number>
+            </el-form-item>
+            <el-form-item label="采样方法" v-if="form.professionMode === '1'">
+              <el-select v-model="form.samplerName" clearable>
+                <el-option :label="'Euler a'" :value="'Euler a'"/>
+                <el-option :label="'DPM++ 2M Karras'" :value="'DPM++ 2M Karras'"/>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="迭代步数" v-if="form.professionMode === '1'">
+              <el-input-number size="mini" controls-position="right" v-model="form.steps" :min="10" :max="35"></el-input-number>
+            </el-form-item>
+            <el-form-item label="重绘幅度" v-if="form.professionMode === '1'">
+              <el-input-number size="mini" controls-position="right" :precision="2" v-model="form.denoisingStrength" :min="0.7" :max="2"></el-input-number>
+            </el-form-item>
+            <el-form-item label="随机种子" v-if="form.professionMode === '1'">
+              <el-input-number size="mini" controls-position="right" v-model="form.seed" :min="-1" :max="999999999"></el-input-number>
+            </el-form-item>
+            <el-form-item label="AI优化">
+              <el-switch v-model="form.optimizePrompt" :active-value="'1'" :inactive-value="'0'"></el-switch>
+              <el-tooltip content="支持中文，如果你不知道怎么写提示词，可以打开此项，如：黄昏时间，一个黑发女孩坐在沙滩上" placement="right">
+                <span class="iconfont icon-guanyu tips pointer"></span>
+              </el-tooltip>
+            </el-form-item>
+            <el-form-item label="提示词">
+              <textarea class="a-textarea"
+                        rows="11"
+                        v-model="form.prompt"
+                        placeholder="对中文支持较差，需要进行翻译。如果不知道怎么写提示词，可选择上方的AI优化。">
+              </textarea>
+            </el-form-item>
+            <el-form-item label="反向词" v-if="form.professionMode === '1'">
+              <textarea class="a-textarea"
+                        rows="11"
+                        v-model="form.negativePrompt"
+                        placeholder="反向提示词">
+              </textarea>
+            </el-form-item>
+            <el-form-item>
+              <button type="button" class="btn" @click="handleSubmitImgToImg">提交</button>
             </el-form-item>
           </el-row>
         </el-form>
@@ -127,6 +183,12 @@
   export default {
     name: "SdParamForm",
     components: {ImageUploadFile, ImageMassGroup },
+<<<<<<< HEAD
+    props:{
+      prompt: { type: String ,default : null }
+    },
+=======
+>>>>>>> origin/devloper
     data(){
       return{
         isLogin: !!getToken(),
@@ -139,6 +201,8 @@
         // 1 创建图像 2 编辑图像
         apiType: '1',
         form: {
+          width: 512,
+          height: 512,
         }
       }
     },
@@ -174,7 +238,12 @@
           steps: 25,
           samplerName: 'Euler a',
           denoisingStrength: 0.7,
+<<<<<<< HEAD
+          baseImg: null,
+          prompt: this.prompt
+=======
           baseImg: null
+>>>>>>> origin/devloper
         }
       },
       handleImageMassGroupChange(val){
@@ -195,7 +264,7 @@
       },
       handleSubmitTxtImg(){
         if (!this.isLogin){
-          this.$message.info('请先登录后在操作~')
+          this.$message.info('登录后体验更多功能~')
           return
         }
         this.$api.post('/module/draw/task/createTask/sd_txt2img',this.form).then(res =>{
@@ -209,7 +278,7 @@
       },
       handleSubmitImgToImg(){
         if (!this.isLogin){
-          this.$message.info('请先登录后在操作~')
+          this.$message.info('登录后体验更多功能~')
           return
         }
         console.log(this.form);

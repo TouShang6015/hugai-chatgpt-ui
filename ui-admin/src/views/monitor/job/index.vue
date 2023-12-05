@@ -219,6 +219,11 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
+          <el-col :span="12">
+            <el-form-item label="是否持久化">
+              <el-switch v-model="form.ifSaveLog" active-value="1" inactive-value="0"></el-switch>
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">

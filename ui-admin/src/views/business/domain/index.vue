@@ -10,11 +10,6 @@
       @baseHandleAdd="baseHandleAdd"
     >
 
-      <template slot="item-domainGroup" slot-scope="scope">
-        <el-select v-model="queryParams.domainGroup" placeholder="领域分组">
-          <el-option v-for="item in labelDomainGroup" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
-      </template>
       <template slot="item-type" slot-scope="scope">
         <el-select v-model="queryParams.type" placeholder="领域类型">
           <el-option v-for="item in dict.type.domain_type" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -36,11 +31,6 @@
       @baseHandleSelectionChange="baseHandleSelectionChange"
     >
 
-      <template slot="column-domainGroup" slot-scope="scope">
-        <span v-for="item in labelDomainGroup">
-          <span v-if="item.value == scope.row.domainGroup">{{item.label}}</span>
-        </span>
-      </template>
       <template slot="column-ifDeskShow" slot-scope="scope">
         <el-switch
           v-model="scope.row.ifDeskShow"
@@ -86,7 +76,6 @@
     data(){
       return{
         builderSearch,builderTable,
-        labelDomainGroup: []
       }
     },
     watch:{
@@ -101,7 +90,6 @@
       }
     },
     created() {
-      this.flushLabel()
     },
     mounted() {
       this.baseHandleQuery();
@@ -112,11 +100,6 @@
         this.viewName = '领域会话配置';
         this.sortCondition = { sort: true }
         return true;
-      },
-      flushLabel(){
-        api.getEnumLabel("DomainGroup").then(res => {
-          this.labelDomainGroup = res.data
-        })
       },
       handleDialogSubmit(){
         this.$refs.saveOrUpdate.submitForm();
@@ -153,7 +136,6 @@
   const builderSearch = {
     search: [
       { title: '领域标识', key: 'uniqueKey',span:8  },
-      { title: '领域分组', key: 'domainGroup',span:8,type: 'select'  },
       { title: '领域类型', key: 'type',span:8  },
     ],
     button: [
@@ -168,7 +150,6 @@
       { title: '跳转路由', key: 'routePath' },
       { title: '排序号', key: 'sort',width: '80'},
       { title: '图标名称', key: 'iconName',width: '135' },
-      { title: '领域组', key: 'domainGroup',width: '135'},
       { title: '是否桌面显示', key: 'ifDeskShow',width: '135'},
       { title: '上下文内容', key: 'aboveContent',showOverFlowToolTip: true},
     ],

@@ -54,14 +54,10 @@
           </el-form-item>
         </el-col>
       </el-row>
-
-      <el-row :gutter="25">
-
-      </el-row>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm">保存</el-button>
+      </el-form-item>
     </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="submitForm">保存</el-button>
-    </div>
   </div>
 </template>
 
@@ -87,7 +83,7 @@
         param.configKey = this.configKey || 'draw';
         param.resourceValue = JSON.stringify(this.form)
         api.editByConfigKey(param).then(res => {
-          if (res.code == 200){
+          if (res.status){
             this.$message.success(res.message)
           }else{
             this.$message.error(res.message)

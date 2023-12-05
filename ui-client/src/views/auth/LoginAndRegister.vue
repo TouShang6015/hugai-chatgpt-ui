@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
+  <div class="login-register-main rounded-md" @click.stop>
+=======
   <div class="login-register-main" @click.stop>
+>>>>>>> origin/devloper
     <DialogTopClose/>
     <div class="head-select">
       <a-tabs :value="tabsValue" :width="'70%'" :tab-item="[
@@ -9,8 +13,13 @@
     </div>
     <div class="content">
       <transition-group name="flip">
+<<<<<<< HEAD
+        <LoginComponent v-show="tabsValue === '1'" key="login" @changeSelect="tabsChange"></LoginComponent>
+        <RegisterComponent v-show="tabsValue === '2'" key="register" @changeSelect="tabsChange"></RegisterComponent>
+=======
         <LoginComponent v-if="tabsValue === '1'" key="login" @changeSelect="tabsChange"></LoginComponent>
         <RegisterComponent v-if="tabsValue === '2'" key="register" @changeSelect="tabsChange"></RegisterComponent>
+>>>>>>> origin/devloper
       </transition-group>
     </div>
   </div>
@@ -45,8 +54,12 @@
     width: 500px;
     height: auto;
     background: var(--dialog-background);
+<<<<<<< HEAD
+    border: 1px var(--item-border-normal-color) solid;
+=======
     box-shadow: 5px 2px 0px 3px var(--aside-background);
     border-radius: 15px;
+>>>>>>> origin/devloper
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -o-border-radius: 15px;

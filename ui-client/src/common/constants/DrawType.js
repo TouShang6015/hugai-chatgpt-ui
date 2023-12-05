@@ -1,3 +1,5 @@
 export default {
-  OPENAI: 'OPENAI',
+  OPENAI: 'OpenAi DALL',
+  SD: 'Stable Diffusion',
+  MJ: 'Midjourney',
 }

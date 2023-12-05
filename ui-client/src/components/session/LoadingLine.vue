@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <div class="line" v-show="loadingLine"></div>
-  </div>
+  <div class="line" v-show="loadingLine"></div>
 </template>
 
 <script>
@@ -17,9 +15,11 @@
 
   /* 加载线 */
   .line {
+    position: relative;
+    top: 50px;
     width: 94%;
     margin-left: 2%;
-    height: 2px;
+    min-height: 2px;
     background: linear-gradient(to right, red, #ffff31, #04a304);
     animation: shrink-and-expand 1s ease-in-out infinite;
   }

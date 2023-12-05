@@ -2,22 +2,15 @@
   <el-container>
     <el-aside class="aside-main" :class="{asideMainHidden: hiddenStatus}">
       <NavIndex></NavIndex>
-    </el-aside>
-    <el-container>
       <HiddenButton></HiddenButton>
-      <el-main class="main">
-        <AppMain></AppMain>
-      </el-main>
-    </el-container>
+    </el-aside>
+    <el-main class="main">
+      <AppMain></AppMain>
+    </el-main>
+
     <!-- 登陆框 -->
     <transition name="box-down">
       <Auth v-show="loginDialog"></Auth>
-    </transition>
-    <transition name="box-down">
-      <SettingsInd v-show="settingDialog"></SettingsInd>
-    </transition>
-    <transition name="box-down">
-      <AccountIndex v-show="accountDialog"></AccountIndex>
     </transition>
   </el-container>
 
@@ -28,18 +21,14 @@
   import AppMain from "@/components/layout/AppMain";
   import NavIndex from "./nav/nav";
   import HiddenButton from "@/components/layout/components/HiddenButton";
-  import SettingsInd from "@/views/setting/Settings";
-  import AccountIndex from "@/views/account/Account";
 
   export default {
     name: "LayoutIndex",
-    components: {AccountIndex, SettingsInd, AppMain, NavIndex, Auth, HiddenButton},
+    components: {AppMain, NavIndex, Auth, HiddenButton},
     data() {
       return {
         loginDialog: false,
         settingDialog: false,
-        accountDialog: false,
-        registerDialog: false,
         hiddenStatus: this.$store.state.settings.hiddenStatusLeft,
       }
     },
@@ -59,11 +48,6 @@
           this.settingDialog = val
         },
       },
-      '$store.getters.accountDialog': {
-        handler: function (val) {
-          this.accountDialog = val
-        },
-      }
     },
     created() {
     },
@@ -72,21 +56,30 @@
 
 <style lang="scss">
 
-
   .aside-main {
-    width: 250px !important;
-    transition: width 0.2s;
+    position: relative;
+    flex: 0 0 12%;
+    transition: flex-basis 0.2s;
     background-color: var(--aside-background);
+    border-right: 1px var(--col-border-color) solid;
+    border-top: 1px var(--col-border-color) solid;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .main {
+    flex: 1;
     background-color: var(--background-main);
-    width: 100%;
     height: 100%;
     overflow: hidden;
+    position: relative;
   }
 
   .asideMainHidden {
-    width: 70px !important;
+    flex: 0 0 3.5%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>

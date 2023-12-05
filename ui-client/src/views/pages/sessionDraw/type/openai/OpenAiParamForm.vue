@@ -24,7 +24,7 @@
               </textarea>
             </el-form-item>
             <el-form-item>
-              <button type="button" class="btn transparent" @click="handleSubmitTxtImg">提交</button>
+              <button type="button" class="btn" @click="handleSubmitTxtImg">提交</button>
             </el-form-item>
           </el-row>
         </el-form>
@@ -52,7 +52,7 @@
               </textarea>
             </el-form-item>
             <el-form-item>
-              <button class="btn transparent" @click="handleSubmitImgToImg">提交</button>
+              <button class="btn" @click="handleSubmitImgToImg">提交</button>
             </el-form-item>
           </el-row>
         </el-form>
@@ -68,6 +68,9 @@
   export default {
     name: "OpenAiParamForm",
     components: {ImageMassGroup, ImageUpload },
+    props:{
+      prompt: { type: String ,default : null }
+    },
     data(){
       return{
         isLogin: !!getToken(),
@@ -78,7 +81,10 @@
         ],
         // 1 创建图像 2 编辑图像
         apiType: '1',
-        form: {}
+        form: {
+          width: 256,
+          height: 256,
+        }
       }
     },
     watch:{
@@ -103,7 +109,8 @@
       initForm(){
         this.form = {
           n: 1,
-          size: 512
+          size: 512,
+          prompt: this.prompt
         }
       },
       handleImageMassGroupChange(val){
@@ -121,7 +128,7 @@
       },
       handleSubmitTxtImg(){
         if (!this.isLogin){
-          this.$message.info('请先登录后在操作~')
+          this.$message.info('登录后体验更多功能~')
           return
         }
         this.$api.post('/module/draw/task/createTask/openai_txt2img',this.form).then(res =>{
@@ -135,7 +142,7 @@
       },
       handleSubmitImgToImg(){
         if (!this.isLogin){
-          this.$message.info('请先登录后在操作~')
+          this.$message.info('登录后体验更多功能~')
           return
         }
         this.$api.post('/module/draw/task/createTask/openai_img2img',this.form).then(res =>{

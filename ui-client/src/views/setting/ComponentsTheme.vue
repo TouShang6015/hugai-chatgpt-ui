@@ -3,7 +3,7 @@
     <div class="theme-item">
       <h3>主题</h3>
       <li class="pointer" v-for="(item,index) in themes" :class="{active: theme === item.name}" @click="changeTheme(item.name)" :key="index">
-        <span class="iconfont" :class="item.icon"></span>
+        <span class="iconfont rounded-md" :class="item.icon"></span>
       </li>
     </div>
   </div>
@@ -66,7 +66,6 @@
   .theme-item li .iconfont {
     padding: 2px 4px;
     border: 1px var(--item-border-default-color) solid;
-    border-radius: 4px;
   }
   .theme-item li.active .iconfont{
     border: 1px var(--item-border-active-color) solid;

@@ -11,9 +11,17 @@ a, button, img {
 * {
   margin: 0;
   padding: 0;
-  font-family: Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+  //font-family: Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+  //-webkit-text-size-adjust: 100%;
+  //-webkit-font-feature-settings: normal;
+  //font-feature-settings: normal;
+  //font-variation-settings: normal;
   -webkit-text-size-adjust: 100%;
-  -webkit-font-feature-settings: normal;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  font-family: Inter,sans-serif;
+  //font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   font-feature-settings: normal;
   font-variation-settings: normal;
 }
@@ -34,16 +42,16 @@ li{
 }
 
 .color-white{
-  color: white;
+  color: white!important;
 }
 .color-red{
-  color: red;
+  color: red!important;
 }
  .color-green{
-   color: green;
+   color: green!important;
  }
 .color-lawngreen{
-  color: lawngreen;
+  color: lawngreen!important;
 }
 .bgc-red{
   background: red;
@@ -113,22 +121,37 @@ li{
 /* 按钮 */
 .btn{
   color: var(--font-color-default);
-  padding: 8px 15px;
-  border-radius: 6px;
-  background: var(--background-button-default);
-  border: 1px var(--item-border-default-color) solid;
+  padding: .4rem .8rem;
+  border-radius: 0.5rem;
+  background: var(--button-default-background);
+  border: 1px var(--button-default-background) solid;
   transition: all 0.1s linear;
+  letter-spacing: 0.1rem;
 }
 .btn:hover{
-  border: 1px var(--item-border-hover-color) solid;
-  box-shadow: var(--item-border-hover-color) 0px 0px 3px 0px;
+  box-shadow: 0px 0px 3px 25px var(--button-default-background-hover) inset;
 }
 .btn:active{
-  border: 1px var(--item-border-active-color) solid;
-  box-shadow: var(--item-border-active-color) 0px 0px 3px 0px;
+  transform: scale(0.9);
+  box-shadow: 0px 0px 3px 25px var(--button-default-background-hover) inset;
+}
+.btn.unBorder{
+  border: 0px;
+}
+.btn.unBorder:hover{
+  border: 0;
+}
+.btn.unBorder:active{
+  transform: scale(0.9);
+  border: 0;
 }
 .btn.transparent{
   background: rgba(255, 255, 255, 0);
+}
+
+.btn.color-normal{
+  background: var(--button-normal-background);
+  border: 1px var(--button-default-background-hover) solid;
 }
 
 /* tips */

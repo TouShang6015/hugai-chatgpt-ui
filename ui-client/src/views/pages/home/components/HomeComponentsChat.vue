@@ -8,25 +8,25 @@
         <span class="iconfont icon-yumaobi"></span>
         <h2>示例</h2>
         <div class="content-text">
-          <li class="pointer" v-for="(item,index) in questionArrays" :key="index" @click="handleEgClick(item)">"{{item}}"</li>
+          <li class="pointer rounded-md" v-for="(item,index) in questionArrays" :key="index" @click="handleEgClick(item)">"{{item}}"</li>
         </div>
       </div>
       <div class="item">
         <span class="iconfont icon-bangongguanli2"></span>
         <h2>功能</h2>
         <div class="content-text">
-          <li>ChatGPT可以回答问题、帮助您学习、编写代码、一起进行头脑风暴等</li>
-          <li>连续对话，云端存储对话信息</li>
-          <li>系统添加预设对话、自定义对话，更灵活</li>
+          <li class="rounded-md">ChatGPT可以回答问题、帮助您学习、编写代码、一起进行头脑风暴等</li>
+          <li class="rounded-md">连续对话，云端存储对话信息</li>
+          <li class="rounded-md">系统添加预设对话、自定义对话，更灵活</li>
         </div>
       </div>
       <div class="item">
         <span class="iconfont icon-chat-bolt"></span>
         <h2>注意</h2>
         <div class="content-text">
-          <li>GPT无法替代人类的思想，它的回答请注意分辨</li>
-          <li>连续对话中GPT没有回答完全，输入"继续"可补充完接下来的对话</li>
-          <li>GPT3.5 知识库受限于2021年以前的知识</li>
+          <li class="rounded-md">GPT无法替代人类的思想，它的回答请注意分辨</li>
+          <li class="rounded-md">连续对话中GPT没有回答完全，输入"继续"可补充完接下来的对话</li>
+          <li class="rounded-md">GPT3.5 知识库受限于2021年以前的知识</li>
         </div>
       </div>
     </div>
@@ -126,7 +126,6 @@
     height: auto;
     background: var(--aside-background);
     margin: 8px 6px;
-    border-radius: 15px;
     padding: 15px;
     font-size: 14px;
     letter-spacing: 1px;

@@ -1,11 +1,15 @@
 <template>
   <div class="bottom-main" :class="{hiddenStatus:hiddenStatus}">
 
-    <div class="bottom-item pointer bottom-flex-end">
-      <el-dropdown trigger="click" @command="handleDropdownSelect">
-        <UserBottomItem></UserBottomItem>
-        <el-dropdown-menu slot="dropdown">
+    <div class="bottom-item disable bottom-flex-end onlineCount">
+      <span v-if="!hiddenStatus">🟢 {{onlineCount}}人在线</span>
+      <span v-else>🟢 {{onlineCount}}人</span>
+    </div>
+    <div class="bottom-item pointer bottom-flex-end rounded-md" @click="openAccountDialog">
+      <UserBottomItem></UserBottomItem>
 
+<<<<<<< HEAD
+=======
           <div v-if="!isLogin">
             <el-dropdown-item command="login">
               <span class="iconfont icon-twitch-01"></span><span class="dropdown-span">登陆/注册</span>
@@ -26,6 +30,7 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+>>>>>>> origin/devloper
     </div>
 
   </div>
@@ -40,10 +45,32 @@
     data() {
       return {
         isLogin: !!getToken(),
-        hiddenStatus: this.$store.state.settings.hiddenStatusLeft
+        hiddenStatus: this.$store.state.settings.hiddenStatusLeft,
+        onlineCount: 1
       }
     },
+    watch:{
+      '$store.state.userSocket.onlineCount': {
+        handler: function (val) {
+          this.onlineCount = val
+        },
+      },
+      '$store.state.settings.hiddenStatusLeft':{
+        handler: function(val) {
+          this.hiddenStatus = val
+        },
+      }
+    },
+    created() {
+      // 获取在线人数
+      this.getOnlineCount()
+    },
     methods:{
+      getOnlineCount(){
+        this.$api.get("/module/user/connect/getOnlineCount").then(res => {
+          this.onlineCount = res.data;
+        })
+      },
       handleDropdownSelect(command) {
         switch (command) {
           case 'logout':
@@ -67,9 +94,13 @@
         this.$store.commit('SET_SETTING_DIALOG',!this.$store.getters.settingDialog)
       },
       openAccountDialog(){
-        this.$store.commit('SET_ACCOUNT_DIALOG',!this.$store.getters.accountDialog)
+        if (this.isLogin){
+          this.$router.push("/UserHome")
+        }else{
+          this.openLoginDialog()
+        }
       }
-    }
+    },
   }
 </script>
 
@@ -82,20 +113,21 @@
     flex-direction: column;
     justify-content: flex-end;
     align-self: flex-end;
-    height: 15%;
-    max-height: 15%;
+    height: 12%;
     margin-bottom: 5px;
   }
 
   .bottom-item {
     width: auto;
-    max-height: 50px;
+    height: 50px;
     display: flex;
     margin: 0 5px 0 5px;
-    border-radius: 10px;
   }
   .bottom-item:hover {
     background: var(--aside-hover-color);
+  }
+  .bottom-item.disable:hover {
+    background: rgba(255, 255, 255, 0.0);
   }
 
   .bottom-flex-end {
@@ -107,6 +139,13 @@
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
+  }
+
+  .onlineCount{
+    color: #d8fadb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
 

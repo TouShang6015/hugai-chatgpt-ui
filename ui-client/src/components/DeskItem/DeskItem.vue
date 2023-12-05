@@ -1,6 +1,6 @@
 <template>
   <div class="desk" v-if="state">
-    <div class="item" v-on:dblclick="handleItemGo($event,item)" v-for="(item,index) in itemDataList" :key="index">
+    <div class="item rounded-md" @click="handleItemGo($event,item)" v-for="(item,index) in itemDataList" :key="index">
       <el-image lazy :src="staticUrl + item.iconPath" fit="contain" draggable="false"></el-image>
       <span>{{item.title}}</span>
     </div>
@@ -23,16 +23,13 @@
     },
     data(){
       return {
-        staticUrl: this.$store.getters.configMain.staticWebsite
+        staticUrl: this.$store.getters.resourceMain.staticWebsite
       }
     },
     methods: {
       handleItemGo(event, item) {
         this.$router.push(item.path)
       },
-      viewsStaticImg(path) {
-        return require(`@/assets/imgs/desk/${path}`);
-      }
     }
   }
 </script>
@@ -58,13 +55,11 @@
     min-width: 120px;
     height: 110px;
     margin: 5px;
-    border: 1px var(--draw-task-list-item-border-color) solid;
-    border-radius: 8px;
+    border: 1px var(--bkgy) solid;
   }
 
   .item:hover {
     cursor: pointer;
-    border-radius: 8px;
     box-shadow: 0px 0px 5px 1px var(--item-border-hover-color) inset;
   }
 

@@ -1,17 +1,21 @@
 <template>
-  <div style="width: 100%;height: 100%;position: relative">
-    <div class="session-window" ref="sessionWindow">
+  <div class="session-window">
+    <div class="chat-session-content rounded-md" ref="sessionWindow">
       <div class="chat-content" ref="chatContent" @scroll="onScroll">
         <li v-for="(item,index) in sessionRecordData" :key="index">
-          <WindowAssistant v-if="item.role !== 'user'" :content-show-type="windowData.contentShowType" :item-data="item"></WindowAssistant>
-          <WindowUser v-else :item-data="item"></WindowUser>
+          <window-session-content
+            :role="item.role"
+            :content-show-type="windowData.contentShowType"
+            :item-data="item"
+            @handleFlushThisSession="handleFlushThisSession"
+          ></window-session-content>
         </li>
         <div class="spacer"></div>
       </div>
     </div>
     <div class="input-main">
       <div class="stop">
-        <div class="stop-item pointer" v-if="loadingLine" @click="handleStopStream">
+        <div class="stop-item pointer rounded-md" v-if="loadingLine" @click="handleStopStream">
           <img :src="require('/src/assets/imgs/stop.png')" alt=""/>
           <span>停止输出</span>
         </div>
@@ -30,14 +34,13 @@
 <script>
   import InputMsg from './inputMsg/inputMsg';
   import ContentShowType from "@/common/constants/ContentShowType";
-  import WindowAssistant from "@/components/session/window/WindowAssistant";
-  import WindowUser from "@/components/session/window/WindowUser";
+  import WindowSessionContent from "@/components/session/window/chat/WindowSessionContent";
 
   export default {
     name: "SessionWindow",
     components: {
-      WindowUser,
-      InputMsg,WindowAssistant
+      WindowSessionContent,
+      InputMsg
     },
     props: {
       windowData: {
@@ -115,6 +118,9 @@
         this.$emit('sendInputMessage', this.inputMsg)
         this.scrollBottom();
       },
+      handleFlushThisSession(sessionId){
+        this.$emit('handleFlushThisSession',sessionId)
+      },
       handleStopStream(){
         this.$emit('stopStream')
       },
@@ -137,16 +143,16 @@
         this.$emit('setLoadingLine', val);
       },
       flushMarkdown() {
-        setTimeout(() => {
-          this.$nextTick(() => {
-            const mv = this.$refs.mv;
-            if (mv != null && mv.length > 0) {
-              for (let i = 0; i < mv.length; i++) {
-                mv[i].initCodes();
-              }
-            }
-          })
-        }, 300)
+        // setTimeout(() => {
+        //   this.$nextTick(() => {
+        //     const mv = this.$refs.mv;
+        //     if (mv != null && mv.length > 0) {
+        //       for (let i = 0; i < mv.length; i++) {
+        //         mv[i].initCodes();
+        //       }
+        //     }
+        //   })
+        // }, 300)
       }
     },
   }
@@ -154,12 +160,19 @@
 
 <style lang="scss" scoped>
 
-  .session-window {
+  .session-window{
+    position: relative;
     width: 100%;
-    height: 100vh;
+    flex: 1;
+    max-height: 100%;
+    display: flex;
+  }
+
+  .chat-session-content {
+    width: 100%;
+    height: 100%;
+    margin-top: 44px;
     background-size: 100% 100%;
-    border-radius: 20px;
-    padding: 10px;
     box-sizing: border-box;
     overflow: auto;
     display: flex;
@@ -173,7 +186,7 @@
     height: 100%;
     max-height: 100%;
     overflow-y: scroll;
-    padding: 8px 10% 14px 10%;
+    padding: 8px 0 14px 0;
     box-sizing: border-box;
     flex-grow: 1;
 
@@ -186,7 +199,6 @@
       list-style: none;
       height: auto;
       width: 100%;
-      margin-bottom: 20px;
       display: flex;
     }
 
@@ -200,7 +212,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 8px 0;
     bottom: 0;
     left: 0;
     box-sizing: border-box;
@@ -223,7 +234,6 @@
       align-items: center;
       color: var(--font-color-default);
       border: 1px var(--item-border-normal-color) solid;
-      border-radius: 12px;
       z-index: 1;
       transition: all 0.1s ease-out;
       background: var(--background-main);
@@ -248,7 +258,7 @@
   }
 
   .spacer {
-    height: 150px;
+    height: 30%;
   }
 
   ::v-deep .markdown-body {

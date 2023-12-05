@@ -103,9 +103,9 @@
       { title: '通知类型', key: 'noticeType',span:8  },
     ],
     button: [
-      { title: '重置', key: 'reset', type: 'primary', action: 'resetQuery' },
-      { title: '查询', key: 'search', type: 'primary', action: 'baseHandleQuery' },
-      { title: '新增', key: 'add', type: 'success', action: 'baseHandleAdd' },
+      { title: '重置', key: 'reset', type: 'primary',icon: 'el-icon-refresh-right', action: 'resetQuery' },
+      { title: '查询', key: 'search', type: 'primary',icon:'el-icon-zoom-in', action: 'baseHandleQuery' },
+      { title: '新增', key: 'add', type: 'success',icon:'el-icon-circle-plus-outline', action: 'baseHandleAdd' },
     ]
   };
   const builderTable = {

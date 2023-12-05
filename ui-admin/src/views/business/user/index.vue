@@ -8,7 +8,14 @@
       :builder-button="builderSearch.button"
       @baseHandleQuery="baseHandleQuery"
       @resetQuery="resetQuery"
+      @handleSyncPromoCode="handleSyncPromoCode"
     >
+      <template slot="item-ifTourist" slot-scope="scope">
+        <el-radio-group v-model="queryParams.ifTourist">
+          <el-radio label="0">会员</el-radio>
+          <el-radio label="1">游客</el-radio>
+        </el-radio-group>
+      </template>
     </search-form>
 
     <base-table
@@ -104,7 +111,7 @@
     },
     methods:{
       baseInit() {
-        this.url = '/module/user/userinfo';
+        this.url = '/module/user/admin/userinfo';
         this.viewName = '用户信息';
         this.queryCondition.userName = this.$condition.LIKE
 
@@ -117,6 +124,15 @@
       },
       handleUploadDeskImgUrl(val){
         this.form.deskImgUrl = val
+      },
+      handleSyncPromoCode(){
+        this.apiGet('/generatePromoCode').then(res => {
+          if(res.status){
+            this.notifySuccess(res.message)
+          }else{
+            this.notifyError(res.message)
+          }
+        })
       }
     }
   }
@@ -134,15 +150,10 @@
   const builderTable = {
     columns: [
       { title: '账户名', key: 'userName' },
-      { title: '归属地', key: 'ipLocation',width: '200px' },
       { title: '昵称', key: 'nickName' },
-      { title: '性别', key: 'sex',width: '90px'},
-      { title: '邮箱', key: 'email',width: '200px'},
-      { title: '联系方式', key: 'phone'},
+      { title: '归属地', key: 'ipLocation',width: '200px' },
       { title: 'ip地址', key: 'ipaddress',width: '140px'},
       { title: '帐号状态', key: 'status',width: '90px'},
-      { title: '总消耗Token量', key: 'allCustomerToken',width: '140px',ifTag: true},
-      { title: '会话数', key: 'sessionCount',width: '100px',ifTag: true},
     ],
     actions: [
       { title: '编辑', key: 'edit', type: 'success', action: 'baseHandleEdit'},
@@ -159,7 +170,6 @@
       { title: '邮箱', key: 'email',span: 12},
       { title: '联系方式', key: 'phone',span: 12},
       { title: 'QQ', key: 'qqNumber',span: 12},
-      { title: '桌面背景', key: 'deskImgUrl'},
     ]
   };
 </script>

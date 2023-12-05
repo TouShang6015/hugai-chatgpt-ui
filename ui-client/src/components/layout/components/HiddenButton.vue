@@ -34,23 +34,26 @@
     flex-direction: column;
     flex-wrap: wrap;
     text-align: center;
-    margin-left: -26px;
+    margin-top: 1px;
+    top: 0;
+    right: 0;
+    margin-right: 0px;
     z-index: 1;
+    transition: width 0.2s;
   }
   .hidden-button span{
     display: block;
-    padding: 16px 4px;
+    padding: 10px 4px;
     border-radius: 0 8px 8px 0;
     background: var(--aside-background);
     color: white;
-    font-size: 18px;
+    font-size: 16px;
   }
   .hidden-button span:hover{
     box-shadow: 0px 0px 1px 1px var(--aside-background);
   }
 
   .hidden-button.hiddenStatus {
-    margin-left: 0px;
   }
 
 </style>

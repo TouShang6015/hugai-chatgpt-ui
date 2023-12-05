@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
+  <div class="auth-main w-screen h-screen" @click="cancel">
+=======
   <div class="auth-main" @click="cancel">
+>>>>>>> origin/devloper
     <transition name="flip">
       <LoginAndRegister></LoginAndRegister>
     </transition>
@@ -50,8 +54,6 @@
   .auth-main {
     backdrop-filter: blur(2px);
     position: absolute;
-    width: 100%;
-    height: 100%;
     z-index: 10000;
     display: flex;
     align-items: center;
