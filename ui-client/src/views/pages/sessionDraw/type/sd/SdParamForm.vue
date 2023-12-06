@@ -183,12 +183,9 @@
   export default {
     name: "SdParamForm",
     components: {ImageUploadFile, ImageMassGroup },
-<<<<<<< HEAD
     props:{
       prompt: { type: String ,default : null }
     },
-=======
->>>>>>> origin/devloper
     data(){
       return{
         isLogin: !!getToken(),
@@ -238,12 +235,8 @@
           steps: 25,
           samplerName: 'Euler a',
           denoisingStrength: 0.7,
-<<<<<<< HEAD
           baseImg: null,
           prompt: this.prompt
-=======
-          baseImg: null
->>>>>>> origin/devloper
         }
       },
       handleImageMassGroupChange(val){

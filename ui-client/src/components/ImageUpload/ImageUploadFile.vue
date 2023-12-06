@@ -83,11 +83,7 @@
         dialogImageUrl: "",
         dialogVisible: false,
         hideUpload: false,
-<<<<<<< HEAD
         baseUrl: this.$store.getters.resourceMain.staticWebsite,
-=======
-        baseUrl: this.$store.getters.configMain.staticWebsite,
->>>>>>> origin/devloper
         uploadImgUrl: process.env.VUE_APP_BASE_API + this.uploadApiUrl,
         headers: {
           Authorization: "Bearer " + getToken(),

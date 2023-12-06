@@ -23,11 +23,8 @@
                               :type="item.type"
                               :placeholder="item.placeholder || ''" clearable
                               :disabled="item.disabled || false"
-<<<<<<< HEAD
                               :maxlength="item.maxlength"
                               :show-word-limit="item.maxlength != null"
-=======
->>>>>>> origin/devloper
                               :rows="item.rows"
                               :style="item.style"/>
                     <!-- switch -->

@@ -7,30 +7,6 @@
     </div>
     <div class="bottom-item pointer bottom-flex-end rounded-md" @click="openAccountDialog">
       <UserBottomItem></UserBottomItem>
-
-<<<<<<< HEAD
-=======
-          <div v-if="!isLogin">
-            <el-dropdown-item command="login">
-              <span class="iconfont icon-twitch-01"></span><span class="dropdown-span">登陆/注册</span>
-            </el-dropdown-item>
-          </div>
-
-          <div v-if="isLogin">
-            <el-dropdown-item command="account">
-              <span class="iconfont icon-security2"></span><span class="dropdown-span">账户管理</span>
-            </el-dropdown-item>
-            <el-dropdown-item command="logout">
-              <span class="iconfont icon-a-signin"></span><span class="dropdown-span">退出登录</span>
-            </el-dropdown-item>
-          </div>
-
-          <el-dropdown-item divided command="setting" v-if="isLogin || !isLogin">
-            <span class="iconfont icon-caozuoshezhi"></span><span class="dropdown-span">设置</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
->>>>>>> origin/devloper
     </div>
 
   </div>

@@ -1,10 +1,6 @@
 <template>
   <div class="logo">
-<<<<<<< HEAD
     <el-image style="width: 60px" :lazy="true" :src="require('/src/assets/imgs/logo/HugAiLogo1.png')"  @click="goHome"/>
-=======
-    <el-image style="width: 70px" :lazy="true" :src="require('/src/assets/imgs/logo/HugAiLogo1.png')"  @click="goHome"/>
->>>>>>> origin/devloper
   </div>
 </template>
 
@@ -22,11 +18,7 @@
 <style scoped>
 .logo{
   height: 70px;
-<<<<<<< HEAD
   width: 80%;
-=======
-  width: auto;
->>>>>>> origin/devloper
   padding-top: 30px;
   padding-bottom: 30px;
   display: flex;

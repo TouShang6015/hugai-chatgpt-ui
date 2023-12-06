@@ -4,13 +4,8 @@
       <div class="handle-top rounded-md">
         <div class="top-item">
           <div class="left">
-<<<<<<< HEAD
             <span class="rounded-md">当前任务：{{this.taskQueueData.runningCount == null ? '0' : this.taskQueueData.runningCount}}</span>
             <span class="rounded-md">排队中：{{this.taskQueueData.sum == null ? '0' : this.taskQueueData.sum}}</span>
-=======
-            <span>当前任务：{{this.taskQueueData.runningCount == null ? '0' : this.taskQueueData.runningCount}}</span>
-            <span>排队中：{{this.taskQueueData.sum == null ? '0' : this.taskQueueData.sum}}</span>
->>>>>>> origin/devloper
           </div>
           <h2 class="pointer" @click="getTaskList">
             <span class="iconfont icon-shuaxin"></span>
@@ -36,11 +31,7 @@
                   v-for="(item,index) in dataList"
                   :item-data="item"
                   :key="index"
-<<<<<<< HEAD
                   @click="handleTaskItemClick(item)"
-=======
-                  @click="handleTaskItemClick"
->>>>>>> origin/devloper
                   @flushList="getTaskList"
           ></TaskListItem>
         </div>
@@ -49,11 +40,7 @@
                   v-for="(item,index) in dataList"
                   :item-data="item"
                   :key="index"
-<<<<<<< HEAD
                   @click="handleTaskItemClick(item)"
-=======
-                  @click="handleTaskItemClick"
->>>>>>> origin/devloper
                   @flushList="getTaskList"
           ></TaskListItemMJ>
         </div>
@@ -87,11 +74,8 @@
   import {getToken} from "@/utils/auth";
   import DialogDetailInfo from "@/views/pages/sessionDraw/components/DialogDetailInfo";
   import TaskListItemMJ from "@/views/pages/sessionDraw/components/TaskListItemMJ";
-<<<<<<< HEAD
   import DrawType from "@/common/constants/DrawType";
   import DrawApiKey from "@/common/constants/DrawApiKey";
-=======
->>>>>>> origin/devloper
   export default {
     name: "DrawTaskShowList",
     components: {TaskListItemMJ, DialogDetailInfo, TaskListItem},
@@ -258,7 +242,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-<<<<<<< HEAD
     margin-bottom: 10px;
   }
 
@@ -274,7 +257,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-=======
->>>>>>> origin/devloper
   }
 </style>

@@ -19,11 +19,7 @@
               </textarea>
             </el-form-item>
             <el-form-item>
-<<<<<<< HEAD
               <button type="button" class="btn" @click="handleSubmitTxtImg">提交</button>
-=======
-              <button type="button" class="btn transparent" @click="handleSubmitTxtImg">提交</button>
->>>>>>> origin/devloper
             </el-form-item>
           </el-row>
         </el-form>
@@ -42,11 +38,7 @@
               </textarea>
             </el-form-item>
             <el-form-item>
-<<<<<<< HEAD
               <button class="btn" @click="handleSubmitImgToImg">提交</button>
-=======
-              <button class="btn transparent" @click="handleSubmitImgToImg">提交</button>
->>>>>>> origin/devloper
             </el-form-item>
           </el-row>
         </el-form>
@@ -63,12 +55,9 @@
   export default {
     name: "MjParamForm",
     components: {ImageUploadFile, ImageUpload },
-<<<<<<< HEAD
     props:{
       prompt: { type: String ,default : null }
     },
-=======
->>>>>>> origin/devloper
     data(){
       return{
         isLogin: !!getToken(),
@@ -98,13 +87,9 @@
     },
     methods:{
       initForm(){
-<<<<<<< HEAD
         this.form = {
           prompt: this.prompt
         }
-=======
-        this.form = {}
->>>>>>> origin/devloper
       },
       uploadCallBackImage(val){
         this.form.image = val;
@@ -114,11 +99,7 @@
       },
       handleSubmitTxtImg(){
         if (!this.isLogin){
-<<<<<<< HEAD
           this.$message.info('登录后体验更多功能~')
-=======
-          this.$message.info('请先登录后在操作~')
->>>>>>> origin/devloper
           return
         }
         this.$api.post('/module/draw/task/createTask/mj_txt2img',this.form).then(res =>{
@@ -132,11 +113,7 @@
       },
       handleSubmitImgToImg(){
         if (!this.isLogin){
-<<<<<<< HEAD
           this.$message.info('登录后体验更多功能~')
-=======
-          this.$message.info('请先登录后在操作~')
->>>>>>> origin/devloper
           return
         }
         this.$api.post('/module/draw/task/createTask/mj_img2img',this.form).then(res =>{

@@ -3,15 +3,9 @@
     <transition name="web-fade">
       <div class="param-form">
         <h2 v-for="item in tabItem" :key="item.value" v-show="item.value === tabValue">{{item.label}}</h2>
-<<<<<<< HEAD
         <OpenAiParamForm v-if="tabValue === 'openai'" :prompt="prompt" @submitFormCallBack="submitFormCallBack"></OpenAiParamForm>
         <SdParamForm v-if="tabValue === 'sd'" :prompt="prompt" @submitFormCallBack="submitFormCallBack"></SdParamForm>
         <MjParamForm v-if="tabValue === 'mj'" :prompt="prompt" @submitFormCallBack="submitFormCallBack"></MjParamForm>
-=======
-        <OpenAiParamForm v-if="tabValue === 'openai'" @submitFormCallBack="submitFormCallBack"></OpenAiParamForm>
-        <SdParamForm v-if="tabValue === 'sd'" @submitFormCallBack="submitFormCallBack"></SdParamForm>
-        <MjParamForm v-if="tabValue === 'mj'" @submitFormCallBack="submitFormCallBack"></MjParamForm>
->>>>>>> origin/devloper
       </div>
     </transition>
     <div class="right-content">
@@ -37,13 +31,10 @@
   export default {
     name: "SessionDrawIndex",
     components: {MjParamForm, SdParamForm, DrawTaskShowList, OpenAiParamForm },
-<<<<<<< HEAD
     props:{
       type: { type:String, default: 'sd' },
       prompt: { type:String, default: null },
     },
-=======
->>>>>>> origin/devloper
     data(){
       return{
         tabItem: [

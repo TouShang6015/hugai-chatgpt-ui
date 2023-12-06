@@ -1,9 +1,5 @@
 <template>
-<<<<<<< HEAD
   <div class="auth-main w-screen h-screen" @click="cancel">
-=======
-  <div class="auth-main" @click="cancel">
->>>>>>> origin/devloper
     <transition name="flip">
       <LoginAndRegister></LoginAndRegister>
     </transition>

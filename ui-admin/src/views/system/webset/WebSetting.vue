@@ -23,7 +23,6 @@
       </el-row>
       <el-row :gutter="25">
         <el-col :span="8">
-<<<<<<< HEAD
           <el-form-item label="全局代理IP" prop="proxyHost">
             <el-input v-model="form.proxyHost" placeholder="全局代理IP（127.0.0.1）" />
           </el-form-item>
@@ -31,24 +30,11 @@
         <el-col :span="8">
           <el-form-item label="全局代理端口" prop="proxyPort">
             <el-input v-model="form.proxyPort" placeholder="全局代理端口（7890）" />
-=======
-          <el-form-item label="openAi代理地址" prop="proxyHost">
-            <el-input v-model="form.proxyHost" placeholder="openAi代理地址（127.0.0.1）" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="openAi代理端口" prop="proxyPort">
-            <el-input v-model="form.proxyPort" placeholder="openAi代理端口（7890）" />
->>>>>>> origin/devloper
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :gutter="25">
-<<<<<<< HEAD
         <el-col :span="4">
-=======
-        <el-col :span="5">
->>>>>>> origin/devloper
           <el-form-item label="文件存储策略" prop="fileSaveStrategy">
             <el-select v-model="form.fileSaveStrategy" placeholder="请选择文件存储策略">
               <el-option key="local" label="本地存储" value="local"></el-option>
@@ -67,16 +53,6 @@
         </el-col>
       </el-row>
       <el-row :gutter="25">
-<<<<<<< HEAD
-=======
-        <el-col :span="4">
-          <el-form-item label="是否使用系统ApiKey" prop="ableSystemApiKey">
-            <el-switch v-model="form.ableSystemApiKey" active-text="开启" inactive-text="关闭"></el-switch>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row :gutter="25">
->>>>>>> origin/devloper
         <el-col :span="4">
           <el-form-item label="网站发布时间" prop="webIssueTime">
             <el-date-picker v-model="form.webIssueTime"
@@ -94,7 +70,6 @@
         </el-col>
       </el-row>
       <el-row :gutter="25">
-<<<<<<< HEAD
         <el-col :span="4">
           <el-form-item label="新用户默认头像" prop="defaultUserImgUrl">
             <ImageUpload :value="form.defaultUserImgUrl" :limit="1" @input="handleUploadUserImgUrl"></ImageUpload>
@@ -107,8 +82,6 @@
         </el-col>
       </el-row>
       <el-row :gutter="25">
-=======
->>>>>>> origin/devloper
         <el-col :span="4">
           <el-form-item label="系统版本" prop="projectVersion">
             <el-input v-model="form.projectVersion" label="系统版本"></el-input>

@@ -110,10 +110,6 @@
       display: inline-block;
       padding: 4px 12px;
       margin: 4px;
-<<<<<<< HEAD
-=======
-      border-radius: 1px;
->>>>>>> origin/devloper
       border-bottom: 0px solid var(--tabs-simple-background);
       transition: all 0.15s;
     }
