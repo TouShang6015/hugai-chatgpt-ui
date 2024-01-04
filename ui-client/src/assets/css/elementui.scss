@@ -14,9 +14,9 @@
 
 /* input */
 .el-input__inner{
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.09);
-    color: white;
+    border-radius: .3rem;
+    background: var(--el-input-background);
+    color: var(--font-color-default);
     border: 1px solid #acacac;
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     height: 32px;
@@ -113,14 +113,14 @@
     background-color: #020202;
     border: 0px;
 }
- .el-dropdown-menu__item span{
+.el-dropdown-menu__item span{
     color: var(--font-color-default);
 }
- .el-dropdown-menu__item .iconfont{
+.el-dropdown-menu__item .iconfont{
     font-size: 18px;
     padding: 0 10px 0 0;
 }
- .el-dropdown-menu__item:focus, .el-dropdown-menu__item:not(.is-disabled):hover{
+.el-dropdown-menu__item:focus, .el-dropdown-menu__item:not(.is-disabled):hover{
     background: var(--aside-hover-color);
 }
 .el-dropdown-menu__item--divided::before{
@@ -219,8 +219,8 @@
     border: 0px solid #303133;
 }
 .el-tooltip__popper.is-dark {
-    background: #5d6061;
-    color: #FFF;
+    background: var(--el-tooltip-dark-background);
+    color: var(--font-color-default);
 }
 
 /* el-select */

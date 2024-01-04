@@ -76,7 +76,7 @@
     }
     h3{
       padding: 6px 0;
-      color: var(--font-color-notable);
+      color: var(--font-color-default);
       font-size: 16px;
     }
     h4{

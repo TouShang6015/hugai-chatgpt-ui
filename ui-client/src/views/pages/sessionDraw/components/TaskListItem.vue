@@ -1,38 +1,34 @@
 <template>
-  <div class="taskList-main">
-    <div class="taskListItem rounded-md" @click="handleItemClick">
-      <div class="item-top-right" v-if="itemData.taskStatus === 'FAIL'">
-        <span class="iconfont icon-delete-put-back tips pointer" @click="handleDeleteFailTask"></span>
+  <div class="taskList-main rounded-md" @click="handleItemClick">
+    <div class="item-top-right" v-if="itemData.taskStatus === 'FAIL'">
+      <span class="iconfont icon-delete-put-back tips pointer" @click="handleDeleteFailTask" @click.stop></span>
+    </div>
+    <div class="img-content rounded-md">
+      <el-image :src="staticUrl + itemData.showImg" :lazy="true">
+        <div slot="error" class="image-slot">
+          <div slot="error" class="image-slot">
+            <img :src="require('/src/assets/imgs/loadingError.png')" v-if="itemData.taskStatus === 'FAIL'" alt="">
+            <img :src="require('/src/assets/imgs/loading.png')" v-if="itemData.taskStatus === 'WAIT'" alt="">
+            <img :src="require('/src/assets/imgs/loading2.png')" v-if="itemData.taskStatus === 'RUNNING'" alt="">
+          </div>
+        </div>
+      </el-image>
+    </div>
+    <div class="description">
+      <div class="item">
+        <span>状态</span>
+        <span class="taskStatus bgc-blue rounded-md" v-if="itemData.taskStatus === 'WAIT'">待执行</span>
+        <span class="taskStatus bgc-blue rounded-md" v-if="itemData.taskStatus === 'RUNNING'">进行中</span>
+        <span class="taskStatus bgc-green rounded-md" v-if="itemData.taskStatus === 'SUCCESS'">已完成</span>
+        <span class="taskStatus bgc-red rounded-md" v-if="itemData.taskStatus === 'FAIL'">失败</span>
       </div>
-      <div class="img-content rounded-md">
-        <div class="img-box">
-          <el-image :src="staticUrl + itemData.showImg" :lazy="true">
-            <div slot="error" class="image-slot">
-              <div slot="error" class="image-slot">
-                <img :src="require('/src/assets/imgs/loadingError.png')" v-if="itemData.taskStatus === 'FAIL'" alt="">
-                <img :src="require('/src/assets/imgs/loading.png')" v-if="itemData.taskStatus === 'WAIT'" alt="">
-                <img :src="require('/src/assets/imgs/loading2.png')" v-if="itemData.taskStatus === 'RUNNING'" alt="">
-              </div>
-            </div>
-          </el-image>
-        </div>
+      <div class="item">
+        <span>开始时间</span>
+        <span class="time">{{itemData.createTime}}</span>
       </div>
-      <div class="description">
-        <div class="item">
-          <span>状态</span>
-          <span class="taskStatus bgc-blue rounded-md" v-if="itemData.taskStatus === 'WAIT'">待执行</span>
-          <span class="taskStatus bgc-blue rounded-md" v-if="itemData.taskStatus === 'RUNNING'">进行中</span>
-          <span class="taskStatus bgc-green rounded-md" v-if="itemData.taskStatus === 'SUCCESS'">已完成</span>
-          <span class="taskStatus bgc-red rounded-md" v-if="itemData.taskStatus === 'FAIL'">失败</span>
-        </div>
-        <div class="item">
-          <span>开始时间</span>
-          <span class="time">{{itemData.createTime}}</span>
-        </div>
-        <div class="item">
-          <span>完成时间</span>
-          <span class="time">{{itemData.taskEndTime}}</span>
-        </div>
+      <div class="item">
+        <span>完成时间</span>
+        <span class="time">{{itemData.taskEndTime}}</span>
       </div>
     </div>
   </div>
@@ -69,29 +65,24 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .taskList-main{
-    width: 230px;
-    height: 310px;
+    width: auto;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    margin: 12px 10px;
+    margin: 8px 8px;
+    border: .18rem var(--bkgy) solid;
+    transition: all 0.2s ease-out;
+    position: relative;
+
+    &:hover{
+      border: .18rem var(--item-border-hover-color) solid;
+    }
   }
-.taskListItem{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  border: 1px var(--bkgy) solid;
-  transition: all 0.2s ease-out;
-  position: relative;
-}
-.taskListItem:hover{
-  border: 1px var(--item-border-hover-color) solid;
-}
+
 
   .item-top-right{
     position: absolute;
@@ -111,52 +102,50 @@
   }
 
   .img-content{
-    width: 100%;
-    height: 70%;
+    width: 16rem;
+    min-width: 16rem;
+    min-height: 16rem;
+    max-height: 16rem;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     background: var(--draw-task-list-item-content-background);
+    overflow: hidden;
   }
 
-  .img-box{
-    width: 95%;
-    height: 95%;
+  .description{
+    position: relative;
+    width: 100%;
+    min-height: 6rem;
+    background: var(--draw-task-list-item-bottom-background);
+    border-radius: 0 0 5px 5px;
+    font-size: 14px;
+    padding-left: 1rem;
+  }
+  .description .item{
+    flex-grow: 1;
+    margin: 0.3rem 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
   }
-
-.description{
-  flex: 1;
-  background: var(--draw-task-list-item-bottom-background);
-  border-radius: 0 0 5px 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 14px;
-  padding-left: 10px;
-}
-.description .item{
-  margin: 5px 0;
-}
-.description .item span{
-  margin: 3px 5px;
-}
-.description .item .time{
-  color: var(--font-color-default);
-  opacity: 0.7;
-}
-.description .taskStatus{
-  padding: 1px 10px;
-  text-align: center;
-  font-size: 12px;
-}
+  .description .item span{
+    margin: 0.2rem 0.4rem;
+  }
+  .description .item .time{
+    color: var(--font-color-default);
+    opacity: 0.6;
+  }
+  .description .taskStatus{
+    padding: 1px 10px;
+    text-align: center;
+    font-size: 12px;
+  }
 
 
   ::v-deep .el-image{
     display: inline-flex;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 97%;
+    max-height: 97%;
   }
 </style>

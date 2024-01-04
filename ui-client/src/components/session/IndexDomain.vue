@@ -3,18 +3,18 @@
 
     <div class="main-session-list" :class="{hiddenStatusSession: hiddenStatusSession}">
       <SessionList
-              ref="sessionList"
-              :window-data="windowData"
-              :session-data="sessionData"
-              :type="SessionTypeConstant.DOMAIN"
-              :domain-unique-key="windowData.domainKey"
-              :loading="loading"
-              :loadingLine="loadingLine"
-              @clickSessionListItem="getSessionData"
-              @handleFlushList="handleFlushList"
-              @handleCreateSession="handleCreateSession"
-              @handleClearSession="handleClearSession"
-              @handleDeleteSession="handleDeleteSession"
+        ref="sessionList"
+        :window-data="windowData"
+        :session-data="sessionData"
+        :type="SessionTypeConstant.DOMAIN"
+        :domain-unique-key="windowData.domainKey"
+        :loading="loading"
+        :loadingLine="loadingLine"
+        @clickSessionListItem="getSessionData"
+        @handleFlushList="handleFlushList"
+        @handleCreateSession="handleCreateSession"
+        @handleClearSession="handleClearSession"
+        @handleDeleteSession="handleDeleteSession"
       >
       </SessionList>
     </div>
@@ -29,13 +29,13 @@
       <LoadingLine :loading-line="loadingLine"></LoadingLine>
 
       <SessionWindow
-              ref="sessionWindow"
-              :window-data="windowData"
-              :session-data="sessionData"
-              :loading="loading"
-              :loadingLine="loadingLine"
-              @sendInputMessage="sendInputMessage"
-              @stopStream="handleStopStream"
+        ref="sessionWindow"
+        :window-data="windowData"
+        :session-data="sessionData"
+        :loading="loading"
+        :loadingLine="loadingLine"
+        @sendInputMessage="sendInputMessage"
+        @stopStream="handleStopStream"
       ></SessionWindow>
     </div>
 
@@ -57,7 +57,7 @@
 
   export default {
     name: "SessionIndex",
-    components: {SessionWindowHeader, SessionWindow,SessionList,LoadingLine },
+    components: { SessionWindowHeader, SessionWindow,SessionList,LoadingLine },
     props: {
       windowData: {
         type: Object,
@@ -126,6 +126,7 @@
           this.sessionData = JSON.parse(JSON.stringify(item));
           this.getSessionRecordData(this.sessionData.id);
           this.loading = false
+          this.$refs.sessionWindowHeader.setModelValue(this.sessionData.chatModelId)
         },30)
       },
       getSessionDataBySessionId(sessionId){

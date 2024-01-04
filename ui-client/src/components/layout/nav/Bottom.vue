@@ -2,8 +2,24 @@
   <div class="bottom-main" :class="{hiddenStatus:hiddenStatus}">
 
     <div class="bottom-item disable bottom-flex-end onlineCount">
-      <span v-if="!hiddenStatus">🟢 {{onlineCount}}人在线</span>
-      <span v-else>🟢 {{onlineCount}}人</span>
+      <span v-if="!hiddenStatus">{{onlineCount}}人在线</span>
+      <span v-else>🟢 {{onlineCount}}</span>
+    </div>
+    <div class="bottom-item disable bottom-flex-end">
+      <div class="flex-center" style="height: 100%">
+        <li class="pointer"
+            :class="{active: theme === item.name}"
+            v-for="(item,index) in themes"
+            :key="index"
+            v-show="theme !== item.name"
+            @click="changeTheme(item.name)"
+        >
+          <el-tooltip :content="item.description" placement="right">
+            <span class="iconfont rounded-md" :class="item.icon"></span>
+          </el-tooltip>
+
+        </li>
+      </div>
     </div>
     <div class="bottom-item pointer bottom-flex-end rounded-md" @click="openAccountDialog">
       <UserBottomItem></UserBottomItem>
@@ -15,12 +31,20 @@
 <script>
   import UserBottomItem from "@/components/layout/components/UserBottomItem";
   import {getToken} from "@/utils/auth";
+
+  const themes = [
+    {name: 'theme-blue',icon: 'icon-yejianmoshi',description: '暗色'},
+    {name: 'theme-light',icon: 'icon-mingliangmoshi',description: '明亮'},
+  ]
+
   export default {
     name: "NavBottom",
     components: {UserBottomItem},
     data() {
       return {
         isLogin: !!getToken(),
+        themes,
+        theme: this.$store.state.settings.theme,
         hiddenStatus: this.$store.state.settings.hiddenStatusLeft,
         onlineCount: 1
       }
@@ -30,6 +54,11 @@
         handler: function (val) {
           this.onlineCount = val
         },
+      },
+      '$store.state.settings.theme':{
+        handler:function (val) {
+          this.theme = val
+        }
       },
       '$store.state.settings.hiddenStatusLeft':{
         handler: function(val) {
@@ -75,6 +104,10 @@
         }else{
           this.openLoginDialog()
         }
+      },
+      changeTheme(theme){
+        this.$store.commit('SET_SETTING_ITEM',{key: 'theme',value: theme})
+        this.$store.commit('GET_THEME')
       }
     },
   }
@@ -91,13 +124,15 @@
     align-self: flex-end;
     height: 12%;
     margin-bottom: 5px;
+    color: var(--font-color-default);
   }
 
   .bottom-item {
     width: auto;
-    height: 50px;
+    min-height: 50px;
     display: flex;
     margin: 0 5px 0 5px;
+    position: relative;
   }
   .bottom-item:hover {
     background: var(--aside-hover-color);
@@ -118,10 +153,19 @@
   }
 
   .onlineCount{
-    color: #d8fadb;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: .9rem;
+
+    span{
+      text-align: center;
+      padding: .1rem .6rem;
+      background: #0fa80f;
+      border-radius: 1rem;
+    }
+
   }
 
 

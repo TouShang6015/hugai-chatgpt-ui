@@ -47,9 +47,9 @@ li{
 .color-red{
   color: red!important;
 }
- .color-green{
-   color: green!important;
- }
+.color-green{
+  color: green!important;
+}
 .color-lawngreen{
   color: lawngreen!important;
 }
@@ -121,10 +121,10 @@ li{
 /* 按钮 */
 .btn{
   color: var(--font-color-default);
-  padding: .4rem .8rem;
-  border-radius: 0.5rem;
+  padding: .5rem .8rem;
+  border-radius: 0.3rem;
   background: var(--button-default-background);
-  border: 1px var(--button-default-background) solid;
+  border: 1px var(--button-border-color) solid;
   transition: all 0.1s linear;
   letter-spacing: 0.1rem;
 }

@@ -106,12 +106,6 @@
   }
 
   .gallery-main {
-    /*flex: 1;*/
-    /*padding: 5px 4%;*/
-    /*overflow: auto;*/
-    /*column-count: 6;*/
-    /*column-gap: 6px;*/
-    /*transition: all 0.2s ease-out;*/
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -143,11 +137,7 @@
   }
 
   .img-item {
-    /*position: relative;*/
-    /*display: inline-block;*/
-    /*max-width: 100%;*/
-    /*margin: 2px 0;*/
-    flex: 1 1 calc(16% - 6px); /* 6列，每列占16%，减去间隙 */
+    flex: 1 1 calc(16% - 6px);
     margin: 2px 0;
     position: relative;
     max-width: 100%;

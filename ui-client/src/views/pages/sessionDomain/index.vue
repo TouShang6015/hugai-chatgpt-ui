@@ -74,7 +74,7 @@
   padding: 28px 0;
 }
 .title span{
-  color: white;
+  color: var(--font-color-default);
   display: block;
 }
 .title span:nth-child(2){

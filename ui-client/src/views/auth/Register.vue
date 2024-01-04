@@ -26,11 +26,11 @@
     </div>
     <transition name="web-fade">
       <Verify
-              ref="verify"
-              v-show="stateVerify"
-              @success="success"
-              :mode="'pop'"
-              :captchaType="'blockPuzzle'"
+        ref="verify"
+        v-show="stateVerify"
+        @success="success"
+        :mode="'pop'"
+        :captchaType="'blockPuzzle'"
       ></Verify>
     </transition>
   </div>
@@ -47,7 +47,6 @@
       return {
         form: {
           captcha: {},
-          promoCode: Cache.local.get('inviteCode')
         },
         loading: false,
         stateVerify: false,
@@ -266,7 +265,7 @@
 
   ::v-deep .form-mail-button.el-button{
     width: 30%;
-    letter-spacing: 2px;
+    letter-spacing: .1rem;
     font-size: 14px;
     padding: 6px 6px;
     /*height: 35px;*/

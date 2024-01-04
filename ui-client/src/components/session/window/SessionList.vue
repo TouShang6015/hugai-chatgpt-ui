@@ -27,7 +27,7 @@
       <div class="loading-more pointer" @click="handleLoadingMore">
         <span>加载更多</span>
       </div>
-      <div class="flex mg-top-sm">
+      <div class="flex mg-top-sm bd-bottom pd-bottom-xs">
         <button type="button" style="flex: 1;margin-left: .2rem;margin-right: .2rem" class="btn" @click="handleClearSession">清空</button>
         <button type="button" style="flex: 1;margin-left: .2rem;margin-right: .2rem" class="btn" @click="handleDeleteSession">删除</button>
       </div>
@@ -40,7 +40,6 @@
 
   export default {
     name: "SessionList",
-    components: {},
     props: {
       windowData: {
         type: Object,
@@ -96,6 +95,7 @@
       getUserSessionList(){
         this.queryParam.type = this.type
         this.queryParam.domainUniqueKey = this.domainUniqueKey
+        this.queryParam.drawUniqueKey = this.drawUniqueKey
         this.$api.get('/module/session/sessioninfo/getUserSessionList',this.queryParam).then(res => {
           if (res.status){
             if (res.data.length > 0){
@@ -224,7 +224,7 @@
     }
 
     li.pointer.itemActive{
-      background: var(--session-list-li-active-background);
+      background-image: var(--session-list-item-action-background);
     }
 
     li span {
@@ -281,7 +281,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background: var(--session-list-item-action-background);
   }
 
 

@@ -25,6 +25,12 @@
 .pd-sm{
   padding: .6rem;
 }
+.pd-left-xs{
+  padding-left: 0.5rem;
+}
+.pd-left-sm{
+  padding-left: .75rem;
+}
 .pd-right-xs{
   padding-right: 0.5rem;
 }
@@ -71,6 +77,7 @@
   display: flex;
   justify-content: center;
   align-content: center;
+  align-items: center;
 }
 .flex-wrap {
   flex-wrap: wrap;
@@ -105,7 +112,7 @@
 }
 .bkgy-success{
   padding: .2rem .8rem;
-  background: #43b65e;
+  background: #35ba54;
 }
 .bkgy-danger{
   padding: .2rem .8rem;

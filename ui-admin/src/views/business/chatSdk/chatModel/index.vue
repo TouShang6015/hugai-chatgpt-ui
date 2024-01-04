@@ -25,6 +25,9 @@
         <el-tag v-if="scope.row.ifPlusModel === '0'" type="primary">普通</el-tag>
         <el-tag v-if="scope.row.ifPlusModel === '1'" type="warning">增强</el-tag>
       </template>
+      <template slot="column-enableStatus" slot-scope="scope">
+        <el-switch v-model="scope.row.enableStatus" active-value="0" inactive-value="1" @change="handleColumnEdit(scope.row)"></el-switch>
+      </template>
     </base-table>
 
     <base-form
@@ -39,6 +42,7 @@
       :width="'600px'"
       @cancel="cancel"
       @submitForm="submitForm"
+      @changeRules="changeRules"
     >
       <template slot="item-uniqueKey">
         <el-input v-model="form.uniqueKey" :disabled="this.form.id != null"></el-input>
@@ -90,11 +94,24 @@
         this.form.chatSdkId = this.chatSdkId;
         return true;
       },
+      handleColumnEdit(column){
+        this.apiPut(this.CRUD.edit,column).then(res => {
+          if (res.status){
+            this.notifySuccess(res.message)
+            this.baseHandleQuery()
+          }else{
+            this.notifyError(res.message)
+          }
+        })
+      },
       handleFlushCache(){
         this.$api.get('/module/config/chatmodel/flushCache').then(res => {
           this.notifySuccess(res.message)
         })
       },
+      changeRules(rules){
+        delete rules.requestUrl
+      }
     }
   }
 
@@ -106,6 +123,7 @@
       { title: '是否增强模型', key: 'ifPlusModel'},
       { title: '单次请求token', key: 'onceToken' },
       { title: '最大token限制', key: 'maxToken' },
+      { title: '可用状态', key: 'enableStatus',width: 120 },
       { title: '创建时间', key: 'createTime' },
     ],
     actions: [
@@ -120,7 +138,9 @@
       { title: '排序号', key: 'sortNo' },
       { title: '单次请求token', key: 'onceToken' },
       { title: '最大token限制', key: 'maxToken' },
+      { title: '请求地址', key: 'requestUrl' },
       { title: '增强模型', key: 'ifPlusModel',type: 'switch',activeValue: '1',inactiveValue: '0' },
+      { title: '可用状态', key: 'enableStatus',type: 'switch',activeValue: '0',inactiveValue: '1'},
       { title: '描述', key: 'modelDescription',type: 'textarea',autosize: { minRows: 3, maxRows: 6},maxlength: 50,minHeight: 300 },
     ]
   };

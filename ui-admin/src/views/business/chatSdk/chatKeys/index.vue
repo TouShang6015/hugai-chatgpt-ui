@@ -34,8 +34,10 @@
       :auto-rules="true"
       :builder-item="builderForm.items"
       :width="'600px'"
+      :label-width="'100px'"
       @cancel="cancel"
       @submitForm="submitForm"
+      @changeRules="changeRules"
     >
       <template slot="item-xxx">
       </template>
@@ -100,6 +102,10 @@
           }
         })
       },
+      changeRules(rules){
+        delete rules.appId
+        delete rules.apiSecret
+      }
     }
   }
 
@@ -118,7 +124,9 @@
   };
   const builderForm = {
     items: [
-      { title: 'Token', key: 'apiToken'},
+      { title: 'ApiToken', key: 'apiToken'},
+      { title: 'AppId', key: 'appId'},
+      { title: 'ApiSecret', key: 'apiSecret'},
       { title: '别名', key: 'aliasName'},
       { title: '权重', key: 'weightValue',type: 'number',min: 0,max: 10 },
       { title: '可用状态', key: 'enableStatus',type: 'switch',activeValue: '0',inactiveValue: '1'},

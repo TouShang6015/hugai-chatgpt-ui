@@ -1,5 +1,7 @@
 <template>
-  <div class="gallery-main" v-resize="listenerGalleryDiv">
+  <div class="gallery-main"
+       v-resize="listenerGalleryDiv"
+  >
     <div class="empty" v-if="total === 0">
       <span class="pointer" @click="goDraw">暂无数据，去创作你的素材吧~</span>
     </div>
@@ -28,7 +30,10 @@
                @error="imgError(item)"
                @load="imgOnload(item)"
           />
-          <gallery-item-info :data="item"></gallery-item-info>
+          <gallery-item-info
+            :data="item"
+            :show-icon-common="type === 2"
+          ></gallery-item-info>
         </div>
       </template>
     </waterfall>
@@ -41,17 +46,21 @@
     name: "GalleryIndex",
     components: {GalleryItemInfo},
     props: {
-      apiUrl: { type: String, required: true }
+      apiUrl: { type: String, required: true },
+      // type 1 公开画廊 2 我的画廊
+      type: { type: Number, required: true }
     },
     data(){
       return{
         col: undefined,
         queryParam: {
           page: 1,
-          size: 30
+          size: 25
         },
         galleryData: [],
         total: 0,
+        selectLoading: false,
+        selectNextLoading: false,
         staticUrl: this.$store.getters.resourceMain.staticWebsite,
         asideStatus: this.$store.state.settings.hiddenStatusLeft,
       }
@@ -83,6 +92,10 @@
     },
     methods: {
       queryDataList() {
+        if (this.selectLoading){
+          return
+        }
+        this.selectLoading = true
         this.$api.post(this.apiUrl, this.queryParam).then(res => {
           if (res.status){
             const data = res.data;
@@ -91,13 +104,33 @@
               item.loading = true
               item.hover = false
               item.error = false
+              this.galleryData.push(item)
             })
             this.total = res.total
-            this.galleryData = data
+            this.$nextTick(() => {
+              setTimeout(() => {
+                this.selectLoading = false
+                this.selectNextLoading = false
+              },1000)
+            })
           }else{
             this.$store.commit('SET_AUTH_DIALOG',true)
           }
         })
+      },
+      nextQueryList(){
+        if (this.selectNextLoading){
+          return
+        }
+        this.selectNextLoading = true
+
+        const page = this.queryParam.page;
+        const size = this.queryParam.size;
+        if ((page * size) >= this.total) {
+          return
+        }
+        this.queryParam.page = page + 1
+        this.queryDataList()
       },
       imgOnload(row){
         row.show = true
@@ -123,8 +156,6 @@
       },
       goDraw(){
         this.$router.push("/sessionDraw")
-      },
-      scroll(scrollData){
       },
       loadMore(index){
         this.data = this.data.concat(this.data)

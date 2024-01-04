@@ -11,6 +11,7 @@
       @resetQuery="resetQuery"
       @baseHandleAdd="baseHandleAdd"
       @goApiParamConfig="goApiParamConfig"
+      @handleFlushCache="handleFlushCache"
     >
       <template slot="item-xxx" slot-scope="scope">
       </template>
@@ -23,12 +24,14 @@
       :page-total="total"
       :builder-columns="builderTable.columns"
       :builder-actions="builderTable.actions"
+      :action-width="450"
       @baseHandleQuery="baseHandleQuery"
       @baseHandleEdit="baseHandleEdit"
       @submitDeleteByColumn="submitDeleteByColumn"
       @baseHandleSelectionChange="baseHandleSelectionChange"
       @handleAgainConnect="handleAgainConnect"
       @handleChannelManager="handleChannelManager"
+      @handleCloseConnect="handleCloseConnect"
     >
       <template slot="column-accountStatus" slot-scope="scope">
         <el-switch
@@ -37,6 +40,7 @@
           inactive-value="FREEZE"
           @change="handleStatusChange(scope.row)"
         ></el-switch>
+        <!--        <el-tag v-for="item in labelOptionAccountStatus" v-show="scope.row.accountStatus == item.value" :type="item.tagType">{{item.label}}</el-tag>-->
       </template>
       <template slot="column-socketStatus" slot-scope="scope">
         <el-tag v-show="scope.row.socketStatus === 1" type="success">🟢 已连接</el-tag>
@@ -55,7 +59,8 @@
       @cancel="cancel"
       @submitForm="submitForm"
     >
-      <template slot="item-xxx">
+      <template slot="item-ifProxy">
+        <el-switch v-model="form.ifProxy" active-value="1" inactive-value="0"></el-switch>
       </template>
     </base-form>
 
@@ -87,6 +92,7 @@
           userToken: [{required: true, trigger: 'blur', message: ''}],
           userAgent: [{required: true, trigger: 'blur', message: ''}],
           dataObject: [{required: true, trigger: 'blur', message: ''}],
+          ifProxy: [{required: true, trigger: 'blur', message: ''}],
         },
       }
     },
@@ -101,6 +107,9 @@
         this.url = '/module/config/cmjaccount'
         this.viewName = 'Midjourney账户'
         this.useBaseComponent = true
+
+        delete this.sortCondition.updateTime
+        this.sortCondition.id = false
         return true
       },
       baseHandleAdd(row) {
@@ -140,6 +149,20 @@
       },
       goApiParamConfig(){
         this.$router.push("/mjconfig/apiParamConfig")
+      },
+      handleCloseConnect(item){
+        this.apiGetRestful('closeConnect',item.id).then(res => {
+          if (res.status){
+            this.notifySuccess(res.message)
+          }
+        })
+      },
+      handleFlushCache(){
+        this.apiGet('flushCache').then(res => {
+          if (res.status){
+            this.notifySuccess(res.message)
+          }
+        })
       }
     }
   }
@@ -152,6 +175,7 @@
       {title: '重置', key: 'reset', type: 'primary',icon: 'el-icon-refresh-right', action: 'resetQuery'},
       {title: '查询', key: 'search', type: 'primary',icon:'el-icon-zoom-in', action: 'baseHandleQuery'},
       {title: '新增', key: 'add', type: 'success',icon:'el-icon-circle-plus-outline', action: 'baseHandleAdd'},
+      {title: '更新缓存', key: 'flushCache', type: 'danger', action: 'handleFlushCache'},
       {title: 'Api参数配置', key: 'apiParamConfig', type: 'info', action: 'goApiParamConfig'},
     ]
   }
@@ -164,8 +188,9 @@
       {title: '创建时间', key: 'createTime'}
     ],
     actions: [
-      {title: '重新连接Socket', key: 'againConnect', type: 'warning',plain: true, action: 'handleAgainConnect'},
-      {title: '频道管理', key: 'channelManager', type: 'warning',plain: true, action: 'handleChannelManager'},
+      {title: '重新连接Socket', key: 'againConnect', type: 'success',plain: true, action: 'handleAgainConnect'},
+      {title: '关闭连接', key: 'closeConnect', type: 'info',plain: true, action: 'handleCloseConnect'},
+      {title: '频道管理', key: 'channelManager', type: 'primary',plain: true, action: 'handleChannelManager'},
       {title: '编辑', key: 'edit', type: 'success', action: 'baseHandleEdit'},
       {title: '删除', key: 'delete', type: 'danger', action: 'submitDeleteByColumn'}
     ]
@@ -175,6 +200,7 @@
       {title: '账户名', key: 'userName'},
       {title: 'token', key: 'userToken'},
       {title: 'ua', key: 'userAgent'},
+      {title: '使用代理', key: 'ifProxy'},
       {title: '默认参数', key: 'dataObject',type: 'textarea',rows: 12},
     ]
   }

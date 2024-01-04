@@ -1,3 +1,91 @@
 :root{
+    --bkgy: rgb(222, 238, 233);
+
+    --font-color-markdown: #000000;
+    --font-color-default: #000000;
+    --font-color-default2: black;
+    --font-color-no-normal: #929191;
+    --font-color-aside: black;
+    --font-color-iconfont: black;
+    --font-color-notable: rgb(198, 239, 233);
+    --font-color-intror: rgb(189, 189, 189);
+
+    --background-main: rgb(255, 255, 255);
+    --background-textarea: rgb(243, 243, 243);
+
+    --aside-background: rgb(240, 240, 245);
+    --aside-hover-color: rgb(255, 255, 255);
+
+    --session-list-background: #ffffff;
+    --session-list-item-action-background: linear-gradient(to right, rgb(245, 245, 245), rgb(238, 240, 240));
+    --session-list-li-background: linear-gradient(to right, rgb(245, 245, 245), rgb(238, 240, 240));
+    --session-list-li-active-background: rgba(227, 227, 227, 0.7);
+    --session-list-create-session-border: rgba(2, 2, 2, 0.5);
+    --session-list-create-session-border-hover: #617a7b;
+
+    --session-window-system-background: rgb(240, 240, 240);
+    --session-window-user-background: #caf1c8;
+    --session-window-item-hover-color: rgba(0, 0, 0, 0.04);
+
+    --topclose-font-color: #7b7b7b;
+
+    --tabs-background: rgb(231, 231, 231);
+    --tabs-simple-background: rgba(78, 79, 92, 0);
+    --tabs-active-background: rgb(255, 255, 255);
+    --tabs-active-simple-background: rgb(226, 226, 231);
+
+    --item-border-default-color: rgba(144, 144, 144, 0.52);
+    --item-border-active-color: rgb(119, 208, 194);
+    --item-border-hover-color: rgb(168, 232, 222);
+    --item-border-normal-color: rgba(180, 180, 180, 0.5);
+
+    --draw-task-list-item-content-background: rgba(0, 0, 0, 0.12);
+    --draw-task-list-item-bottom-background: rgba(0, 0, 0, 0.0);
+
+    --help-background: linear-gradient(to bottom, rgb(250, 250, 250), rgba(248, 247, 247, 0.15));
+    --help-bottom-li-background: #e0e0e0;
+
+    --markdown-box-shadow: rgba(0, 0, 0, 0) 0px 2px 12px 0px;
+    --markdown-pre-border: 1px solid #272822;
+    --markdown-pre-background-color: #272822;
+    --markdown-pre-font-color: white;
+    --markdown-line-num-box-color: #ccc;
+    --markdown-line-num-box-border-right: 2px solid #fff;
+    --markdown-code-webkit-scrollbar-background-color: #1e1e1e;
+    --markdown-code-webkit-scrollbar-thumb-background-color: #666;
+    --markdown-code-webkit-scrollbar-button-background-color: #1e1e1e;
+    --markdown-copy-button-color: #ffffff;
+    --markdown-copy-button-background-color: #9999aa;
+    --markdown-copy-button-hover-background: black;
+    --markdown-lang-background: #272822;
+    --markdown-lang-color: #fff;
+
+    --dialog-background: linear-gradient(to bottom, #f1f1f1,#ffffff);
+    --dialog-box-shadow: 5px 2px 2px 3px rgb(232, 232, 232);
+
+    --gallery-item-hover-background: linear-gradient(to top, rgba(12, 12, 12, 0.5), rgba(50, 50, 50, 0));
+    --gallery-prompt-background: #ececec;
+
+    --col-border-color: rgba(50, 50, 50, 0.1);
+
+    /*--button-default-background: linear-gradient(#747580, #52555f 50%, #454857 51%, #6b727b);*/
+    --button-border-color: #cddede;
+    --button-default-background: linear-gradient(to bottom, #bdc9c7, #adc6c6);
+    --button-default-background-hover: rgba(255, 255, 255, 0.1);
+    --button-normal-background: #f9ffff;
+
+    --el-table-background: #ffffff;
+    --el-table-head-background: #eeeded;
+    --el-table-tr-background: #ffffff;
+    --el-table-tr-hover-background: #e6efed;
+
+    --el-input-background: rgba(0, 0, 0, 0.0);
+    --el-tooltip-dark-background: #d7dcdc;
+
+    --span-button-bkg-default: rgb(70, 194, 172);
+    --span-button-font-color: #fff8f8;
+    --span-button-bkg-red: rgb(205, 83, 96);
+    --span-button-bkg-violet: rgb(140, 84, 208);
+    --span-button-bkg-yellow: rgb(206, 215, 83);
 
 }

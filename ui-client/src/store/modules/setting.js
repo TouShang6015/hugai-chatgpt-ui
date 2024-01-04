@@ -3,10 +3,10 @@ import Cache from "@/utils/cache";
 const storageKey = "layout-setting"
 
 const defaultSetting = {
-  hiddenStatusLeft: false,
+  hiddenStatusLeft: true,
   hiddenStatusSessionList: false,
   ifConc: '0',
-  theme: 'theme-blue'
+  theme: 'theme-light'
 }
 
 const storageSetting = JSON.parse(Cache.local.get(storageKey)) || ''

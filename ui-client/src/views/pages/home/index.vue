@@ -69,6 +69,7 @@
     flex-direction: column;
   }
   .top-tabs {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;

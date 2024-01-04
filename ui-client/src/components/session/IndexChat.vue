@@ -3,17 +3,17 @@
 
     <div class="main-session-list" :class="{hiddenStatusSession: hiddenStatusSession}">
       <SessionList
-              ref="sessionList"
-              :window-data="windowData"
-              :session-data="sessionData"
-              :type="SessionTypeConstant.CHAT"
-              :loading="loading"
-              :loadingLine="loadingLine"
-              @clickSessionListItem="getSessionData"
-              @handleFlushList="handleFlushList"
-              @handleCreateSession="handleCreateSession"
-              @handleClearSession="handleClearSession"
-              @handleDeleteSession="handleDeleteSession"
+        ref="sessionList"
+        :window-data="windowData"
+        :session-data="sessionData"
+        :type="SessionTypeConstant.CHAT"
+        :loading="loading"
+        :loadingLine="loadingLine"
+        @clickSessionListItem="getSessionData"
+        @handleFlushList="handleFlushList"
+        @handleCreateSession="handleCreateSession"
+        @handleClearSession="handleClearSession"
+        @handleDeleteSession="handleDeleteSession"
       >
       </SessionList>
     </div>
@@ -28,15 +28,15 @@
       <LoadingLine :loading-line="loadingLine"></LoadingLine>
 
       <SessionWindow
-              ref="sessionWindow"
-              :window-data="windowData"
-              :session-data="sessionData"
-              :loading="loading"
-              :loadingLine="loadingLine"
-              :default-input-message="defaultInputMessage"
-              @sendInputMessage="sendInputMessage"
-              @stopStream="handleStopStream"
-              @handleFlushThisSession="getSessionDataBySessionId"
+        ref="sessionWindow"
+        :window-data="windowData"
+        :session-data="sessionData"
+        :loading="loading"
+        :loadingLine="loadingLine"
+        :default-input-message="defaultInputMessage"
+        @sendInputMessage="sendInputMessage"
+        @stopStream="handleStopStream"
+        @handleFlushThisSession="getSessionDataBySessionId"
       ></SessionWindow>
     </div>
 
@@ -132,6 +132,7 @@
           this.sessionData = JSON.parse(JSON.stringify(item));
           this.getSessionRecordData(this.sessionData.id);
           this.loading = false
+          this.$refs.sessionWindowHeader.setModelValue(this.sessionData.chatModelId)
         },30)
       },
       getSessionDataBySessionId(sessionId){
@@ -307,13 +308,19 @@
         if (connectId == null){
           return;
         }
+        let ifConc = this.$refs.sessionWindow.getIfConc();
+        if (ifConc === '1' || ifConc === 'true' || ifConc === 1 || ifConc){
+          ifConc = true
+        }else{
+          ifConc = false
+        }
         this.$api.post(`/module/chat/send`,{
           connectId: connectId,
           sessionId: this.sessionData.id,
           chatModelId: this.chatModelId,
           sessionType: SessionTypeConstant.CHAT,
           content: inputMessage,
-          ifConc: this.$refs.sessionWindow.getIfConc()
+          ifConc: ifConc
         }).then(res => {
           if (!res.status){
             this.apiErrorHandle(res.message)

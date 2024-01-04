@@ -8,7 +8,6 @@
       :builder-button="builderSearch.button"
       @baseHandleQuery="baseHandleQuery"
       @resetQuery="resetQuery"
-      @handleSyncPromoCode="handleSyncPromoCode"
     >
       <template slot="item-ifTourist" slot-scope="scope">
         <el-radio-group v-model="queryParams.ifTourist">
@@ -125,15 +124,6 @@
       handleUploadDeskImgUrl(val){
         this.form.deskImgUrl = val
       },
-      handleSyncPromoCode(){
-        this.apiGet('/generatePromoCode').then(res => {
-          if(res.status){
-            this.notifySuccess(res.message)
-          }else{
-            this.notifyError(res.message)
-          }
-        })
-      }
     }
   }
 

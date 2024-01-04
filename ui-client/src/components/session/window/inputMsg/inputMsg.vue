@@ -109,6 +109,7 @@
   .input-box {
     width: 70%;
     height: 100%;
+    position: relative;
     margin: 0 15px;
 
     .inputs {
@@ -119,7 +120,7 @@
       box-sizing: border-box;
       transition: 0.2s;
       font-size: 15px;
-      color: #fff;
+      color: var(--font-color-default);
       font-weight: 100;
       margin-top: 1px;
       border: 1px;
@@ -168,8 +169,8 @@
   }
 
   textarea {
-    min-height: 40px;
-    max-height: 28%;
+    min-height: 2.8rem;
+    max-height: 20rem;
     width: 100%;
     min-width: 100%;
     max-width: 100%;

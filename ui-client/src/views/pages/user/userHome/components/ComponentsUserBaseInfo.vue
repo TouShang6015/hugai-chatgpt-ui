@@ -1,25 +1,23 @@
 <template>
   <div class="components-info">
     <h1>基础信息维护</h1>
-    <el-form ref="form" :model="form" label-width="100px">
+    <el-form ref="form" :model="form" label-width="100px" style="width: 95%">
       <el-row :gutter="25">
         <el-form-item label="头像">
           <ImageUpload style="width: 30%" @input="imgUploadCallBack" :value="form.imgUrl" :if-wane="false"></ImageUpload>
         </el-form-item>
       </el-row>
       <el-row :gutter="25">
-        <el-col :span="22">
-          <el-form-item label="昵称">
-            <el-input v-model="form.nickName"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="22">
-          <el-form-item label="性别">
-            <el-select v-model="form.sex" clearable>
-              <el-option v-for="item in dictSex" :key="item.value" :label="item.label" :value="item.value"/>
-            </el-select>
-          </el-form-item>
-        </el-col>
+        <el-form-item label="昵称">
+          <el-input v-model="form.nickName"></el-input>
+        </el-form-item>
+      </el-row>
+      <el-row :gutter="25">
+        <el-form-item label="性别">
+          <el-select v-model="form.sex" clearable>
+            <el-option v-for="item in dictSex" :key="item.value" :label="item.label" :value="item.value"/>
+          </el-select>
+        </el-form-item>
       </el-row>
       <el-row>
         <el-form-item>

@@ -40,32 +40,39 @@
             this.chatModeId = this.labelOptionsChatModel[0].value
           }
         })
+      },
+      setModelValue(val){
+        if (val == null){
+          this.chatModeId = this.labelOptionsChatModel[0].value
+        }else{
+          this.chatModeId = val
+        }
       }
     }
   }
 </script>
 
 <style scoped>
-.session-window-header{
-  background: var(--background-main);
-  position: absolute;
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  top: 0;
-  left: 0;
-  z-index: 1510;
-  color: var(--font-color-default);
-}
+  .session-window-header{
+    background: var(--background-main);
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    z-index: 1510;
+    color: var(--font-color-default);
+  }
 
 
-::v-deep .el-select{
-  width: 300px
-}
-::v-deep .el-input__icon{
-  line-height: 0;
-}
+  ::v-deep .el-select{
+    width: 300px
+  }
+  ::v-deep .el-input__icon{
+    line-height: 0;
+  }
 </style>

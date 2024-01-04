@@ -6,10 +6,10 @@
         <img :src="require('/src/assets/imgs/other/icon-copy.png')" alt="">
       </div>
     </el-tooltip>
-    <el-tooltip content="删除" effect="dark" placement="top">
-        <div class="icon" @click="handleIconDeleteClick">
-            <img :src="require('/src/assets/imgs/other/icon-delete.png')" alt="">
-        </div>
+    <el-tooltip content="删除" effect="dark" placement="bottom">
+      <div class="icon" @click="handleIconDeleteClick">
+        <img :src="require('/src/assets/imgs/other/icon-delete.png')" alt="">
+      </div>
     </el-tooltip>
   </div>
 </template>
@@ -47,11 +47,11 @@
 </script>
 
 <style scoped lang="scss">
-.chat-tools{
-  width: 100%;
-  max-height: 40px;
-  height: 40px;
-}
+  .chat-tools{
+    width: 100%;
+    max-height: 40px;
+    height: 40px;
+  }
   .chat-tools .icon{
     margin: 0 2px;
     width: 22px;

@@ -1,7 +1,7 @@
 <template>
   <div class="image-preview-main w-screen h-screen">
     <div class="top">
-      <span class="iconfont icon-e_guanbi" @click="cancel"></span>
+      <span class="iconfont icon-e_guanbi" style="color: white;" @click="cancel"></span>
     </div>
     <img class="img" :src="imgUrl" style="display: block; max-width: 100%; margin: 0 auto"/>
   </div>

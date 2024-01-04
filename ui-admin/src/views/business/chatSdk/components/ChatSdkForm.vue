@@ -64,7 +64,25 @@
       submitForm(){
         this.$refs.form.validate(valid => {
           if (valid) {
-            console.log(this.form)
+            if (this.form.id == null || this.form.id === ''){
+              api.chatSdkBaseAdd(this.form).then(res => {
+                if (res.status){
+                  this.$message.success(res.message)
+                  this.$emit('cancel')
+                }else{
+                  this.$message.error(res.message)
+                }
+              })
+            }else{
+              api.chatSdkBaseEdit(this.form).then(res => {
+                if (res.status){
+                  this.$message.success(res.message)
+                  this.$emit('cancel')
+                }else{
+                  this.$message.error(res.message)
+                }
+              })
+            }
           }
         })
       }

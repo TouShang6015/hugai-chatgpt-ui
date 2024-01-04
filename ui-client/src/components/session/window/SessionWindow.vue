@@ -21,10 +21,10 @@
         </div>
       </div>
       <InputMsg
-              ref="componentInputMsg"
-              @setInputMsg="setInputMsg"
-              @flushIfConc="flushIfConc"
-              @sendInputMessage="sendInputMessage"
+        ref="componentInputMsg"
+        @setInputMsg="setInputMsg"
+        @flushIfConc="flushIfConc"
+        @sendInputMessage="sendInputMessage"
       ></InputMsg>
     </div>
   </div>
@@ -132,7 +132,6 @@
           if (!this.isAutoScroll) return;
           const scrollDom = this.$refs.chatContent;
           scrollDom.scrollTop = scrollDom.scrollHeight;
-          // animation(scrollDom, scrollDom.scrollHeight);
         });
       },
       /**
@@ -258,7 +257,7 @@
   }
 
   .spacer {
-    height: 30%;
+    height: 50%;
   }
 
   ::v-deep .markdown-body {

@@ -12,9 +12,9 @@
         <el-button type="warning" size="mini" icon="el-icon-refresh" @click="handleFlushCacheChatSdk" disabled>刷新缓存</el-button>
       </div>
 
-<!--      <el-tabs v-model="activeChatSdkId" type="card">-->
-<!--        <el-tab-pane v-for="(item,index) in tableList" :label="item.sdkName" :name="item.id" :key="index"></el-tab-pane>-->
-<!--      </el-tabs>-->
+      <!--      <el-tabs v-model="activeChatSdkId" type="card">-->
+      <!--        <el-tab-pane v-for="(item,index) in tableList" :label="item.sdkName" :name="item.id" :key="index"></el-tab-pane>-->
+      <!--      </el-tabs>-->
       <el-tabs v-model="tabActive" type="border-card">
         <el-tab-pane label="模型管理" :name="'1'" >
           <el-divider>模型管理</el-divider>
@@ -55,9 +55,16 @@
         activeChatSdkId: undefined,
         dialogChatSdkForm: false,
         tabActive: '1',
+        loading: true,
       }
     },
     watch:{
+      activeChatSdkId(val){
+        this.loading = true
+        setTimeout(() => {
+          this.loading = false
+        },10)
+      }
     },
     created() {
     },
@@ -69,6 +76,9 @@
         this.url = '/module/config/chatsdk';
         this.viewName = 'GPT-SDK配置';
         this.isPage = false
+
+        delete this.sortCondition.updateTime
+        this.sortCondition.id = true
         return true;
       },
       afterQuery(){

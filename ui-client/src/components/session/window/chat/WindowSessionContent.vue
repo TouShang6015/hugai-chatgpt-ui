@@ -86,7 +86,7 @@
     color: var(--font-color-default);
 
     &:hover{
-      background-color: rgba(255, 255, 255, 0.04);
+      background-color: var(--session-window-item-hover-color);
     }
   }
   .window-session-content.user {

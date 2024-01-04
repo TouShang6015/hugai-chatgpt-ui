@@ -17,16 +17,15 @@
     --aside-hover-color: rgba(74, 76, 92, 0.7);
 
     --session-list-background: #2f3340;
-    --session-list-item-action-background: linear-gradient(to right, rgba(0, 0, 0, 0.01), rgb(53, 54, 61));
+    --session-list-item-action-background: linear-gradient(to right, rgba(255, 255, 255, 0.0), rgba(110, 111, 121, 0.53));
     --session-list-li-background: rgba(74, 76, 92, 0.7);
     --session-list-li-active-background: rgba(74, 76, 92, 0.7);
     --session-list-create-session-border: rgba(255, 255, 255, 0.5);
     --session-list-create-session-border-hover: #fff;
 
-    /*--session-window-system-background: #fff;*/
-    /*--session-window-user-background: #95ec69;*/
     --session-window-system-background: rgb(80, 82, 104);
     --session-window-user-background: #72ec69;;
+    --session-window-item-hover-color: rgba(255, 255, 255, 0.04);
 
     --topclose-font-color: #7b7b7b;
 
@@ -67,9 +66,10 @@
     --gallery-item-hover-background: linear-gradient(to top, rgba(12, 12, 12, 0.5), rgba(50, 50, 50, 0));
     --gallery-prompt-background: #2c333d;
 
-    --col-border-color: rgb(71, 73, 94);
+    --col-border-color: rgba(71, 73, 94, 0.7);
 
     /*--button-default-background: linear-gradient(#747580, #52555f 50%, #454857 51%, #6b727b);*/
+    --button-border-color: #7f7f7f;
     --button-default-background: linear-gradient(to bottom, #4d4d5f, #474753);
     --button-default-background-hover: rgba(255, 255, 255, 0.1);
     --button-normal-background: #555a65;
@@ -78,6 +78,9 @@
     --el-table-head-background: #212432;
     --el-table-tr-background: #373a48;
     --el-table-tr-hover-background: #212432;
+
+    --el-input-background: rgba(0, 0, 0, 0.09);
+    --el-tooltip-dark-background: #5d6061;
 
     --span-button-bkg-default: rgb(70, 194, 172);
     --span-button-font-color: #fff8f8;

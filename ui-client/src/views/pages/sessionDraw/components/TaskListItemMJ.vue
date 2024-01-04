@@ -1,42 +1,38 @@
 <template>
-  <div class="taskList-main" @click="handleItemClick">
-    <div class="taskListItem rounded-md">
-      <div class="item-top-right" v-if="itemData.taskStatus === 'FAIL'">
-        <span class="iconfont icon-delete-put-back tips pointer" @click="handleDeleteFailTask"></span>
+  <div class="taskList-main rounded-md" @click="handleItemClick">
+    <div class="item-top-right" v-if="itemData.taskStatus === 'FAIL'">
+      <span class="iconfont icon-delete-put-back tips pointer" @click="handleDeleteFailTask" @click.stop></span>
+    </div>
+    <div class="img-content rounded-md">
+      <el-image :src="staticUrl + itemData.showImg" fit="contain" draggable="false">
+        <div slot="error" class="image-slot">
+          <img :src="require('/src/assets/imgs/loadingError.png')" v-if="itemData.taskStatus === 'FAIL'" alt="">
+          <img :src="require('/src/assets/imgs/loading.png')" v-if="itemData.taskStatus === 'WAIT'" alt="">
+          <img :src="require('/src/assets/imgs/loading2.png')" v-if="itemData.taskStatus === 'RUNNING'" alt="">
+        </div>
+      </el-image>
+    </div>
+    <div class="description">
+      <div class="item" v-if="itemData.drawApiKey !== 'mj_u' && itemData.taskStatus === 'SUCCESS'">
+        <li class="pointer rounded-md" v-for="index in 4" :key="index" @click="handleU(index)" @click.stop>
+          图{{index}}
+        </li>
       </div>
-      <div class="img-content rounded-md">
-        <div class="img-box">
-          <el-image :src="staticUrl + itemData.showImg">
-            <div slot="error" class="image-slot">
-              <img :src="require('/src/assets/imgs/loadingError.png')" v-if="itemData.taskStatus === 'FAIL'" alt="">
-              <img :src="require('/src/assets/imgs/loading.png')" v-if="itemData.taskStatus === 'WAIT'" alt="">
-              <img :src="require('/src/assets/imgs/loading2.png')" v-if="itemData.taskStatus === 'RUNNING'" alt="">
-            </div>
-          </el-image>
-        </div>
+      <div class="item" v-if="itemData.drawApiKey !== 'mj_u' && itemData.taskStatus === 'SUCCESS'">
+        <li class="pointer rounded-md" v-for="index in 4" :key="index" @click="handleV(index)" @click.stop>
+          V{{index}}
+        </li>
       </div>
-      <div class="description">
-        <div class="item" v-if="itemData.drawApiKey !== 'mj_u' && itemData.taskStatus === 'SUCCESS'">
-          <li class="pointer rounded-md" v-for="index in 4" :key="index" @click="handleU(index)">
-            图{{index}}
-          </li>
-        </div>
-        <div class="item" v-if="itemData.drawApiKey !== 'mj_u' && itemData.taskStatus === 'SUCCESS'">
-          <li class="pointer rounded-md" v-for="index in 4" :key="index" @click="handleV(index)">
-            V{{index}}
-          </li>
-        </div>
-        <div class="item">
-          <span>状态</span>
-          <span class="taskStatus bgc-blue rounded-md" v-if="itemData.taskStatus === 'WAIT'">待执行</span>
-          <span class="taskStatus bgc-blue rounded-md" v-if="itemData.taskStatus === 'RUNNING'">进行中</span>
-          <span class="taskStatus bgc-green rounded-md" v-if="itemData.taskStatus === 'SUCCESS'">已完成</span>
-          <span class="taskStatus bgc-red rounded-md" v-if="itemData.taskStatus === 'FAIL'">失败</span>
-        </div>
-        <div class="item">
-          <span>完成时间</span>
-          <span class="time">{{itemData.taskEndTime}}</span>
-        </div>
+      <div class="item">
+        <span>状态</span>
+        <span class="taskStatus bgc-blue rounded-md" v-if="itemData.taskStatus === 'WAIT'">待执行</span>
+        <span class="taskStatus bgc-blue rounded-md" v-if="itemData.taskStatus === 'RUNNING'">进行中</span>
+        <span class="taskStatus bgc-green rounded-md" v-if="itemData.taskStatus === 'SUCCESS'">已完成</span>
+        <span class="taskStatus bgc-red rounded-md" v-if="itemData.taskStatus === 'FAIL'">失败</span>
+      </div>
+      <div class="item">
+        <span>完成时间</span>
+        <span class="time">{{itemData.taskEndTime}}</span>
       </div>
     </div>
   </div>
@@ -103,45 +99,35 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .taskList-main{
-    width: 260px;
-    height: 390px;
+    width: auto;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
     margin: 8px 8px;
+    border: .18rem var(--bkgy) solid;
+    transition: all 0.2s ease-out;
+    position: relative;
+
+    &:hover{
+      border: .18rem var(--item-border-hover-color) solid;
+    }
   }
-.taskListItem{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  border: 1px var(--bkgy) solid;
-  transition: all 0.2s ease-out;
-  position: relative;
-}
-.taskListItem:hover{
-  border: 1px var(--item-border-hover-color) solid;
-}
 
   .img-content{
-    width: 100%;
-    height: 68%;
+    width: 16rem;
+    min-width: 16rem;
+    min-height: 16rem;
+    max-height: 16rem;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     background: var(--draw-task-list-item-content-background);
-  }
-
-  .img-box{
-    width: 95%;
-    height: 96%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
   }
 
   .item-top-right{
@@ -161,55 +147,57 @@
     color: var(--item-border-active-color);
   }
 
-.description{
-  flex: 1;
-  background: var(--draw-task-list-item-bottom-background);
-  border-radius: 0 0 5px 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 14px;
-  padding-left: 10px;
-  padding-top: 5px;
-}
-.description .item{
-  margin: 5px 0;
-}
-.description .item span{
-  margin: 3px 5px;
-}
+  .description{
+    position: relative;
+    width: 100%;
+    min-height: 8rem;
+    background: var(--draw-task-list-item-bottom-background);
+    border-radius: 0 0 5px 5px;
+    font-size: 14px;
+    padding-left: 1rem;
+  }
+  .description .item{
+    flex-grow: 1;
+    margin: 0.3rem 0;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .description .item span{
+    margin: 0.2rem 0.4rem;
+  }
   .description .item li{
-    display: inline-block;
+    width: 2.8rem;
+    height: 1.4rem;
+    display: flex;
     background: var(--background-main);
-    border: 1px var(--background-main) solid;
-    padding: 4px 8px;
-    margin: 0 5px;
+    border: .12rem var(--item-border-normal-color) solid;
     letter-spacing: 3px;
     word-spacing: 3px;
-    width: 12%;
     transition: all 0.2s ease-out;
-    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: .5rem;
   }
   .description .item li:hover{
-    border: 1px var(--item-border-hover-color) solid;
+    border: .12rem var(--item-border-active-color) solid;
   }
   .description .item li:active{
-    box-shadow: 0 0 5px 1px var(--item-border-active-color) inset;
+    box-shadow: 0 0 3px 1px var(--item-border-active-color) inset;
   }
-.description .item .time{
-  color: var(--font-color-default);
-  opacity: 0.7;
-}
-.description .taskStatus{
-  padding: 1px 10px;
-  text-align: center;
-  font-size: 12px;
-}
+  .description .item .time{
+    color: var(--font-color-default);
+    opacity: 0.6;
+  }
+  .description .taskStatus{
+    padding: 1px 10px;
+    text-align: center;
+    font-size: 12px;
+  }
 
 
   ::v-deep .el-image{
     display: inline-flex;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 97%;
+    max-height: 97%;
   }
 </style>

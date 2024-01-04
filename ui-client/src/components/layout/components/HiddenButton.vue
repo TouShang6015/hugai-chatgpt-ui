@@ -46,7 +46,7 @@
     padding: 10px 4px;
     border-radius: 0 8px 8px 0;
     background: var(--aside-background);
-    color: white;
+    color: var(--font-color-default);
     font-size: 16px;
   }
   .hidden-button span:hover{

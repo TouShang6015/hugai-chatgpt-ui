@@ -43,9 +43,10 @@ const user = {
     Login({ commit }, userInfo) {
       const userName = userInfo.userName.trim()
       const password = encrypt(userInfo.password)
+      const captcha = userInfo.captcha
       return new Promise((resolve, reject) => {
         const param = {
-          userName, password
+          userName, password, captcha
         }
         api.post('/module/user/userinfo/login',param).then(res => {
           if (res.status){

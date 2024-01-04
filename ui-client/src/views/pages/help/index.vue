@@ -90,6 +90,7 @@
     height: auto;
     position: relative;
     display: flex;
+    color: var(--font-color-default);
   }
 
   .help-bottom {
