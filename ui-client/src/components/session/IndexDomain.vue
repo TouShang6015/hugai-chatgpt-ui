@@ -305,6 +305,12 @@
         if (connectId == null){
           return;
         }
+        let ifConc = this.$refs.sessionWindow.getIfConc();
+        if (ifConc === '1' || ifConc === 'true' || ifConc === 1 || ifConc){
+          ifConc = '1'
+        }else{
+          ifConc = '0'
+        }
         this.$api.post(`/module/chat/sendDomain`,{
           connectId: connectId,
           sessionId: this.sessionData.id,
@@ -312,7 +318,7 @@
           sessionType: SessionTypeConstant.DOMAIN,
           content: inputMessage,
           domainUniqueKey: this.windowData.domainKey,
-          ifConc: this.$refs.sessionWindow.getIfConc()
+          ifConc2: ifConc
         }).then(res => {
           if (!res.status){
             this.apiErrorHandle(res.message)

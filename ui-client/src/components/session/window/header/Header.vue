@@ -43,7 +43,9 @@
       },
       setModelValue(val){
         if (val == null){
-          this.chatModeId = this.labelOptionsChatModel[0].value
+          if (this.labelOptionsChatModel != null && this.labelOptionsChatModel.length > 0){
+            this.chatModeId = this.labelOptionsChatModel[0].value
+          }
         }else{
           this.chatModeId = val
         }

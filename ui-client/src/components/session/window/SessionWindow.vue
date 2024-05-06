@@ -65,9 +65,7 @@
         ContentShowType,
         isAutoScroll: true,
         ifConc: this.$store.state.settings.ifConc,
-
         inputMsg: '',
-
         sessionRecordData: []
       }
     },

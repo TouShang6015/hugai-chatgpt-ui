@@ -310,9 +310,9 @@
         }
         let ifConc = this.$refs.sessionWindow.getIfConc();
         if (ifConc === '1' || ifConc === 'true' || ifConc === 1 || ifConc){
-          ifConc = true
+          ifConc = '1'
         }else{
-          ifConc = false
+          ifConc = '0'
         }
         this.$api.post(`/module/chat/send`,{
           connectId: connectId,
@@ -320,7 +320,7 @@
           chatModelId: this.chatModelId,
           sessionType: SessionTypeConstant.CHAT,
           content: inputMessage,
-          ifConc: ifConc
+          ifConc2: ifConc
         }).then(res => {
           if (!res.status){
             this.apiErrorHandle(res.message)

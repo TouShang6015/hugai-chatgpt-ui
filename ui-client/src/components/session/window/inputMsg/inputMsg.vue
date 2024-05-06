@@ -6,8 +6,8 @@
           <img :src="require('/src/assets/imgs/other/icon-sidebar-left.png')" alt=""/>
         </div>
       </el-tooltip>
-      <el-tooltip :content="ifConc ? '连续对话(已开启)' : '连续对话(已关闭)'" placement="top">
-        <div class="input-button-box pointer" :class="{active: ifConc}" @click="handleBoxClickIfConc">
+      <el-tooltip :content="ifConc == '1' ? '连续对话(已开启)' : '连续对话(已关闭)'" placement="top">
+        <div class="input-button-box pointer" :class="{active: ifConc == '1'}" @click="handleBoxClickIfConc">
           <img :src="require('/src/assets/imgs/other/icon-continuous.png')" alt=""/>
         </div>
       </el-tooltip>
@@ -55,12 +55,7 @@
         this.inputMsg = '';
       },
       handleBoxClickIfConc(){
-        let ifConc = this.ifConc;
-        if (ifConc === '1')
-          ifConc = true
-        if (ifConc === '0')
-          ifConc = false
-        this.ifConc = !this.ifConc
+        this.ifConc = ( this.ifConc == '1') ? '0' : '1';
         this.$store.commit('SET_SETTING_ITEM',{key: 'ifConc',value: this.ifConc})
       },
       handleBoxClickSidebarHidden() {
