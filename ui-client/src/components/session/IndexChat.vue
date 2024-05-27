@@ -309,7 +309,7 @@
           return;
         }
         let ifConc = this.$refs.sessionWindow.getIfConc();
-        if (ifConc === '1' || ifConc === 'true' || ifConc === 1 || ifConc){
+        if (ifConc === '1' || ifConc === 'true' || ifConc === 1 || ifConc === true){
           ifConc = '1'
         }else{
           ifConc = '0'

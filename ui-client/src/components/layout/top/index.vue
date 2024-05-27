@@ -11,7 +11,7 @@
         <a class="pointer promotion" href="https://github.com/TouShang6015/Hugai-chatgpt" target="_blank">github源码入口</a>
       </div>
       <div class="item">
-        <a class="pointer promotion" href="http://chat.doc.equinox19.xyz" target="_blank">参考文档</a>
+        <a class="pointer promotion" href="http://chat.doc.hootin19.fun" target="_blank">参考文档</a>
       </div>
       <div class="item">
         <el-badge is-dot class="item">
